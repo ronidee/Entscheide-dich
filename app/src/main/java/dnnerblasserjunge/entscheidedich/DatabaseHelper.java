@@ -72,7 +72,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     // Adding new question. Only required at app's 1. start if Database doesn't exist yet
-    void addQuestion(int list, String[] questionData) {
+    void addQuestion(String[] questionData) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -83,17 +83,17 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_INFO,    questionData[4]);
 
         // Inserting Row
-        db.insert(getTableName(list), null, values);
+        db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
 
     // Getting single contact
-    Question getQuestion(int list, int entry) {
+    Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(getTableName(list), new String[] { KEY_ID,
+        Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
                         KEY_QUES, KEY_GUEST, KEY_YT, KEY_FAV, KEY_INFO }, KEY_ID + "=?",
-                new String[] { String.valueOf(entry) }, null, null, null, null);
+                new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
