@@ -40,7 +40,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     // Favorite ja oder nein (1/0)
     private static final String KEY_FAV     = "favorite";
     // String der zu clickable sein soll
-    private static final String KEY_STRINGS = "strings";
+    private static final String KEY_STRINGS = "keywords";
     // Link der aufgerufen wird
     private static final String KEY_LINKS   = "links";
 
@@ -162,10 +162,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
         String countQuery = "SELECT  * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
         cursor.close();
 
         // return count
-        return cursor.getCount();
+        return count;
     }
 
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET

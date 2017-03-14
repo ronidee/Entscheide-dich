@@ -81,7 +81,6 @@ DatabaseHelper dbh;
                 Log.d("foo", questionobj.getString("question"));
                 Log.d("foo", questionobj.getString("guest"));
                 Log.d("foo", questionobj.getString("ytlink"));
-                Log.d("foo", "\n");
 
                 Question quest = new Question();
 
