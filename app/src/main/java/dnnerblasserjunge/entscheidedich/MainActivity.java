@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void frageAnzeigen(Question question) {
-        String  text    = question.getQuestionString();
-        String  guest   = question.getGuestString();
-        boolean favorit = question.isFavorit();
+        String  text    = question.question;
+        String  guest   = question.guest;
+        boolean favorit = question.favorite;
 
         tv_Fragen.setText(text);
         tv_Sendung.setText("Sendung mit "+guest);
@@ -91,9 +91,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (zufaellig) {
-                    frageAnzeigen(questionManager.getRandom());
+                    questionManager.Randomize();
+                    frageAnzeigen(questionManager.getCurrent());
                 } else {
-                    frageAnzeigen(questionManager.getNext());
+                    questionManager.Next();
+                    frageAnzeigen(questionManager.getCurrent());
                 }
             }
         });
@@ -112,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         ib_vorige.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frageAnzeigen(questionManager.getPrevious());
+                questionManager.Previous();
+                frageAnzeigen(questionManager.getCurrent());
             }
         });
 
@@ -120,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
         ib_favorit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getCurrentQuestion returns String[] = {"text", "sendung", "1" or "0"}
-                boolean favorite = questionManager.getCurrent().isFavorit();
+                boolean favorite = questionManager.getCurrent().favorite;
 
                 if (!favorite) {
                     questionManager.setFavorite(true);
@@ -151,10 +153,11 @@ public class MainActivity extends AppCompatActivity {
         ib_youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeViewColor(ib_youtube, 300, R.color.icon_color, R.color.nmr_background);
-                changeViewColor(ib_youtube, 300, R.color.nmr_background, R.color.icon_color);
-                startActivity(
-                        new Intent(Intent.ACTION_VIEW, Uri.parse(questionManager.getYTLink())));
+            changeViewColor(ib_youtube, 300, R.color.icon_color, R.color.nmr_background);
+            changeViewColor(ib_youtube, 300, R.color.nmr_background, R.color.icon_color);
+            startActivity(
+                new Intent(Intent.ACTION_VIEW, Uri.parse(questionManager.getCurrent().ytlink))
+            );
             }
         });
     }

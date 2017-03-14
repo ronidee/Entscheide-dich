@@ -67,7 +67,6 @@ class SharedPrefs extends Activity {
         editor = prefs.edit();
         editor.putString(FAVORITES, currentFavs+newFav);
         editor.apply();
-
     }
 
     static void removeFavorite() {
