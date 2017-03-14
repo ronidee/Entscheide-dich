@@ -89,8 +89,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        List<String> word = new ArrayList<String>();
-        List<String> link = new ArrayList<String>();
+        List<String> word = new ArrayList<>();
+        List<String> link = new ArrayList<>();
 
         for (int i = 0; i < question.keywords.length; i++) {
             word.add(question.keywords[i][0]);
@@ -98,9 +98,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         String strings = TextUtils.join(",", word.toArray());
-        String links   = TextUtils.join(",", word.toArray());
-
-
+        String links   = TextUtils.join(",", link.toArray());
 
         ContentValues values = new ContentValues();
         values.put(KEY_QUES, question.question);
@@ -115,13 +113,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
-    public static String[] getColumn(String[][] array, int index){
-        String[] column = new String[array[0].length]; // Here I assume a rectangular 2D array!
-        for(int i=0; i<column.length; i++){
-            column[i] = array[i][index];
-        }
-        return column;
-    }
+
+
 
 
     // Getting single question
