@@ -25,17 +25,19 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // Table Columns names
-    private static final String KEY_ID = "_id";
+    private static final String KEY_ID      = "_id";
     // Der Text der Frage
-    private static final String KEY_QUES = "question";
+    private static final String KEY_QUES    = "question";
     // Der Namame des Gastes
-    private static final String KEY_GUEST = "guest_name";
+    private static final String KEY_GUEST   = "guest_name";
     // Der YT-Link zum jew. Video
-    private static final String KEY_YT = "youtube_link";
+    private static final String KEY_YT      = "youtube_link";
     // Favorite ja oder nein (1/0)
-    private static final String KEY_FAV = "favorite";
+    private static final String KEY_FAV     = "favorite";
     // String der zu clickable sein soll
-    private static final String KEY_KEYWORDS = "keywords";
+    private static final String KEY_STRINGS = "strings";
+    // Link der aufgerufen wird
+    private static final String KEY_LINKS   = "links";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,7 +58,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_GUEST + " TEXT," +
                         KEY_YT + " TEXT," +
                         KEY_FAV + " INTEGER," +
-                        KEY_KEYWORDS + " TEXT" +
+                        KEY_STRINGS + " TEXT," +
+                        KEY_LINKS + " TEXT" +
                     ")";
 
         db.execSQL(CREATE_TABLE_STRING);
@@ -86,7 +89,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
         values.put(KEY_FAV, question.favorite);
-        values.put(KEY_KEYWORDS, question.mark);
+        values.put(KEY_STRINGS, question.strin);
 
 
         // Inserting Row
