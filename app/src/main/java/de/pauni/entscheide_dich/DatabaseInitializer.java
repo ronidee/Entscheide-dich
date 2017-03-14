@@ -21,7 +21,7 @@ Context context;
     public DatabaseInitializer(Context c) {
         context = c;
         DatabaseHelper db = new DatabaseHelper(c);
-
+        load_init_data();
     }
 
 
@@ -37,6 +37,7 @@ Context context;
             InputStream stream = context.getResources().openRawResource(
                     context.getResources().getIdentifier("questions", "raw", context.getPackageName()));
 
+
             InputStreamReader inputreader = new InputStreamReader(stream);
             BufferedReader buffreader = new BufferedReader(inputreader);
             StringBuilder jsonstr = new StringBuilder();
@@ -45,7 +46,6 @@ Context context;
                 String line;
                 while ((line = buffreader.readLine()) != null) {
                     jsonstr.append(line);
-                    jsonstr.append('\n');
                 }
             } catch (IOException e) {
                 // Do something
