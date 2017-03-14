@@ -9,9 +9,9 @@ import android.util.Log;
 
 
 /*
-*        THANK YOU VERY MUCH TO ANDROIDHIVE.INFO
-*        FOR PROVIDING A MODEL OF A DB-HELPER CLASSS
- *       http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
+*       THANK YOU VERY MUCH >! ANDROIDHIVE.INFO !<
+*       FOR PROVIDING A MODEL OF A DB-HELPER CLASSS
+*       http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
 */
 
 class DatabaseHelper extends SQLiteOpenHelper {
@@ -21,7 +21,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "entscheideDich";
 
     // Table names
-    private static final String TABLE_NAME = "FRAGEN_LISTE_1";
+    private static final String TABLE_NAME = "FRAGEN_LISTE";
 
 
     // Table Columns names
@@ -48,7 +48,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Erstelle 14 Table mit den Infos die eine Frage jeweils hat
 
-       
+
         String CREATE_TABLE_STRING =
                 "CREATE TABLE " + TABLE_NAME +
                     "(" +
@@ -60,11 +60,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_INFO + " TEXT" +
                     ")";
 
-
-
-
-                db.execSQL(CREATE_TABLE_STRING);
-
+        db.execSQL(CREATE_TABLE_STRING);
         Log.d("DatabaseHelper>>>", "    DB created");
 
     }
@@ -116,6 +112,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return question;
     }
 
+    public int getQuestionCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+
+        // return count
+        return cursor.getCount();
+    }
 
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET
 //AB HIER WURDE NOCH NICHTS GEMACHT
@@ -161,13 +166,5 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Getting contacts Count
-    public int getContactsCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
-
-        // return count
-        return cursor.getCount();
-    } */
+    */
 }
