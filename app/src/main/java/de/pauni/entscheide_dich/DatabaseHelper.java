@@ -15,7 +15,7 @@ import android.util.Log;
 */
 
 class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     // Database Name
     private static final String DATABASE_NAME = "entscheideDich";
@@ -46,8 +46,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Erstelle 14 Table mit den Infos die eine Frage jeweils hat
-
+        // Erstelle eine Tabelle mit den Infos die eine Frage jeweils hat
 
         String CREATE_TABLE_STRING =
                 "CREATE TABLE " + TABLE_NAME +
@@ -94,6 +93,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
+
 
     // Getting single question
     Question getQuestion(int id) {

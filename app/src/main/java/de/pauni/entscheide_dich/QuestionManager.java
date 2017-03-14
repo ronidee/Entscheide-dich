@@ -19,6 +19,9 @@ class QuestionManager {
     private DatabaseHelper dbh = null;
 
     public QuestionManager(Context context) {
+        //if (SharedPrefs.isFirstStart())
+            new DatabaseInitializer(context); // creating the database and table
+
         dbh = new DatabaseHelper(context);
     }
 
