@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#088e87</color>
+    <color name="colorPrimaryDark">#066b67</color>
+    <color name="colorAccent">#f7fffe</color>
+
+    <color name="nmr_background">#46bcbc</color>
+    <color name="icon_color">#aaaaaa</color>
+    <color name="background">#e7e7e7</color>
+    <color name="white">#ffffff</color>
+</resources>

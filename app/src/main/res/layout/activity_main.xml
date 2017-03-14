@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="de.pauni.entscheide_dich.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageview_Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:paddingTop="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_panel"
+        android:layout_below="@+id/imageview_Logo"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
+
+        <include layout="@layout/cardview_frage" />
+    </FrameLayout>
+
+    <include
+        android:id="@+id/button_panel"
+        layout="@layout/button_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp" />
+</RelativeLayout>

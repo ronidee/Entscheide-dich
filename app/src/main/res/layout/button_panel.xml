@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/imagebutton_naechste"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/selector_naechste_frage" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/imagebutton_naechste"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bt_share" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_zurueck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imagebutton_naechste"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@+id/imagebutton_naechste"
+        android:adjustViewBounds="false"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_zurueck" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_nur_favoriten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imagebutton_naechste"
+        android:layout_marginBottom="5dp"
+        android:layout_toEndOf="@+id/imagebutton_naechste"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_favorites_only" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_suchen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imagebutton_naechste"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_search" />
+</RelativeLayout>
