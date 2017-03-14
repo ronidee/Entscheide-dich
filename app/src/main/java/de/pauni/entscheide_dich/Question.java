@@ -7,40 +7,10 @@ package de.pauni.entscheide_dich;
  */
 
 class Question {
-    private boolean favorit = false;
-    private String  questionString;
-    private String  guest = "Der Gleiche";
-    private String  ytLink = "kein Link";
-    private String info ="nix"; // seperate names with ","
-
-    Question(String text, String sendung) {
-        this.questionString = text;
-        this.guest    = sendung;
-    }
-
-    void setFavorit(Boolean favorit) {
-        this.favorit = favorit;
-    }
-    void setYtLink(String ytLink) {
-        this.ytLink = ytLink;
-    }
-    void setInfo(String info) {
-        this.info = info;
-    }
-
-    boolean isFavorit() {
-        return favorit;
-    }
-    String getQuestionString() {
-        return questionString;
-    }
-    String getGuestString() {
-        return guest;
-    }
-    String getYTLink() {
-        return ytLink;
-    }
-    String getInfo() {
-        return info;
-    }
+    public String question  = "fobar";
+    public String guest     = "fobar";
+    public String ytlink    = "fobar";
+    public String mark      = "fobar";
+    public String search    = "fobar";
+    public boolean favorite =  false;
 }
