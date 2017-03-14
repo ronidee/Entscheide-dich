@@ -92,9 +92,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
         List<String> word = new ArrayList<>();
         List<String> link = new ArrayList<>();
 
-        for (int i = 0; i < question.keywords.length; i++) {
-            word.add(question.keywords[i][0]);
-            link.add(question.keywords[i][1]);
+        for (int i = 0; i < question.clickables.length; i++) {
+            word.add(question.clickables[i][0]);
+            link.add(question.clickables[i][1]);
         }
 
         String strings = TextUtils.join(",", word.toArray());
@@ -148,12 +148,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
         String[] strings = cursor.getString(5).split(",");
         String[] links   = cursor.getString(6).split(",");
 
-        Question question = new Question();
-        question.question = cursor.getString(1);
-        question.guest    = cursor.getString(2);
-        question.ytlink   = cursor.getString(3);
-        question.favorite = cursor.getString(4).equals("1");
-        question.keywords = new String[][] {strings, links};
+        Question question   = new Question();
+        question.question   = cursor.getString(1);
+        question.guest      = cursor.getString(2);
+        question.ytlink     = cursor.getString(3);
+        question.favorite   = cursor.getString(4).equals("1");
+        question.clickables = new String[][] {strings, links};
 
         return question;
     }

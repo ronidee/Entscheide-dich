@@ -10,5 +10,5 @@ class Question {
     String guest     = "fobar";
     String ytlink    = "fobar";
     boolean favorite =  false;
-    String[][] keywords = new String[0][0];
+    String[][] clickables = new String[0][0];
 }
