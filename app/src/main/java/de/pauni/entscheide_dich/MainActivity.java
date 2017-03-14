@@ -42,16 +42,16 @@ public class MainActivity extends AppCompatActivity {
         new DatabaseInitializer(this);
 
         handler         =   new Handler();
-        questionManager =   new QuestionManager();
+        questionManager =   new QuestionManager(this);
         initViews();
         regListeners();
-        frageAnzeigen(questionManager.getCurrent());
+        frageAnzeigen(questionManager.getQuestion());
     }
 
     private void frageAnzeigen(Question question) {
-        String  text    = question.getQuestionString();
-        String  guest   = question.getGuestString();
-        boolean favorit = question.isFavorit();
+        String  text    = question.question;
+        String  guest   = question.guest;
+        boolean favorit = question.favorite;
 
         tv_Fragen.setText(text);
         tv_Sendung.setText("Sendung mit "+guest);
@@ -82,11 +82,15 @@ public class MainActivity extends AppCompatActivity {
         ib_naechste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (zufaellig) {
-                    frageAnzeigen(questionManager.getRandom());
+                    questionManager.selectRandom();
                 } else {
-                    frageAnzeigen(questionManager.getNext());
+                    questionManager.selectNext();
                 }
+
+                frageAnzeigen(questionManager.getQuestion());
+
             }
         });
 
@@ -104,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
         ib_vorige.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frageAnzeigen(questionManager.getPrevious());
+                questionManager.selectPrevious();
+                frageAnzeigen(questionManager.getQuestion());
+
             }
         });
 
@@ -113,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //getCurrentQuestion returns String[] = {"text", "sendung", "1" or "0"}
-                boolean favorite = questionManager.getCurrent().isFavorit();
+                boolean favorite = questionManager.getQuestion().favorite;
 
                 if (!favorite) {
                     questionManager.setFavorite(true);
@@ -146,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 changeViewColor(ib_youtube, 300, R.color.icon_color, R.color.nmr_background);
                 changeViewColor(ib_youtube, 300, R.color.nmr_background, R.color.icon_color);
                 startActivity(
-                        new Intent(Intent.ACTION_VIEW, Uri.parse(questionManager.getYTLink())));
+                        new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(questionManager.getQuestion().ytlink)));
             }
         });
     }

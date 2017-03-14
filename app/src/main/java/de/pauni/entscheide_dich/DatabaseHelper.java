@@ -34,8 +34,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_YT = "youtube_link";
     // Favorite ja oder nein (1/0)
     private static final String KEY_FAV = "favorite";
-    // Namen der zu duckduckgoenden Namen
-    private static final String KEY_INFO = "wissenswertes";
+    // String der zu clickable sein soll
+    private static final String KEY_MARK = "wissenswertes";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,7 +57,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_GUEST + " TEXT," +
                         KEY_YT + " TEXT," +
                         KEY_FAV + " INTEGER," +
-                        KEY_INFO + " TEXT" +
+                        KEY_MARK + " TEXT" +
                     ")";
 
         db.execSQL(CREATE_TABLE_STRING);
@@ -79,35 +79,56 @@ class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     // Adding new question. Only required at app's 1. start if Database doesn't exist yet
-    void addQuestion(String[] questionData) {
+    void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_QUES, questionData[0]);
-        values.put(KEY_GUEST, questionData[1]);
-        values.put(KEY_YT, questionData[2]);
-        values.put(KEY_FAV, questionData[3]);
-        values.put(KEY_INFO, questionData[4]);
+        values.put(KEY_QUES, question.question);
+        values.put(KEY_GUEST, question.guest);
+        values.put(KEY_YT, question.ytlink);
+        values.put(KEY_FAV, question.favorite);
+        values.put(KEY_MARK, question.mark);
+
 
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
 
-    // Getting single contact
+    // Getting single question
     Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID,
-                        KEY_QUES, KEY_GUEST, KEY_YT, KEY_FAV, KEY_INFO}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
+        Cursor cursor = db.query(
+                TABLE_NAME, new String[] {
+                        KEY_ID,
+                        KEY_QUES,
+                        KEY_GUEST,
+                        KEY_YT,
+                        KEY_FAV,
+                        KEY_MARK
+                },
+                KEY_ID + "=?",
+                new String[] {
+                        String.valueOf(id)
+                },
+                null,
+                null,
+                null,
+                null
+        );
 
-        Question question = new Question(cursor.getString(0), cursor.getString(1));
-        question.setYtLink(cursor.getString(2));
-        question.setFavorit(cursor.getString(3).equals("1"));
-        question.setInfo(cursor.getString(4));
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+
+        Question question = new Question();
+        question.question = cursor.getString(0);
+        question.guest    = cursor.getString(1);
+        question.ytlink   = cursor.getString(2);
+        question.favorite = cursor.getString(3).equals("1");
+        question.mark     = cursor.getString(4);
 
         return question;
     }

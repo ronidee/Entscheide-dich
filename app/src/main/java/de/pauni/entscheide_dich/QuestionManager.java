@@ -26,8 +26,7 @@ public class QuestionManager {
         dbh = new DatabaseHelper(context);
     }
 
-    Question getCurrent() {
-
+    Question getQuestion() {
         return dbh.getQuestion(SharedPrefs.getCurrentQuestionId());
     }
 
