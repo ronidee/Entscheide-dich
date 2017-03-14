@@ -1,11 +1,16 @@
 package de.pauni.entscheide_dich;
 
 import android.content.Context;
+import android.os.Debug;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -60,32 +65,31 @@ public class DatabaseInitializer {
     }
 
 
-    void load_init_data() {
+    void load_init_data(Context c) {
         // TODO: Load all the question from a json file
         // do what do you want on your interface
 
 
 
         try {
-            File yourFile = new File("path/to/the/file/inside_the_sdcard/textarabics.txt");
+            // File yourFile = new File("path/to/the/file/inside_the_sdcard/textarabics.txt");
+            // FileInputStream stream = new FileInputStream(yourFile);
 
-            FileInputStream stream = new FileInputStream(yourFile);
-            String jsonStr = null;
+            InputStream stream = c.getResources().openRawResource(c.getResources().getIdentifier("questions", "raw", c.getPackageName()));
+
+            InputStreamReader inputreader = new InputStreamReader(stream);
+            BufferedReader buffreader = new BufferedReader(inputreader);
+            StringBuilder jsonstr = new StringBuilder();
+
             try {
-                FileChannel fc = stream.getChannel();
-                MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-
-                jsonStr = Charset.defaultCharset().decode(bb).toString();
+                String line;
+                while (( line = buffreader.readLine()) != null) {
+                    jsonstr.append(line);
+                    jsonstr.append('\n');
+                }
+            } catch (IOException e) {
+                // Do something
             }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-            finally {
-                stream.close();
-            }
-
-
-
 
             /*
             {
@@ -106,14 +110,17 @@ public class DatabaseInitializer {
 
 
 
-            JSONArray all_questions = new JSONArray(jsonStr);
+            JSONArray all_questions = new JSONArray(jsonstr.toString());
 
 
             // looping through All nodes
             for (int i = 0; i < all_questions.length(); i++) {
-                JSONObject c = all_questions.getJSONObject(i);
+                JSONObject question = all_questions.getJSONObject(i);
 
-
+                Log.d("foo", question.getString("question"));
+                Log.d("foo", question.getString("guest"));
+                Log.d("foo", question.getString("ytlink"));
+                Log.d("foo", "\n";
 
                 /*
                 String id = c.getString("id");
