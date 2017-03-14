@@ -89,7 +89,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
         values.put(KEY_FAV, question.favorite);
-        values.put(KEY_STRINGS, question.strin);
+        values.put(KEY_STRINGS, question.string);
 
 
         // Inserting Row
