@@ -21,20 +21,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "entscheideDich";
 
     // Table names
-    private static final String LISTE_1     =   "FRAGEN_LISTE_1";
-    private static final String LISTE_2     =   "FRAGEN_LISTE_2";
-    private static final String LISTE_3     =   "FRAGEN_LISTE_3";
-    private static final String LISTE_4     =   "FRAGEN_LISTE_4";
-    private static final String LISTE_5     =   "FRAGEN_LISTE_5";
-    private static final String LISTE_6     =   "FRAGEN_LISTE_6";
-    private static final String LISTE_7     =   "FRAGEN_LISTE_7";
-    private static final String LISTE_8     =   "FRAGEN_LISTE_8";
-    private static final String LISTE_9     =   "FRAGEN_LISTE_9";
-    private static final String LISTE_10    =   "FRAGEN_LISTE_10";
-    private static final String LISTE_11    =   "FRAGEN_LISTE_11";
-    private static final String LISTE_12    =   "FRAGEN_LISTE_12";
-    private static final String LISTE_13    =   "FRAGEN_LISTE_13";
-    private static final String LISTE_14    =   "FRAGEN_LISTE_14";
+    private static final String TABLE_NAME     =   "FRAGEN_LISTE_1";
+
 
 
     // Table Columns names
@@ -55,48 +43,26 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("DatabaseHelper>>>","konstrukter geladen");
     }
 
-    // Getting the required table name (LISTE_1 ... LISTE_14)
-    private String getTableName(int number) {
-        switch (number) {
-            case 1:  return LISTE_1;
-            case 2:  return LISTE_2;
-            case 3:  return LISTE_3;
-            case 4:  return LISTE_4;
-            case 5:  return LISTE_5;
-            case 6:  return LISTE_6;
-            case 7:  return LISTE_7;
-            case 8:  return LISTE_8;
-            case 9:  return LISTE_9;
-            case 10: return LISTE_10;
-            case 11: return LISTE_11;
-            case 12: return LISTE_12;
-            case 13: return LISTE_13;
-            case 14: return LISTE_14;
-        }
-        return "wrong input number. Only pass numbers from 1-14.";
-    }
 
 
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Erstelle 14 Table mit den Infos die eine Frage jeweils hat
-        for(int i=1; i<=14; i++) {
-            String CREATE_TABLE_STRING = "CREATE TABLE " + getTableName(i) + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+
+            String CREATE_TABLE_STRING = "CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + KEY_QUES + " TEXT," + KEY_GUEST + " TEXT," + KEY_YT + " TEXT,"
-                    + KEY_FAV + " TEXT," + KEY_INFO + " TEXT" +  ")";
+                    + KEY_FAV + " INTEGER," + KEY_INFO + " TEXT" +  ")";
             db.execSQL(CREATE_TABLE_STRING);
-            Log.d("DatabaseHelper>>>","    DB"+ i + "created");
-        }
+            Log.d("DatabaseHelper>>>","    DB created");
+
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older tables if existed
-        for (int i=1; i<=14; i++) {
-            db.execSQL("DROP TABLE IF EXISTS " + getTableName(i));
-        }
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         // Create tables again
         onCreate(db);
     }

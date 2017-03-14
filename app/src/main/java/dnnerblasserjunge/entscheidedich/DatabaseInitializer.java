@@ -4,8 +4,7 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.util.Log;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * Created by Roni on 13.03.2017.

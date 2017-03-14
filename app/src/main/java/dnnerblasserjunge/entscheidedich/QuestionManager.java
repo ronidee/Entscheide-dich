@@ -170,11 +170,6 @@ public class QuestionManager {
 
 
 
-
-
-
-
-
     /*
     *   HIER WERDEN ALLE FRAGEN GESPEICHERT
     *   FÜR JEDE SENDUNG WIRD EINE LISTE VOM TYP FRAGE ERSTELLT
