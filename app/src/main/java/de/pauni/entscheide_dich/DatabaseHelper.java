@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -86,8 +87,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String strings  = Arrays.toString(getColumn(question.keywords, 0));
-        String links    = Arrays.toString(getColumn(question.keywords, 1));
+        String strings  = TextUtils.join(",", getColumn(question.keywords, 0));
+        String links    = TextUtils.join(",", getColumn(question.keywords, 1));
 
         ContentValues values = new ContentValues();
         values.put(KEY_QUES, question.question);
@@ -139,13 +140,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
+        String[] strings = cursor.getString(4).split(",");
+        String[] links   = cursor.getString(5).split(",");
 
         Question question = new Question();
         question.question = cursor.getString(0);
         question.guest    = cursor.getString(1);
         question.ytlink   = cursor.getString(2);
         question.favorite = cursor.getString(3).equals("1");
-        question.mark     = cursor.getString(4);
+        question.keywords = new String[][] {strings, links};
 
         return question;
     }
