@@ -15,7 +15,6 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 /**
  * Created by Roni on 13.03.2017.
  */
@@ -32,8 +31,7 @@ public class DatabaseInitializer {
             String[] questions = getList(i);
 
             for (int j=0; j<questions.length; j++) {
-                String[] question = {questions[j], guests[i-1], youtubeLinks[i-1], "0", "nix"};
-                db.addQuestion(question);
+                db.addQuestion(new Question());
             }
             Log.d("DatabaseInit>>>", "Liste: " + String.valueOf(15-i));
 
