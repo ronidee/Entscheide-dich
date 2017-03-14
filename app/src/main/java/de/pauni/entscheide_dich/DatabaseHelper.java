@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Arrays;
+
 
 /*
 *       THANK YOU VERY MUCH >! ANDROIDHIVE.INFO !<
@@ -84,23 +86,24 @@ class DatabaseHelper extends SQLiteOpenHelper {
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-
+        String strings  = Arrays.toString(getColumn(question.keywords, 0));
+        String links    = Arrays.toString(getColumn(question.keywords, 1));
 
         ContentValues values = new ContentValues();
         values.put(KEY_QUES, question.question);
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
         values.put(KEY_FAV, question.favorite);
-
-
+        values.put(KEY_STRINGS, strings);
+        values.put(KEY_LINKS, links);
 
 
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
-    public static Object[] getColumn(Object[][] array, int index){
-        Object[] column = new Object[array[0].length]; // Here I assume a rectangular 2D array!
+    public static String[] getColumn(String[][] array, int index){
+        String[] column = new String[array[0].length]; // Here I assume a rectangular 2D array!
         for(int i=0; i<column.length; i++){
             column[i] = array[i][index];
         }
@@ -119,7 +122,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_GUEST,
                         KEY_YT,
                         KEY_FAV,
-                        KEY_MARK
+                        KEY_STRINGS,
+                        KEY_LINKS
                 },
                 KEY_ID + "=?",
                 new String[] {
