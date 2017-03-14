@@ -39,10 +39,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new SharedPrefs(this);
-        new DatabaseInitializer(this);
+
+        /*
+        if (SharedPrefs.isFirstStart())
+               new DatabaseInitializer(this); // creating the database
+        */
 
         handler         =   new Handler();
         questionManager =   new QuestionManager(this);
+
         initViews();
         regListeners();
         frageAnzeigen(questionManager.getQuestion());
