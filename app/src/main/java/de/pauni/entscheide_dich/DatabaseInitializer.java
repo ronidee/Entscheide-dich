@@ -6,7 +6,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -84,15 +83,39 @@ public class DatabaseInitializer {
             finally {
                 stream.close();
             }
-            JSONObject jsonObj = new JSONObject(jsonStr);
 
-            // Getting data JSON Array nodes
-            JSONArray data  = jsonObj.getJSONArray("data");
+
+
+
+            /*
+            {
+                "data": [
+                    {
+                        "id": "1",
+                        "title": "Farhan Shah",
+                       "duration": 10
+                    },
+                    {
+                        "id": "2",
+                        "title": "Noman Shah",
+                        "duration": 10
+                    }
+                ]
+            }
+            */
+
+
+
+            JSONArray all_questions = new JSONArray(jsonStr);
+
 
             // looping through All nodes
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject c = data.getJSONObject(i);
+            for (int i = 0; i < all_questions.length(); i++) {
+                JSONObject c = all_questions.getJSONObject(i);
 
+
+
+                /*
                 String id = c.getString("id");
                 String title = c.getString("title");
                 String duration = c.getString("duration");
@@ -109,6 +132,8 @@ public class DatabaseInitializer {
 
 
                 // do what do you want on your interface
+
+                */
             }
 
 
