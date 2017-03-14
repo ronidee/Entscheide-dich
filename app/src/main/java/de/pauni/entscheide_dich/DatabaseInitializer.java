@@ -90,7 +90,7 @@ DatabaseHelper dbh;
                 quest.ytlink   = questionobj.getString("ytlink");
 
 
-                JSONArray keywordsobj = questionobj.getJSONArray("keywords");
+                JSONArray keywordsobj = questionobj.getJSONArray("clickable");
 
 
                 String[][] keywords = new String [keywordsobj.length()][1];
