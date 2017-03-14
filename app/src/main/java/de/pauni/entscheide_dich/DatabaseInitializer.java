@@ -76,21 +76,21 @@ DatabaseHelper dbh;
 
             // looping through All nodes
             for (int i = 0; i < all_questions.length(); i++) {
-                JSONObject question = all_questions.getJSONObject(i);
+                JSONObject questionobj = all_questions.getJSONObject(i);
 
-                Log.d("foo", question.getString("question"));
-                Log.d("foo", question.getString("guest"));
-                Log.d("foo", question.getString("ytlink"));
+                Log.d("foo", questionobj.getString("question"));
+                Log.d("foo", questionobj.getString("guest"));
+                Log.d("foo", questionobj.getString("ytlink"));
                 Log.d("foo", "\n");
 
                 Question quest = new Question();
 
-                quest.question = question.getString("question");
-                quest.guest    = question.getString("guest");
-                quest.ytlink   = question.getString("ytlink");
+                quest.question = questionobj.getString("question");
+                quest.guest    = questionobj.getString("guest");
+                quest.ytlink   = questionobj.getString("ytlink");
 
 
-                JSONArray keywordsobj = question.getJSONArray("keywords");
+                JSONArray keywordsobj = questionobj.getJSONArray("keywords");
 
 
                 String[][] keywords = new String [keywordsobj.length()][1];
@@ -100,7 +100,7 @@ DatabaseHelper dbh;
                     keywords[l] = new String[]{ keyword.getString("string"), keyword.getString("link")};
                 }
 
-
+                dbh.addQuestion(quest);
 
 
 
