@@ -96,13 +96,11 @@ DatabaseHelper dbh;
                 String[][] keywords = new String [keywordsobj.length()][1];
 
                 for (int l = 0; l < keywordsobj.length(); l++) {
-                    JSONObject keyword = keywordsobj.getJSONObject(j);
+                    JSONObject keyword = keywordsobj.getJSONObject(l);
                     keywords[l] = new String[]{ keyword.getString("string"), keyword.getString("link")};
                 }
 
                 dbh.addQuestion(quest);
-
-
 
             }
         } catch (Exception e) {
