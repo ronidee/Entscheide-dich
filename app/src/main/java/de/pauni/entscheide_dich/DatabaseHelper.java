@@ -35,7 +35,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     // Favorite ja oder nein (1/0)
     private static final String KEY_FAV = "favorite";
     // String der zu clickable sein soll
-    private static final String KEY_MARK = "wissenswertes";
+    private static final String KEY_KEYWORDS = "keywords";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,7 +56,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_GUEST + " TEXT," +
                         KEY_YT + " TEXT," +
                         KEY_FAV + " INTEGER," +
-                        KEY_MARK + " TEXT" +
+                        KEY_KEYWORDS + " TEXT" +
                     ")";
 
         db.execSQL(CREATE_TABLE_STRING);
@@ -86,7 +86,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
         values.put(KEY_FAV, question.favorite);
-        values.put(KEY_MARK, question.mark);
+        values.put(KEY_KEYWORDS, question.mark);
 
 
         // Inserting Row

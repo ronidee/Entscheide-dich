@@ -7,10 +7,10 @@ package de.pauni.entscheide_dich;
  */
 
 class Question {
-    public String question  = "fobar";
-    public String guest     = "fobar";
-    public String ytlink    = "fobar";
-    public String mark      = "fobar";
-    public String search    = "fobar";
-    public boolean favorite =  false;
+    String question  = "fobar";
+    String guest     = "fobar";
+    String ytlink    = "fobar";
+    String keyword   = "fobar";
+    String search    = "fobar";
+    boolean favorite =  false;
 }
