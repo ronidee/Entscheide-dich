@@ -50,9 +50,17 @@ class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Erstelle 14 Table mit den Infos die eine Frage jeweils hat
 
-            String CREATE_TABLE_STRING = "CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + KEY_QUES + " TEXT," + KEY_GUEST + " TEXT," + KEY_YT + " TEXT,"
-                    + KEY_FAV + " INTEGER," + KEY_INFO + " TEXT" +  ")";
+        String CREATE_TABLE_STRING =
+            "CREATE TABLE " + TABLE_NAME +
+                "(" +
+                    KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KEY_QUES + " TEXT," +
+                    KEY_GUEST + " TEXT," +
+                    KEY_YT + " TEXT," +
+                    KEY_FAV + " INTEGER," +
+                    KEY_INFO + " TEXT" +
+                ")";
+        
             db.execSQL(CREATE_TABLE_STRING);
             Log.d("DatabaseHelper>>>","    DB created");
 
