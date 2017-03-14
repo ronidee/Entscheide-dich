@@ -115,8 +115,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
     // Getting single question
     Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -145,8 +143,19 @@ class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
-        String[] keywords   = cursor.getString(5).split(",");
-        String[] links      = cursor.getString(6).split(",");
+        String keywords_raw = cursor.getString(5);
+        String links_raw    = cursor.getString(6);
+
+        String[] keywords;
+        String[] links;
+
+        if (keywords_raw.contains(",")) {
+            keywords = keywords_raw.split(",");
+            links    = links_raw.split(",");
+        } else {
+            keywords = new String[] {keywords_raw};
+            links    = new String[] {links_raw};
+        }
 
         Question question   = new Question();
         question.question   = cursor.getString(1);
