@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /*
@@ -87,8 +89,18 @@ class DatabaseHelper extends SQLiteOpenHelper {
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String strings  = TextUtils.join(",", getColumn(question.keywords, 0));
-        String links    = TextUtils.join(",", getColumn(question.keywords, 1));
+        List<String> word = new ArrayList<String>();
+        List<String> link = new ArrayList<String>();
+
+        for (int i = 0; i < question.keywords.length; i++) {
+            word.add(question.keywords[i][0]);
+            link.add(question.keywords[i][1]);
+        }
+
+        String strings = TextUtils.join(",", word.toArray());
+        String links   = TextUtils.join(",", word.toArray());
+
+
 
         ContentValues values = new ContentValues();
         values.put(KEY_QUES, question.question);
