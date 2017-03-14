@@ -4,6 +4,16 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 /**
@@ -50,6 +60,81 @@ public class DatabaseInitializer {
             case 14: return questions14;
         }
         return null;
+    }
+
+
+    void load_init_data() {
+        // TODO: Load all the question from a json file
+        // do what do you want on your interface
+
+
+
+        try {
+            File yourFile = new File("path/to/the/file/inside_the_sdcard/textarabics.txt");
+
+            FileInputStream stream = new FileInputStream(yourFile);
+            String jsonStr = null;
+            try {
+                FileChannel fc = stream.getChannel();
+                MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+
+                jsonStr = Charset.defaultCharset().decode(bb).toString();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stream.close();
+            }
+            JSONObject jsonObj = new JSONObject(jsonStr);
+
+            // Getting data JSON Array nodes
+            JSONArray data  = jsonObj.getJSONArray("data");
+
+            // looping through All nodes
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject c = data.getJSONObject(i);
+
+                String id = c.getString("id");
+                String title = c.getString("title");
+                String duration = c.getString("duration");
+                //use >  int id = c.getInt("duration"); if you want get an int
+
+
+                // tmp hashmap for single node
+                HashMap<String, String> parsedData = new HashMap<String, String>();
+
+                // adding each child node to HashMap key => value
+                parsedData.put("id", id);
+                parsedData.put("title", title);
+                parsedData.put("duration", duration);
+
+
+                // do what do you want on your interface
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
