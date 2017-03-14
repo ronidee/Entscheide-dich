@@ -40,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         new SharedPrefs(this);
 
+        /*
         if (SharedPrefs.isFirstStart())
                new DatabaseInitializer(this); // creating the database
-
+        */
 
         handler         =   new Handler();
         questionManager =   new QuestionManager(this);
