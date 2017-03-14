@@ -59,12 +59,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + TABLE_NAME +
                     "(" +
                         KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        KEY_QUES + " TEXT," +
-                        KEY_GUEST + " TEXT," +
-                        KEY_YT + " TEXT," +
-                        KEY_FAV + " INTEGER," +
-                        KEY_STRINGS + " TEXT," +
-                        KEY_LINKS + " TEXT" +
+                        KEY_QUES + " TEXT NOT NULL," +
+                        KEY_GUEST + " TEXT NOT NULL," +
+                        KEY_YT + " TEXT NOT NULL," +
+                        KEY_FAV + " INTEGER NOT NULL," +
+                        KEY_STRINGS + " TEXT NOT NULL," +
+                        KEY_LINKS + " TEXT NOT NULL" +
                     ")";
 
         db.execSQL(CREATE_TABLE_STRING);
