@@ -12,10 +12,10 @@
 "keywords": []
 },
 {
-"question": "Wärst Du lieber eine Blattlaus mit Sacklaus oder ein Flusskrebs mit Brustkrebs?",
-"guest": "Schulz&Böhmermann",
-"ytlink": "https://www.youtube.com/watch?v=gFNPBoxNll4&index=1&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-"keywords": []
+  "question": "Wärst Du lieber eine Blattlaus mit Sacklaus oder ein Flusskrebs mit Brustkrebs?",
+  "guest": "Schulz&Böhmermann",
+  "ytlink": "https://www.youtube.com/watch?v=gFNPBoxNll4&index=1&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
+  "keywords": []
 },
 {
 "question": "Wärst Du lieber ohne Haftbefehl im türkischen Knast oder mit Haftbefehl in einer türkischen Sauna?",
@@ -42,10 +42,15 @@
 
 
 {
-"question": "Wärst Du lieber die Kellerassel von Josef Fritzl oder der Ohrwurm von Niki Lauda?",
-"guest": "Kollegah",
-"ytlink": "https://www.youtube.com/watch?v=llEc4KrHYOc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=2",
-"keywords": [ "Josef Fritzl","Niki Lauda" ]
+  "question": "Wärst Du lieber die Kellerassel von Josef Fritzl oder der Ohrwurm von Niki Lauda?",
+  "guest": "Kollegah",
+  "ytlink": "https://www.youtube.com/watch?v=llEc4KrHYOc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=2",
+  "keywords": [
+    {
+      "mark": "Josef Fritzl",
+      "link": "http://duckduckgo.com/?q=josef+Fritzl"
+    },
+  ]
 },
 {
 "question": "Hättest Du lieber einen heftigen Computervirus von einer Ich-Email oder einen leichten Erkältungsvirus von einer Shemale?",
