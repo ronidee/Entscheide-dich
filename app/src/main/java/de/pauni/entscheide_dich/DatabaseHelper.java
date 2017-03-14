@@ -84,17 +84,27 @@ class DatabaseHelper extends SQLiteOpenHelper {
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+
+
         ContentValues values = new ContentValues();
         values.put(KEY_QUES, question.question);
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
         values.put(KEY_FAV, question.favorite);
-        values.put(KEY_STRINGS, question.string);
+
+
 
 
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
+    }
+    public static Object[] getColumn(Object[][] array, int index){
+        Object[] column = new Object[array[0].length]; // Here I assume a rectangular 2D array!
+        for(int i=0; i<column.length; i++){
+            column[i] = array[i][index];
+        }
+        return column;
     }
 
 

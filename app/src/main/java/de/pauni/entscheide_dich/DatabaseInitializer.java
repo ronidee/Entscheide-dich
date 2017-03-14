@@ -17,10 +17,11 @@ import org.json.JSONObject;
 
 public class DatabaseInitializer {
 Context context;
+DatabaseHelper dbh;
 
     public DatabaseInitializer(Context c) {
         context = c;
-        DatabaseHelper db = new DatabaseHelper(c);
+        dbh = new DatabaseHelper(c);
         load_init_data();
     }
 
