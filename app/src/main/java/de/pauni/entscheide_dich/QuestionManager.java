@@ -2,10 +2,8 @@ package de.pauni.entscheide_dich;
 
 
 import android.content.Context;
-
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  *
@@ -17,10 +15,8 @@ import java.util.List;
  *
  */
 
-public class QuestionManager {
-    private List<int[]> previousQuestions;
-    DatabaseHelper dbh = null;
-    private static String youtubeLink;
+class QuestionManager {
+    private DatabaseHelper dbh = null;
 
     public QuestionManager(Context context) {
         dbh = new DatabaseHelper(context);
@@ -43,18 +39,17 @@ public class QuestionManager {
     }
 
     void selectPrevious() {
-        int count = dbh.getQuestionCount();
         int questionId = SharedPrefs.getCurrentQuestionId();
 
-        if (count > 1) {
-            SharedPrefs.saveQuestionId(count - 1);
+        if (questionId > 1) {
+            SharedPrefs.saveQuestionId(questionId - 1);
         } else {
             SharedPrefs.saveQuestionId(dbh.getQuestionCount());
         }
     }
 
     void selectRandom() {
-        //TODO: select random number
+        ThreadLocalRandom.current().nextInt(1, dbh.getQuestionCount() + 1);
     }
 
     void setFavorite(boolean favorite) {
