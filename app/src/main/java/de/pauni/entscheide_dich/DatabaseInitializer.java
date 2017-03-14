@@ -73,6 +73,7 @@ DatabaseHelper dbh;
             JSONArray all_questions = new JSONArray(jsonstr.toString());
 
 
+
             // looping through All nodes
             for (int i = 0; i < all_questions.length(); i++) {
                 JSONObject question = all_questions.getJSONObject(i);
@@ -82,25 +83,27 @@ DatabaseHelper dbh;
                 Log.d("foo", question.getString("ytlink"));
                 Log.d("foo", "\n");
 
-                /*
-                String id = c.getString("id");
-                String title = c.getString("title");
-                String duration = c.getString("duration");
-                //use >  int id = c.getInt("duration"); if you want get an int
+                Question quest = new Question();
+
+                quest.question = question.getString("question");
+                quest.guest    = question.getString("guest");
+                quest.ytlink   = question.getString("ytlink");
 
 
-                // tmp hashmap for single node
-                HashMap<String, String> parsedData = new HashMap<String, String>();
-
-                // adding each child node to HashMap key => value
-                parsedData.put("id", id);
-                parsedData.put("title", title);
-                parsedData.put("duration", duration);
+                JSONArray keywordsobj = question.getJSONArray("keywords");
 
 
-                // do what do you want on your interface
+                String[][] keywords = new String [keywordsobj.length()][1];
 
-                */
+                for (int l = 0; l < keywordsobj.length(); l++) {
+                    JSONObject keyword = keywordsobj.getJSONObject(j);
+                    keywords[l] = new String[]{ keyword.getString("string"), keyword.getString("link")};
+                }
+
+
+
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
