@@ -145,14 +145,14 @@ class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
-        String[] strings = cursor.getString(4).split(",");
-        String[] links   = cursor.getString(5).split(",");
+        String[] strings = cursor.getString(5).split(",");
+        String[] links   = cursor.getString(6).split(",");
 
         Question question = new Question();
-        question.question = cursor.getString(0);
-        question.guest    = cursor.getString(1);
-        question.ytlink   = cursor.getString(2);
-        question.favorite = cursor.getString(3).equals("1");
+        question.question = cursor.getString(1);
+        question.guest    = cursor.getString(2);
+        question.ytlink   = cursor.getString(3);
+        question.favorite = cursor.getString(4).equals("1");
         question.keywords = new String[][] {strings, links};
 
         return question;
