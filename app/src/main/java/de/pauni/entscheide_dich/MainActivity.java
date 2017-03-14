@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         regListeners();
-        //frageAnzeigen(questionManager.getQuestion());
+        frageAnzeigen(questionManager.getQuestion());
     }
 
     private void frageAnzeigen(Question question) {
