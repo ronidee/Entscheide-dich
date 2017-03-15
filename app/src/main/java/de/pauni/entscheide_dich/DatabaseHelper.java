@@ -40,7 +40,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     // Favorite ja oder nein (1/0)
     private static final String KEY_FAV     = "favorite";
     // String der zu clickable sein soll
-    private static final String KEY_STRINGS = "keywords";
+    private static final String KEY_KEYWORDS = "keywords";
     // Link der aufgerufen wird
     private static final String KEY_LINKS   = "links";
 
@@ -63,7 +63,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_GUEST + " TEXT NOT NULL," +
                         KEY_YT + " TEXT NOT NULL," +
                         KEY_FAV + " INTEGER NOT NULL," +
-                        KEY_STRINGS + " TEXT NOT NULL," +
+                        KEY_KEYWORDS + " TEXT NOT NULL," +
                         KEY_LINKS + " TEXT NOT NULL" +
                     ")";
 
@@ -105,7 +105,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
         values.put(KEY_FAV, question.favorite);
-        values.put(KEY_STRINGS, strings);
+        values.put(KEY_KEYWORDS, strings);
         values.put(KEY_LINKS, links);
 
 
@@ -127,7 +127,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_GUEST,
                 KEY_YT,
                 KEY_FAV,
-                KEY_STRINGS,
+                KEY_KEYWORDS,
                 KEY_LINKS
             },
             KEY_ID + "=?",
@@ -145,9 +145,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
         }
 
 
-
-        String keywords_raw = cursor.getString(5);
-        String links_raw    = cursor.getString(6);
+        // reading the comma seperated lists (potentially single string or empty)
+        String keywords_raw = cursor.getString(cursor.getColumnIndex(KEY_KEYWORDS));
+        String links_raw    = cursor.getString(cursor.getColumnIndex(KEY_LINKS));
 
         String[] keywords;
         String[] links;
@@ -167,6 +167,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.favorite   = cursor.getString(4).equals("1");
         question.clickables = new String[][] {keywords, links};
 
+        cursor.close();
         return question;
     }
 

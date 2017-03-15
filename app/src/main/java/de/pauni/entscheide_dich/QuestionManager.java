@@ -31,11 +31,11 @@ class QuestionManager {
 
     void selectNext() {
         //
-        int count = dbh.getQuestionCount();
+        int count = 104; //dbh.getQuestionCount();
         int questionId = SharedPrefs.getCurrentQuestionId();
 
         if (questionId < count) {
-            SharedPrefs.saveQuestionId(count + 1);
+            SharedPrefs.saveQuestionId(questionId + 1);
         } else {
             SharedPrefs.saveQuestionId(1);
         }

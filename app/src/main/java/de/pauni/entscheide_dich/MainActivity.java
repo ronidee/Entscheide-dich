@@ -84,11 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (zufaellig) {
-                    questionManager.selectRandom();
-                } else {
-                    questionManager.selectNext();
-                }
+               questionManager.selectNext();
 
                 frageAnzeigen(questionManager.getQuestion());
 
