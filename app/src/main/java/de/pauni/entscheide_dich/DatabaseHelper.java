@@ -120,26 +120,18 @@ class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
 
-        Log.d("dbh", "querying database...");
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
-        Log.d("dbh", "query done");
 
-        if(cursor == null) {
-            Log.d("dbh", "cursor is awesome");
+        if(cursor != null) {
+            cursor.moveToFirst();
         }
 
-
-        if (cursor.getString(1) == null) {
-            Log.d("dbh", "is null");
-        }
-        else {
-            Log.d("dbh", cursor.getString(1));
-        }
 
 
         // reading the comma seperated lists (potentially single string or empty)
         String keywords_raw = cursor.getString(cursor.getColumnIndex(KEY_KEYWORDS));
         String links_raw    = cursor.getString(cursor.getColumnIndex(KEY_LINKS));
+
 
         String[] keywords;
         String[] links;
