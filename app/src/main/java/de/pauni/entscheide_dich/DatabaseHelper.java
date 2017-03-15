@@ -30,19 +30,19 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // Table Columns names
-    private static final String KEY_ID      = "_id";
+    static final String KEY_ID      = "_id";
     // Der Text der Frage
-    private static final String KEY_QUES    = "question";
+    static final String KEY_QUES    = "question";
     // Der Namame des Gastes
-    private static final String KEY_GUEST   = "guest_name";
+    static final String KEY_GUEST   = "guest_name";
     // Der YT-Link zum jew. Video
-    private static final String KEY_YT      = "youtube_link";
+    static final String KEY_YT      = "youtube_link";
     // Favorite ja oder nein (1/0)
-    private static final String KEY_FAV     = "favorite";
+    static final String KEY_FAV     = "favorite";
     // String der zu clickable sein soll
-    private static final String KEY_KEYWORDS = "keywords";
+    static final String KEY_KEYWORDS = "keywords";
     // Link der aufgerufen wird
-    private static final String KEY_LINKS   = "links";
+    static final String KEY_LINKS   = "links";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -166,9 +166,24 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     void setFavorite(int id, boolean favorite) {
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " +
-                (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id);
-        Log.d("DBH>>>:","Ronis SQL-Befehl ausgeführt! ^-^");
+
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
+
+        Question quest = getQuestion(id);
+
+        Log.d("dbh", "favorite: " + quest.favorite);
+    }
+
+
+
+    Cursor getCursor() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+    }
+
+    Cursor getCursorFavorites() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_FAV + " = 1" , null);
     }
 
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET
