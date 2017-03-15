@@ -114,12 +114,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-
     // Getting single question
     Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-
-
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
 
         if(cursor != null) {
@@ -167,6 +164,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    void setFavorite(int id, boolean favorite) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        db.rawQuery("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " +
+                (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id , null);
+    }
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET
 //AB HIER WURDE NOCH NICHTS GEMACHT
 

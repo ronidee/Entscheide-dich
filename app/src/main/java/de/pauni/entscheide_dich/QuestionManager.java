@@ -52,11 +52,11 @@ class QuestionManager {
     }
 
     void selectRandom() {
-        SharedPrefs.saveQuestionId(ThreadLocalRandom.current().nextInt(
-                1, dbh.getQuestionCount() + 1));
+        SharedPrefs.saveQuestionId(ThreadLocalRandom.current()
+                .nextInt(1, dbh.getQuestionCount() + 1));
     }
 
     void setFavorite(boolean favorite) {
-
+        dbh.setFavorite(SharedPrefs.getCurrentQuestionId(), favorite);
     }
 }
