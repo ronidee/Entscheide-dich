@@ -119,29 +119,21 @@ class DatabaseHelper extends SQLiteOpenHelper {
     Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(
-            TABLE_NAME,
-            new String[] {
-                KEY_ID,
-                KEY_QUES,
-                KEY_GUEST,
-                KEY_YT,
-                KEY_FAV,
-                KEY_KEYWORDS,
-                KEY_LINKS
-            },
-            KEY_ID + "=?",
-            new String[] {
-                    String.valueOf(id)
-            },
-            null,
-            null,
-            null,
-            null
-        );
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        Log.d("dbh", "querying database...");
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
+        Log.d("dbh", "query done");
+
+        if(cursor == null) {
+            Log.d("dbh", "cursor is awesome");
+        }
+
+
+        if (cursor.getString(1) == null) {
+            Log.d("dbh", "is null");
+        }
+        else {
+            Log.d("dbh", cursor.getString(1));
         }
 
 
