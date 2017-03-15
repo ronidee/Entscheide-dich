@@ -31,7 +31,7 @@ class QuestionManager {
 
     void selectNext() {
         //
-        int count = 104; //dbh.getQuestionCount();
+        int count = dbh.getQuestionCount();
         int questionId = SharedPrefs.getCurrentQuestionId();
 
         if (questionId < count) {
