@@ -144,6 +144,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
+
+
         String keywords_raw = cursor.getString(5);
         String links_raw    = cursor.getString(6);
 
