@@ -52,7 +52,8 @@ class QuestionManager {
     }
 
     void selectRandom() {
-        ThreadLocalRandom.current().nextInt(1, dbh.getQuestionCount() + 1);
+        SharedPrefs.saveQuestionId(ThreadLocalRandom.current().nextInt(
+                1, dbh.getQuestionCount() + 1));
     }
 
     void setFavorite(boolean favorite) {
