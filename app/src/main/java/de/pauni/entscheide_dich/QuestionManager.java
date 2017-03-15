@@ -2,6 +2,8 @@ package de.pauni.entscheide_dich;
 
 
 import android.content.Context;
+import android.util.Log;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -57,6 +59,7 @@ class QuestionManager {
     }
 
     void setFavorite(boolean favorite) {
+        Log.d("QManager>>>:","Favorit = " + (favorite?"ja":"nein"));
         dbh.setFavorite(SharedPrefs.getCurrentQuestionId(), favorite);
     }
 }

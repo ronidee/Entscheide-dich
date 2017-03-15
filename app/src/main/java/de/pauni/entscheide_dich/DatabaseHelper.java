@@ -145,7 +145,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.question   = cursor.getString(1);
         question.guest      = cursor.getString(2);
         question.ytlink     = cursor.getString(3);
-        question.favorite   = cursor.getString(4).equals("1");
+        question.favorite   = cursor.getInt(4) == 1;
         question.clickables = new String[][] {keywords, links};
 
         cursor.close();
@@ -166,10 +166,11 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     void setFavorite(int id, boolean favorite) {
         SQLiteDatabase db = this.getReadableDatabase();
-
-        db.rawQuery("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " +
-                (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id , null);
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " +
+                (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id);
+        Log.d("DBH>>>:","Ronis SQL-Befehl ausgeführt! ^-^");
     }
+
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET
 //AB HIER WURDE NOCH NICHTS GEMACHT
 

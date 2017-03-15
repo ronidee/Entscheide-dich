@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton ib_naechste     =   null;
     ImageButton ib_vorige       =   null;
+    ImageButton ib_favOnly      =   null;
     ImageButton ib_share        =   null;
     ImageButton ib_favorit      =   null;
     ImageButton ib_zufaellig    =   null;
@@ -71,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         tv_Sendung      =   (TextView)    findViewById(R.id.textview_sendung);
 
         ib_naechste     =   (ImageButton) findViewById(R.id.imagebutton_naechste);
+        ib_favOnly      =   (ImageButton) findViewById(R.id.imagebutton_nur_favoriten);
         ib_share        =   (ImageButton) findViewById(R.id.imagebutton_share);
         ib_vorige       =   (ImageButton) findViewById(R.id.imagebutton_zurueck);
         ib_favorit      =   (ImageButton) findViewById(R.id.imagebutton_favorit);
         ib_zufaellig    =   (ImageButton) findViewById(R.id.imagebutton_zufaellig);
-        ib_youtube      =   (ImageButton) findViewById(R.id.imagebutton_youtube);
         ib_youtube      =   (ImageButton) findViewById(R.id.imagebutton_youtube);
 
     }
@@ -91,7 +92,28 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 frageAnzeigen(questionManager.getQuestion());
+            }
+        });
 
+        ib_vorige.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionManager.selectPrevious();
+                frageAnzeigen(questionManager.getQuestion());
+
+            }
+        });
+
+        ib_favOnly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!questionManager.favoritesOnly) {
+                    questionManager.favoritesOnly = true;
+                    ib_favOnly.setImageResource(R.drawable.bt_all_questions);
+                } else {
+                    questionManager.favoritesOnly = false;
+                    ib_favOnly.setImageResource(R.drawable.bt_favorites_only);
+                }
             }
         });
 
@@ -105,16 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(i, "Teile die Frage mit Feinden:"));
             }
         });
-
-        ib_vorige.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionManager.selectPrevious();
-                frageAnzeigen(questionManager.getQuestion());
-
-            }
-        });
-
 
         ib_favorit.setOnClickListener(new View.OnClickListener() {
             @Override
