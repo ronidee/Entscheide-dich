@@ -10,9 +10,7 @@
         android:id="@+id/ll_fragen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp">
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/ll_frage"
@@ -28,7 +26,8 @@
                 android:layout_marginRight="18dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="0.25"
-                android:background="@color/background" />
+                android:background="@color/background"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/textview_Fragen"
@@ -57,7 +56,7 @@
                 android:id="@+id/textview_sendung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="3dp"
                 android:text="Sendung mit Tolle Person"
                 android:textAlignment="center"
                 android:textColor="@color/icon_color"
@@ -69,7 +68,8 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/background" />
+                android:background="@color/background"
+                android:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,8 +84,6 @@
                 android:id="@+id/imagebutton_zufaellig"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/ic_shuffle_white_24dp"
@@ -95,8 +93,6 @@
                 android:id="@+id/imagebutton_youtube"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/ic_youtube_white_24dp"
@@ -106,8 +102,6 @@
                 android:id="@+id/imagebutton_favorit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/ic_favorite_border_white_24dp"
