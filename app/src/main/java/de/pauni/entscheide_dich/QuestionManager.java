@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 class QuestionManager {
     private DatabaseHelper dbh;
     private int id;
-    boolean favoritesOnly = true;
+    boolean mode_random;
     private Cursor dbCursor;
 
 
@@ -32,78 +32,110 @@ class QuestionManager {
         new DatabaseInitializer(context); // creating the database and table
         dbh = new DatabaseHelper(context);
         dbCursor = dbh.getCursor();
+        mode_random = false;
     }
 
 
     Question getQuestion() {
-        return cursorToQuestion(dbCursor);
+        return cursorToQuestion();
     }
 
 
     // Cursor movements:
 
     void selectNext() {
-        dbCursor.moveToNext();
+        if (mode_random)
+            randomize();
 
+        dbCursor.moveToNext();
 
         if (dbCursor.isAfterLast()) {
             dbCursor.moveToFirst();
         }
-
-        save_state();
-
-        Log.d("Q_MNGR>>", String.valueOf(dbh.countAllQuestions()));
-        Log.d("Q_MNGR>>", String.valueOf(dbh.countFavoredQuestions()));
     }
 
 
+    void selectPrevious() {
+        if (mode_random)
+            randomize();
+
+        dbCursor.moveToNext();
+
+        if (dbCursor.isBeforeFirst()) {
+            dbCursor.moveToLast();
+        }
+    }
+
+
+
     void selectNextFavorite() {
-        while (cursorToQuestion(dbCursor).favorite) {
+        if (mode_random)
+            randomize();
+
+        do {
+            dbCursor.moveToNext();
+        } while (!cursorToQuestion().favorite);
+    }
+
+
+    void selectPreviousFavorite() {
+        if (mode_random)
+            randomize();
+
+        do {
+            dbCursor.moveToNext();
+        } while (cursorToQuestion().favorite);
+    }
+
+
+
+
+
+
+
+
+    void setId(int new_id) {
+        id = new_id;
+
+        while (cursorToQuestion().id == new_id) {
             dbCursor.moveToNext();
         }
     }
 
 
-
-
-
-
-    void selectPrevious() {
-        dbCursor.moveToNext();
-
-        if (dbCursor.isBeforeFirst()){
-            dbCursor.moveToFirst();
-        }
-        save_state();
+    int getId() {
+        return id;
     }
 
-    void selectRandom() {
+
+
+    void setRandom(boolean random) {
+        mode_random = random;
+    }
+
+    boolean isRandom() {
+        return mode_random;
+    }
+
+
+
+
+    private void randomize() {
         int rand = new Random().nextInt(dbh.getQuestionCount());
 
         // move cursor random times to next position
         for (int i = 0; i < rand; i++) {
-            selectNext();
+            // dbCursor.moveToNext();
+
+            if (dbCursor.moveToNext() && dbCursor.isAfterLast()) {
+                dbCursor.moveToFirst();
+            }
         }
-
-        save_state();
-    }
-
-    void selectNextFavorite() {
-
     }
 
     void setFavorite(boolean favorite) {
-        Log.d("QManager>>>:","Favorit = " + (favorite?"ja":"nein"));
-        dbh.setFavorite(SharedPrefs.getCurrentQuestionId(), favorite);
+        dbh.setFavorite(cursorToQuestion().id, favorite);
     }
-
-
-
-    private void save_state() {
-        // Maybe do more stuff here
-        SharedPrefs.saveQuestionId(id);
-    }
-
 
 
     int countAllQuestions() {
@@ -112,7 +144,7 @@ class QuestionManager {
 
 
     int countFavoredQuestions() {
-        return dbh.countFavoredQuestions()
+        return dbh.countFavoredQuestions();
 
     }
 
@@ -120,14 +152,10 @@ class QuestionManager {
 
 
 
-    private Question cursorToQuestion(Cursor c) {
-        if(c != null) {
-            // Todo: Do something here
-        }
-
+    private Question cursorToQuestion() {
         // reading the comma seperated lists (potentially single string or empty)
-        String keywords_raw = c.getString(c.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
-        String links_raw    = c.getString(c.getColumnIndex(DatabaseHelper.KEY_LINKS));
+        String keywords_raw = dbCursor.getString(dbCursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
+        String links_raw    = dbCursor.getString(dbCursor.getColumnIndex(DatabaseHelper.KEY_LINKS));
 
 
         String[] keywords;
@@ -142,10 +170,11 @@ class QuestionManager {
         }
 
         Question question   = new Question();
-        question.question   = c.getString(1);
-        question.guest      = c.getString(2);
-        question.ytlink     = c.getString(3);
-        question.favorite   = c.getInt(4) == 1;
+        question.id         = dbCursor.getInt(0);
+        question.question   = dbCursor.getString(1);
+        question.guest      = dbCursor.getString(2);
+        question.ytlink     = dbCursor.getString(3);
+        question.favorite   = dbCursor.getInt(4) == 1;
         question.clickables = new String[][] {keywords, links};
 
         return question;

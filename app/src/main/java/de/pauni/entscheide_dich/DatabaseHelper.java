@@ -149,6 +149,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         Question question   = new Question();
+        question.id         = cursor.getInt(0);
         question.question   = cursor.getString(1);
         question.guest      = cursor.getString(2);
         question.ytlink     = cursor.getString(3);
@@ -173,11 +174,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     void setFavorite(int id, boolean favorite) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
 
         Question quest = getQuestion(id);
-
         Log.d("dbh", "favorite: " + quest.favorite);
     }
 
