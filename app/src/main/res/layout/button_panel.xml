@@ -44,7 +44,7 @@
         android:layout_toEndOf="@+id/imagebutton_naechste"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/bt_favorites_only" />
+        android:src="@drawable/selector_bt_favorites_only" />
 
     <ImageButton
         android:id="@+id/imagebutton_suchen"
@@ -56,5 +56,5 @@
         android:adjustViewBounds="false"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/bt_search" />
+        android:src="@drawable/selector_bt_search" />
 </RelativeLayout>
