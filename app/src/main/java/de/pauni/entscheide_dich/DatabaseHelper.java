@@ -85,6 +85,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
+
+
+
     // Adding new question. Only required at app's 1. start if Database doesn't exist yet
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -113,6 +116,10 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
+
+
+
+
 
     // Getting single question
     Question getQuestion(int id) {
@@ -184,6 +191,28 @@ class DatabaseHelper extends SQLiteOpenHelper {
     Cursor getCursorFavorites() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_FAV + " = 1" , null);
+    }
+
+
+
+
+
+    int countAllQuestions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT count() AS count FROM " + TABLE_NAME , null);
+        c.moveToFirst();
+
+        return c.getInt(c.getColumnIndex("count"));
+    }
+
+
+    int countFavoredQuestions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT COUNT(*) AS count FROM " + TABLE_NAME + " WHERE " + KEY_FAV + " = 1" , null);
+        c.moveToFirst();
+
+        return c.getInt(c.getColumnIndex("count"));
+
     }
 
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET

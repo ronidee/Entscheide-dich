@@ -58,7 +58,7 @@ DatabaseHelper dbh;
                     {
                         "id": "1",
                         "title": "Farhan Shah",
-                       "duration": 10
+                        "duration": 10
                     },
                     {
                         "id": "2",

@@ -22,8 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class QuestionManager {
     private DatabaseHelper dbh;
-    private int id = SharedPrefs.getCurrentQuestionId();
-    boolean favoritesOnly = false;
+    private int id;
+    boolean favoritesOnly = true;
     private Cursor dbCursor;
 
 
@@ -44,11 +44,36 @@ class QuestionManager {
 
     void selectNext() {
         dbCursor.moveToNext();
+
+
+        if (dbCursor.isAfterLast()) {
+            dbCursor.moveToFirst();
+        }
+
         save_state();
+
+        Log.d("Q_MNGR>>", String.valueOf(dbh.countAllQuestions()));
+        Log.d("Q_MNGR>>", String.valueOf(dbh.countFavoredQuestions()));
     }
 
+
+    void selectNextFavorite() {
+        while (cursorToQuestion(dbCursor).favorite) {
+            dbCursor.moveToNext();
+        }
+    }
+
+
+
+
+
+
     void selectPrevious() {
-        id = (id % dbh.getQuestionCount()) - 1;
+        dbCursor.moveToNext();
+
+        if (dbCursor.isBeforeFirst()){
+            dbCursor.moveToFirst();
+        }
         save_state();
     }
 
@@ -76,6 +101,16 @@ class QuestionManager {
     }
 
 
+
+    int countAllQuestions() {
+        return dbh.countAllQuestions();
+    }
+
+
+    int countFavoredQuestions() {
+        return dbh.countFavoredQuestions()
+
+    }
 
 
 
