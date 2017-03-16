@@ -21,16 +21,17 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 class QuestionManager {
-    private DatabaseHelper dbh = null;
+    private DatabaseHelper dbh;
     private int id = SharedPrefs.getCurrentQuestionId();
     boolean favoritesOnly = false;
-    Cursor dbCursor = dbh.getCursor();
+    private Cursor dbCursor;
 
 
     public QuestionManager(Context context) {
         //if (SharedPrefs.isFirstStart())
         new DatabaseInitializer(context); // creating the database and table
         dbh = new DatabaseHelper(context);
+        dbCursor = dbh.getCursor();
     }
 
 

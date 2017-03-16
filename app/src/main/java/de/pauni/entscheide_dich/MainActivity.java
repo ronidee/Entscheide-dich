@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         regListeners();
-        frageAnzeigen(questionManager.getQuestion());
+        //frageAnzeigen(questionManager.getQuestion());
     }
 
     private void frageAnzeigen(Question question) {
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         ib_favorit      =   (ImageButton) findViewById(R.id.imagebutton_favorit);
         ib_zufaellig    =   (ImageButton) findViewById(R.id.imagebutton_zufaellig);
         ib_youtube      =   (ImageButton) findViewById(R.id.imagebutton_youtube);
+
+        tv_Fragen.setMovementMethod(new ScrollingMovementMethod());
 
     }
     private void regListeners() {

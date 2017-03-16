@@ -5,8 +5,8 @@
 
     <ImageButton
         android:id="@+id/imagebutton_naechste"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/imagebutton_naechste"
         android:background="@android:color/transparent"
-        android:src="@drawable/bt_share" />
+        android:src="@drawable/bt_share"
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/imagebutton_zurueck"
@@ -31,7 +32,8 @@
         android:adjustViewBounds="false"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/bt_zurueck" />
+        android:src="@drawable/bt_zurueck"
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/imagebutton_nur_favoriten"
@@ -48,7 +50,10 @@
         android:id="@+id/imagebutton_suchen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/imagebutton_naechste"
+        android:layout_alignBottom="@+id/imagebutton_naechste"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@+id/imagebutton_naechste"
+        android:adjustViewBounds="false"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/bt_search" />
