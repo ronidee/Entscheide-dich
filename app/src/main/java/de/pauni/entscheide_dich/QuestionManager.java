@@ -63,6 +63,10 @@ class QuestionManager {
         save_state();
     }
 
+    void selectNextFavorite() {
+
+    }
+
     void setFavorite(boolean favorite) {
         Log.d("QManager>>>:","Favorit = " + (favorite?"ja":"nein"));
         dbh.setFavorite(SharedPrefs.getCurrentQuestionId(), favorite);

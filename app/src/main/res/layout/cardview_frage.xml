@@ -24,7 +24,7 @@
                 style="@style/Divider_horizontal"
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_weight="0.25"
                 android:background="@color/background"
                 android:visibility="visible" />

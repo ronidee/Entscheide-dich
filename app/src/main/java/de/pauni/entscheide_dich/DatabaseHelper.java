@@ -114,45 +114,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    // Getting single question
-    Question getQuestion(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
-
-        if(cursor != null) {
-            cursor.moveToFirst();
-        }
-
-
-
-        // reading the comma seperated lists (potentially single string or empty)
-        String keywords_raw = cursor.getString(cursor.getColumnIndex(KEY_KEYWORDS));
-        String links_raw    = cursor.getString(cursor.getColumnIndex(KEY_LINKS));
-
-
-        String[] keywords;
-        String[] links;
-
-        if (keywords_raw.contains(",")) {
-            keywords = keywords_raw.split(",");
-            links    = links_raw.split(",");
-        } else {
-            keywords = new String[] {keywords_raw};
-            links    = new String[] {links_raw};
-        }
-
-        Question question   = new Question();
-        question.question   = cursor.getString(1);
-        question.guest      = cursor.getString(2);
-        question.ytlink     = cursor.getString(3);
-        question.favorite   = cursor.getInt(4) == 1;
-        question.clickables = new String[][] {keywords, links};
-
-        cursor.close();
-        return question;
-    }
-
-    public int getQuestionCount() {
+    int getQuestionCount() {
         String countQuery = "SELECT  * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -168,10 +130,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
-
-        Question quest = getQuestion(id);
-
-        Log.d("dbh", "favorite: " + quest.favorite);
     }
 
 

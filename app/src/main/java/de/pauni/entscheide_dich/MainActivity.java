@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Handler handler;
 
     boolean zufaellig           =   false;
+    boolean favoritesOnly      =   false;
+
     //Declaring the views
     TextView    tv_Fragen       =   null;
     TextView    tv_Sendung      =   null;
@@ -40,15 +42,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //passing a context to ShardedPrafs for static access
         new SharedPrefs(this);
 
 
         handler         =   new Handler();
         questionManager =   new QuestionManager(this);
 
+        //loading the current question-ID
+        questionManager.setId(SharedPrefs.getCurrentQuestionId());
+
         initViews();
         regListeners();
-        //frageAnzeigen(questionManager.getQuestion());
+        frageAnzeigen(questionManager.getQuestion());
+    }
+
+    //Saving the current Id in 'any' possible cases.
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPrefs.saveQuestionId(questionManager.getId());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPrefs.saveQuestionId(questionManager.getId());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPrefs.saveQuestionId(questionManager.getId());
     }
 
     private void frageAnzeigen(Question question) {
@@ -88,34 +114,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (zufaellig) {
-                    questionManager.selectRandom();
-                } else {
+                if (!favoritesOnly) {
                     questionManager.selectNext();
+                } else {
+                    questionManager.selectNextFavorite();
                 }
 
                 frageAnzeigen(questionManager.getQuestion());
             }
         });
 
-        ib_vorige.setOnClickListener(new View.OnClickListener() {
+        /*ib_vorige.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 questionManager.selectPrevious();
                 frageAnzeigen(questionManager.getQuestion());
 
             }
-        });
+        }); */
 
         ib_favOnly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!questionManager.favoritesOnly) {
-                    questionManager.favoritesOnly = true;
-                    ib_favOnly.setImageResource(R.drawable.bt_all_questions);
+
+                if (!favoritesOnly) {
+                    favoritesOnly = true;
+                    ib_favOnly.setImageResource(R.drawable.selector_bt_all_questions);
                 } else {
-                    questionManager.favoritesOnly = false;
-                    ib_favOnly.setImageResource(R.drawable.bt_favorites_only);
+                    favoritesOnly = false;
+                    ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
                 }
             }
         });
@@ -123,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         ib_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String frage = tv_Fragen.getText().toString() + "\n\nEntscheide Dich! ist echt eine super App!";
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
@@ -134,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         ib_favorit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //getCurrentQuestion returns String[] = {"text", "sendung", "1" or "0"}
                 boolean favorite = questionManager.getQuestion().favorite;
 
@@ -152,11 +181,12 @@ public class MainActivity extends AppCompatActivity {
         ib_zufaellig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!zufaellig) {
-                    zufaellig = true;
+
+                if (!questionManager.isRandom()) {
+                    questionManager.setRandom(true);
                     changeViewColor(ib_zufaellig, 500, R.color.icon_color, R.color.nmr_background);
                 } else {
-                    zufaellig = false;
+                    questionManager.setRandom(false);
                     changeViewColor(ib_zufaellig, 500, R.color.nmr_background, R.color.icon_color);
                 }
             }
@@ -165,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         ib_youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 changeViewColor(ib_youtube, 300, R.color.icon_color, R.color.nmr_background);
                 changeViewColor(ib_youtube, 300, R.color.nmr_background, R.color.icon_color);
                 startActivity(
