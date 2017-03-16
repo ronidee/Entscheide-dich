@@ -32,6 +32,7 @@ class QuestionManager {
         new DatabaseInitializer(context); // creating the database and table
         dbh = new DatabaseHelper(context);
         dbCursor = dbh.getCursor();
+        dbCursor.moveToFirst();
         mode_random = false;
     }
 
@@ -47,23 +48,7 @@ class QuestionManager {
         if (mode_random)
             randomize();
 
-        dbCursor.moveToNext();
-
-        if (dbCursor.isAfterLast()) {
-            dbCursor.moveToFirst();
-        }
-    }
-
-
-    void selectPrevious() {
-        if (mode_random)
-            randomize();
-
-        dbCursor.moveToNext();
-
-        if (dbCursor.isBeforeFirst()) {
-            dbCursor.moveToLast();
-        }
+        moveToNext_save();
     }
 
 
@@ -73,38 +58,23 @@ class QuestionManager {
             randomize();
 
         do {
-            dbCursor.moveToNext();
+            moveToNext_save();
         } while (!cursorToQuestion().favorite);
     }
-
-
-    void selectPreviousFavorite() {
-        if (mode_random)
-            randomize();
-
-        do {
-            dbCursor.moveToNext();
-        } while (cursorToQuestion().favorite);
-    }
-
-
-
 
 
 
 
 
     void setId(int new_id) {
-        id = new_id;
-
-        while (cursorToQuestion().id == new_id) {
-            dbCursor.moveToNext();
+        while (cursorToQuestion().id != new_id) {
+            moveToNext_save();
         }
     }
 
 
     int getId() {
-        return id;
+        return cursorToQuestion().id;
     }
 
 
@@ -150,10 +120,29 @@ class QuestionManager {
 
 
 
+    private void moveToNext_save() {
+        dbCursor.moveToNext();
+
+        if (dbCursor.isAfterLast()) {
+            dbCursor.moveToFirst();
+        }
+    }
+
+    private void moveToPrevious_save() {
+        dbCursor.moveToPrevious();
+
+        if (dbCursor.isBeforeFirst()) {
+            dbCursor.moveToLast();
+        }
+    }
+
 
 
     private Question cursorToQuestion() {
         // reading the comma seperated lists (potentially single string or empty)
+
+        Log.d("foo", String.valueOf(dbCursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
+
         String keywords_raw = dbCursor.getString(dbCursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
         String links_raw    = dbCursor.getString(dbCursor.getColumnIndex(DatabaseHelper.KEY_LINKS));
 
