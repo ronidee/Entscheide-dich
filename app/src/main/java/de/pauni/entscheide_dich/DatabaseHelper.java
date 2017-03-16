@@ -81,7 +81,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /**
+    /*
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
