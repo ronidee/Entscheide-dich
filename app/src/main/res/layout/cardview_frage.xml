@@ -22,8 +22,8 @@
             <View
                 android:id="@+id/devider"
                 style="@style/Divider_horizontal"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="30dp"
                 android:layout_weight="0.25"
                 android:background="@color/background"
@@ -65,8 +65,8 @@
             <View
                 android:id="@+id/devider1"
                 style="@style/Divider_horizontal"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/background"
                 android:visibility="visible" />
