@@ -49,9 +49,9 @@ public class SearchQuestionsActivity extends Activity{
         float w = displayMetrics.widthPixels;
 
         //setting dialogs attributes
-        getWindow().setLayout(Math.round(w), Math.round(h*0.55F));
+        getWindow().setLayout(Math.round(w), Math.round(h*0.525F));
         WindowManager.LayoutParams wlp = getWindow().getAttributes();
-        wlp.gravity = Gravity.BOTTOM;
+        wlp.gravity = Gravity.TOP;
         getWindow().setAttributes(wlp);
 
 

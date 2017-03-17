@@ -24,14 +24,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class QuestionManager {
     private DatabaseHelper dbh;
-    private int id;
     boolean mode_random;
     private Cursor dbCursor;
 
 
     public QuestionManager(Context context) {
-        //if (SharedPrefs.isFirstStart())
-        new DatabaseInitializer(context); // creating the database and table
+        if (SharedPrefs.isFirstStart())
+            new DatabaseInitializer(context); // creating the database and table
         dbh = new DatabaseHelper(context);
         dbCursor = dbh.getCursor();
         dbCursor.moveToFirst();
