@@ -13,18 +13,27 @@ import java.util.Arrays;
 
 
 
-class ClipboardHistoryAdapter extends BaseAdapter {
+class SearchQuestionAdapter extends BaseAdapter {
 
     private Context context;
     private Question[] questions;
 
     private static LayoutInflater inflater = null;
 
-    ClipboardHistoryAdapter(Context context, Question[] questions) {
+    SearchQuestionAdapter (Context context, Question[] questions) {
         this.context = context;
         this.questions = questions;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    static void update(Context c) {
+
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 
     @Override

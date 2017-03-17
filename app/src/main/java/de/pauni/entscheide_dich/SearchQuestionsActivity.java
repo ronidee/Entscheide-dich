@@ -78,7 +78,7 @@ public class SearchQuestionsActivity extends Activity{
 
     void updateQuestionList(String keyword) {
         // #code-pr0n
-        lv_questions.setAdapter(new ClipboardHistoryAdapter(this, qm.searchQuestion(keyword)));
+        lv_questions.setAdapter(new SearchQuestionAdapter(this, qm.searchQuestion(keyword)));
     }
 
 
