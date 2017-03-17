@@ -141,6 +141,8 @@ class QuestionManager {
 
 
     Question[] searchQuestion(String searchString) {
+        Log.d("searchQuestion>>>", "searching for \'" + searchString + "\'");
+
         Cursor foundCursor = dbh.searchQuestion(searchString);
         foundCursor.moveToFirst();
 
@@ -150,9 +152,11 @@ class QuestionManager {
             Question i =cursorToQuestion(foundCursor);
             foundQuestion.add(i);
             foundCursor.moveToNext();
+
+            Log.d("searchQuestion>>>", i.question);
         }
 
-        return foundQuestion.toArray(searchQuestion(searchString));
+        return foundQuestion.toArray(new Question[foundQuestion.size()]);
     }
 
 
