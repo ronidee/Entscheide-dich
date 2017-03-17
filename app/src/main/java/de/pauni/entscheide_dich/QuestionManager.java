@@ -108,7 +108,7 @@ class QuestionManager {
     }
 
     void setFavorite(boolean favorite) {
-        dbh.setFavorite(cursorToQuestion().id, favorite);
+        dbh.setFavorite(cursorToQuestion(dbCursor).id, favorite);
     }
 
 
