@@ -142,6 +142,9 @@ public class MainActivity extends Activity {
         ib_favOnly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (questionManager.countFavoredQuestions() == 0) {
+                    return;
+                }
 
                 if (!favoritesOnly) {
                     favoritesOnly = true;
@@ -169,7 +172,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                //getCurrentQuestion returns String[] = {"text", "sendung", "1" or "0"}
+                // getCurrentQuestion returns String[] = {"text", "sendung", "1" or "0"}
                 boolean favorite = questionManager.getQuestion().favorite;
 
                 if (!favorite) {
