@@ -1,50 +1,48 @@
 package de.pauni.entscheide_dich;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 /*
-*   Die MainActivity verarbeitet die Eingaben des Nutzers und die Ausgabe der Frage
-*   über die UI und ist die Schnittstelle zwischen UI und dem questionManager. Über den
-*   questionManager holt sie sich die entspr. Einträge oder markiert Fragen als Favoriten.
 *
 */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     QuestionManager questionManager;
     Handler handler;
 
-    boolean zufaellig           =   false;
-    boolean favoritesOnly      =   false;
+    boolean favoritesOnly       =   false;
 
     //Declaring the views
     TextView    tv_Fragen       =   null;
     TextView    tv_Sendung      =   null;
-
     ImageButton ib_naechste     =   null;
-    ImageButton ib_vorige       =   null;
     ImageButton ib_favOnly      =   null;
     ImageButton ib_share        =   null;
-    ImageButton ib_favorit      =   null;
+    ImageButton ib_favorisieren =   null;
     ImageButton ib_zufaellig    =   null;
     ImageButton ib_youtube      =   null;
+    ImageButton ib_search       =   null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //passing a context to ShardedPrafs for static access
         new SharedPrefs(this);
+
+
 
 
         handler         =   new Handler();
@@ -85,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
         tv_Fragen.setText(text);
         tv_Sendung.setText("Sendung mit "+guest);
         if (favorit) {
-            ib_favorit.setColorFilter(getResources().getColor(R.color.nmr_background));
-            ib_favorit.setImageResource(R.drawable.ic_favorite_white_24dp);
+            ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
+            ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
         } else {
-            ib_favorit.setColorFilter(getResources().getColor(R.color.icon_color));
-            ib_favorit.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+            ib_favorisieren.setColorFilter(getResources().getColor(R.color.icon_color));
+            ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
     }
 
@@ -101,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
         ib_naechste     =   (ImageButton) findViewById(R.id.imagebutton_naechste);
         ib_favOnly      =   (ImageButton) findViewById(R.id.imagebutton_nur_favoriten);
         ib_share        =   (ImageButton) findViewById(R.id.imagebutton_share);
-        ib_vorige       =   (ImageButton) findViewById(R.id.imagebutton_zurueck);
-        ib_favorit      =   (ImageButton) findViewById(R.id.imagebutton_favorit);
+        ib_favorisieren =   (ImageButton) findViewById(R.id.imagebutton_favorit);
         ib_zufaellig    =   (ImageButton) findViewById(R.id.imagebutton_zufaellig);
         ib_youtube      =   (ImageButton) findViewById(R.id.imagebutton_youtube);
+        ib_search       =   (ImageButton) findViewById(R.id.imagebutton_search);
 
         tv_Fragen.setMovementMethod(new ScrollingMovementMethod());
 
@@ -133,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); */
 
+        ib_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),
+                        SearchQuestionsActivity.class));
+            }
+        });
+
         ib_favOnly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ib_favorit.setOnClickListener(new View.OnClickListener() {
+        ib_favorisieren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -168,12 +174,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!favorite) {
                     questionManager.setFavorite(true);
-                    changeViewColor(ib_favorit, 200, R.color.icon_color, R.color.nmr_background);
-                    ib_favorit.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    changeViewColor(ib_favorisieren, 200, R.color.icon_color, R.color.nmr_background);
+                    ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
                 } else {
                     questionManager.setFavorite(false);
-                    changeViewColor(ib_favorit, 200, R.color.nmr_background, R.color.icon_color);
-                    ib_favorit.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    changeViewColor(ib_favorisieren, 200, R.color.nmr_background, R.color.icon_color);
+                    ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
                 }
             }
         });

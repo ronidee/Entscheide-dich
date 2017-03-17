@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ Context context;
 DatabaseHelper dbh;
 
     public DatabaseInitializer(Context c) {
+        Log.d("DBI", "DB WURDE ERFOLREICH GROSSDEUTSCH INITIALISIERT FREUNDE!!");
         context = c;
         dbh = new DatabaseHelper(c);
         load_init_data();
@@ -78,9 +80,9 @@ DatabaseHelper dbh;
             for (int i = 0; i < all_questions.length(); i++) {
                 JSONObject questionobj = all_questions.getJSONObject(i);
 
-                Log.d("foo", questionobj.getString("question"));
-                Log.d("foo", questionobj.getString("guest"));
-                Log.d("foo", questionobj.getString("ytlink"));
+                Log.d("DatabaseInitializer", questionobj.getString("question"));
+                Log.d("DatabaseInitializer", questionobj.getString("guest"));
+                Log.d("DatabaseInitializer", questionobj.getString("ytlink"));
 
                 Question quest = new Question();
 

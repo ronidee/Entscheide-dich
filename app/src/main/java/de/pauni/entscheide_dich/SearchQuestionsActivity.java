@@ -1,0 +1,83 @@
+package de.pauni.entscheide_dich;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v7.widget.CardView;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+
+/**
+ * Created by Roni on 07.11.2016.
+ * adds clipcontent and timestamp to arrays
+ * display them via customadapter
+ */
+
+public class SearchQuestionsActivity extends Activity{
+    QuestionManager qm;
+    ListView lv_questions;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_questions);
+
+        qm = new QuestionManager(getApplicationContext());
+        //buffering displays screen height and width
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        float h = displayMetrics.heightPixels;
+        float w = displayMetrics.widthPixels;
+
+        //setting dialogs attributes
+        getWindow().setLayout(Math.round(w), Math.round(h*0.55F));
+        WindowManager.LayoutParams wlp = getWindow().getAttributes();
+        wlp.gravity = Gravity.TOP;
+        getWindow().setAttributes(wlp);
+
+
+        lv_questions = (ListView) findViewById(R.id.lv_result);
+
+        Question[] questions = {
+                generatQuestion(),
+                generatQuestion(),
+                generatQuestion(),
+                generatQuestion(),
+        };
+
+
+        lv_questions.setAdapter(new ClipboardHistoryAdapter(this, questions) );
+    }
+
+
+    Question generatQuestion() {
+
+        qm.selectNext();
+        qm.selectNext();
+        qm.selectNext();
+        qm.selectNext();
+        qm.selectNext();
+        qm.selectNext();
+        qm.selectNext();
+
+        return qm.getQuestion();
+    }
+
+
+
+}
