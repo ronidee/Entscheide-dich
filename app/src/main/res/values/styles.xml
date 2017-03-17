@@ -31,7 +31,7 @@
         <item name="android:windowBackground">@null</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTitleStyle">@null</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustNothing</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@color/background</item>
     </style>
