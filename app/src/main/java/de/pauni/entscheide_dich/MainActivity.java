@@ -8,9 +8,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,7 +17,7 @@ import android.widget.TextView;
 *
 */
 public class MainActivity extends Activity {
-    QuestionManager questionManager;
+    static QuestionManager questionManager;
     Handler handler;
 
     boolean favoritesOnly       =   false;
@@ -60,6 +59,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("MainActivity", "paused");
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
 
@@ -75,7 +75,17 @@ public class MainActivity extends Activity {
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
 
-    private void frageAnzeigen(Question question) {
+    @Override
+    protected void onResume() {
+        frageAnzeigen(questionManager.getQuestion());
+        Log.d("MainActivity", "resumed");
+        super.onResume();
+    }
+
+
+
+    void frageAnzeigen(Question question) {
+        Log.d("frageAnzeigen", "ausgeführt mit Id: " + question.id);
         String  text    = question.question;
         String  guest   = question.guest;
         boolean favorit = question.favorite;
@@ -90,6 +100,8 @@ public class MainActivity extends Activity {
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
     }
+
+
 
 
     private void initViews() {

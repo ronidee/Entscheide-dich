@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.UiThread;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.logging.Handler;
 
 
 /**
@@ -33,33 +36,28 @@ import java.util.Collections;
  */
 
 public class SearchQuestionsActivity extends Activity{
-    QuestionManager qm;
     ListView lv_questions;
     EditText et_search;
+    Question[] questions;
+    SearchQuestionAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_questions);
-
-        qm = new QuestionManager(getApplicationContext());
-        //buffering displays screen height and width
-        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-        float h = displayMetrics.heightPixels;
-        float w = displayMetrics.widthPixels;
-
-        //setting dialogs attributes
-        getWindow().setLayout(Math.round(w), Math.round(h*0.525F));
-        WindowManager.LayoutParams wlp = getWindow().getAttributes();
-        wlp.gravity = Gravity.TOP;
-        getWindow().setAttributes(wlp);
-
-
+        adjustWindowLayout();
 
         lv_questions = (ListView) findViewById(R.id.lv_result);
-        et_search   = (EditText) findViewById(R.id.et_search);
+        et_search    = (EditText) findViewById(R.id.et_search);
+        et_search.requestFocus();
 
-        TextWatcher textWatcher = new TextWatcher() {
+        questions   = new Question[0];
+        adapter     = new SearchQuestionAdapter(this, questions);
+
+        lv_questions.setAdapter(adapter);
+        lv_questions.setOnItemClickListener(clickListener);
+
+        et_search.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {  }
@@ -67,21 +65,41 @@ public class SearchQuestionsActivity extends Activity{
             public void onTextChanged(CharSequence s, int start, int before, int count) {   }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                updateQuestionList(s.toString());
+            public void afterTextChanged(Editable inputText) {
+                SearchQuestionAdapter.questions =
+                        MainActivity.questionManager.searchQuestion(inputText.toString());
+                adapter.notifyDataSetChanged();
             }
-        };
-        et_search.addTextChangedListener(textWatcher);
-
+        });
     }
 
 
-    void updateQuestionList(String keyword) {
-        // #code-pr0n
-        lv_questions.setAdapter(new SearchQuestionAdapter(this, qm.searchQuestion(keyword)));
+    AdapterView.OnItemClickListener clickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            // setId to the id of the question, the user selected
+            MainActivity.questionManager.setId(SearchQuestionAdapter.questions[position].id);
+
+            //close the dialog
+            finish();
+
+            //the question will automatically be loaded by the onResume()
+
+        }
+    };
+
+
+    void adjustWindowLayout() {
+        //buffering displays screen height and width
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        float h = displayMetrics.heightPixels;
+        float w = displayMetrics.widthPixels;
+
+        //setting dialogs attributes
+        getWindow().setLayout(Math.round(w), Math.round(h*0.7F));
+        WindowManager.LayoutParams wlp = getWindow().getAttributes();
+        wlp.gravity = Gravity.TOP;
+        getWindow().setAttributes(wlp);
     }
-
-
-
-
 }

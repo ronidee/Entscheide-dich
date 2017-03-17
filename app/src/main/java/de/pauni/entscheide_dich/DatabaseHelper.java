@@ -218,8 +218,10 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     Cursor searchQuestion(String searchString) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Log.d("dbh>>>", "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_QUES + " LIKE \'" + searchString + "\';");
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " < \'" + searchString + "\';", null);
+        //Log.d("dbh>>>", "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_QUES + " LIKE \'" + searchString + "\';");
+        //Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " < \'" + searchString + "\';", null);
+
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_QUES + " LIKE \'%" + searchString + "%\';", null);
         c.moveToFirst();
 
         Log.d("dbh>>>", String.valueOf(c.getCount()));

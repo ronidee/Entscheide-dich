@@ -69,8 +69,10 @@ class QuestionManager {
 
 
     void setId(int new_id) {
+        Log.d("setId: ", ""+new_id);
         while (cursorToQuestion(dbCursor).id != new_id) {
             moveToNext_save();
+            Log.d("schleife", " ausgeführt");
         }
     }
 
@@ -156,7 +158,7 @@ class QuestionManager {
             foundQuestion.add(i);
             foundCursor.moveToNext();
 
-            Log.d("searchQuestion>>>", i.question);
+            //Log.d("searchQuestion>>>", i.question);
         }
 
         return foundQuestion.toArray(new Question[foundQuestion.size()]);
@@ -166,7 +168,7 @@ class QuestionManager {
     private Question cursorToQuestion(Cursor cursor) {
         // reading the comma seperated lists (potentially single string or empty)
 
-        Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
+        //Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
 
         String keywords_raw = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
         String links_raw    = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_LINKS));

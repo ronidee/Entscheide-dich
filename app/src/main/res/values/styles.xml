@@ -26,12 +26,11 @@
 
     <!-- Question search dialog with no drop-shadow -->
     <style parent="android:style/Theme.Material.Light.Dialog.NoActionBar" name="history_dialog">
-
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTitleStyle">@null</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustNothing</item>
+        <item name="android:windowSoftInputMode">stateVisible</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@color/background</item>
     </style>

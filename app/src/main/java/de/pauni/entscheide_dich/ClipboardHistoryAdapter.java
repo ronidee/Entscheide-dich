@@ -8,33 +8,23 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 
 class SearchQuestionAdapter extends BaseAdapter {
 
     private Context context;
-    private Question[] questions;
+    static Question[] questions;
 
     private static LayoutInflater inflater = null;
 
-    SearchQuestionAdapter (Context context, Question[] questions) {
+    SearchQuestionAdapter (Context context, Question[] q) {
         this.context = context;
-        this.questions = questions;
+        questions = q;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    static void update(Context c) {
-
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
 
     @Override
     public int getCount() {
@@ -49,13 +39,6 @@ class SearchQuestionAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    public void removeItem(int position) {
-        //converting array to list, to remove certain item, and converting it back
-        ArrayList<Question> list = new ArrayList<>(Arrays.asList(questions));
-        list.remove(position);
-        questions = list.toArray(new Question[0]);
     }
 
     @Override
@@ -74,9 +57,4 @@ class SearchQuestionAdapter extends BaseAdapter {
 
         return  vi;
     }
-
-    private void setCardviewColor(CardView c, int color) {
-        c.setBackgroundColor(context.getResources().getColor(color));
-    }
-
 }
