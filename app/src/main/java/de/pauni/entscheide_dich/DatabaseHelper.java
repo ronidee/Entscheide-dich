@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -212,6 +213,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
         return c.getInt(c.getColumnIndex("count"));
 
+    }
+
+
+    Cursor searchQuestion(String searchString) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_QUES + " LIKE " + searchString , null);
+        c.moveToFirst();
+
+        return c;
     }
 
 //BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET

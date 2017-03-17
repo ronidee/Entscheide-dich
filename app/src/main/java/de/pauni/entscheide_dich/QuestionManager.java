@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -59,7 +61,7 @@ class QuestionManager {
 
         do {
             moveToNext_save();
-        } while (!cursorToQuestion().favorite);
+        } while (!cursorToQuestion(dbCursor).favorite);
     }
 
 
@@ -67,14 +69,14 @@ class QuestionManager {
 
 
     void setId(int new_id) {
-        while (cursorToQuestion().id != new_id) {
+        while (cursorToQuestion(dbCursor).id != new_id) {
             moveToNext_save();
         }
     }
 
 
     int getId() {
-        return cursorToQuestion().id;
+        return cursorToQuestion(dbCursor).id;
     }
 
 
@@ -86,6 +88,8 @@ class QuestionManager {
     boolean isRandom() {
         return mode_random;
     }
+
+
 
 
 
@@ -137,14 +141,29 @@ class QuestionManager {
     }
 
 
+    Question[] searchQuestion(String searchString) {
+        Cursor foundCursor = dbh.searchQuestion(searchString);
+        foundCursor.moveToFirst();
 
-    private Question cursorToQuestion() {
+        List<Question> foundQuestion = Collections.emptyList();
+
+        while (!foundCursor.isAfterLast()) {
+            Question i =cursorToQuestion(foundCursor);
+            foundQuestion.add(i);
+            foundCursor.moveToNext();
+        }
+
+        return foundQuestion.toArray();
+    }
+
+
+    private Question cursorToQuestion(Cursor cursor) {
         // reading the comma seperated lists (potentially single string or empty)
 
-        Log.d("foo", String.valueOf(dbCursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
+        Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
 
-        String keywords_raw = dbCursor.getString(dbCursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
-        String links_raw    = dbCursor.getString(dbCursor.getColumnIndex(DatabaseHelper.KEY_LINKS));
+        String keywords_raw = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
+        String links_raw    = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_LINKS));
 
 
         String[] keywords;
@@ -159,11 +178,11 @@ class QuestionManager {
         }
 
         Question question   = new Question();
-        question.id         = dbCursor.getInt(0);
-        question.question   = dbCursor.getString(1);
-        question.guest      = dbCursor.getString(2);
-        question.ytlink     = dbCursor.getString(3);
-        question.favorite   = dbCursor.getInt(4) == 1;
+        question.id         = cursor.getInt(0);
+        question.question   = cursor.getString(1);
+        question.guest      = cursor.getString(2);
+        question.ytlink     = cursor.getString(3);
+        question.favorite   = cursor.getInt(4) == 1;
         question.clickables = new String[][] {keywords, links};
 
         return question;
