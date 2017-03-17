@@ -30,8 +30,8 @@ class QuestionManager {
 
 
     public QuestionManager(Context context) {
-        if (SharedPrefs.isFirstStart())
-            new DatabaseInitializer(context); // creating the database and table
+        //if (SharedPrefs.isFirstStart())
+        new DatabaseInitializer(context); // creating the database and table
         dbh = new DatabaseHelper(context);
         dbCursor = dbh.getCursor();
         dbCursor.moveToFirst();
@@ -108,7 +108,7 @@ class QuestionManager {
     }
 
     void setFavorite(boolean favorite) {
-        dbh.setFavorite(cursorToQuestion(dbCursor).id, favorite);
+        dbh.setFavorite(cursorToQuestion().id, favorite);
     }
 
 
@@ -145,7 +145,6 @@ class QuestionManager {
         Cursor foundCursor = dbh.searchQuestion(searchString);
         foundCursor.moveToFirst();
 
-
         List<Question> foundQuestion = Collections.emptyList();
 
         while (!foundCursor.isAfterLast()) {
@@ -154,7 +153,7 @@ class QuestionManager {
             foundCursor.moveToNext();
         }
 
-        return foundQuestion.toArray(new Question[0]);
+        return foundQuestion.toArray(searchQuestion(searchString));
     }
 
 
