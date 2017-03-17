@@ -146,10 +146,11 @@ class QuestionManager {
         Cursor foundCursor = dbh.searchQuestion(searchString);
         foundCursor.moveToFirst();
 
+
         List<Question> foundQuestion = Collections.emptyList();
 
         while (!foundCursor.isAfterLast()) {
-            Question i =cursorToQuestion(foundCursor);
+            Question i = cursorToQuestion(foundCursor);
             foundQuestion.add(i);
             foundCursor.moveToNext();
 
