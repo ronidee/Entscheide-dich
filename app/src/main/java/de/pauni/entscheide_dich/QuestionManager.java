@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -147,9 +148,10 @@ class QuestionManager {
         foundCursor.moveToFirst();
 
 
-        List<Question> foundQuestion = Collections.emptyList();
+        List<Question> foundQuestion = new ArrayList<>();
 
         while (!foundCursor.isAfterLast()) {
+
             Question i = cursorToQuestion(foundCursor);
             foundQuestion.add(i);
             foundCursor.moveToNext();
