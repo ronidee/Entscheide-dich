@@ -40,7 +40,7 @@ class QuestionManager {
 
 
     Question getQuestion() {
-        return cursorToQuestion();
+        return cursorToQuestion(dbCursor);
     }
 
 
@@ -153,7 +153,7 @@ class QuestionManager {
             foundCursor.moveToNext();
         }
 
-        return foundQuestion.toArray();
+        return foundQuestion.toArray(searchQuestion(searchString));
     }
 
 
