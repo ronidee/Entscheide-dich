@@ -32,7 +32,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTitleStyle">@null</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustNothing</item>
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@color/background</item>
     </style>
 
