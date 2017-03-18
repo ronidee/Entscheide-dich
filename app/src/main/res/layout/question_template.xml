@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_template"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical"
     android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:paddingRight="15dp"
+    android:paddingStart="15dp"
+    android:paddingTop="5dp"
+    app:cardBackgroundColor="@color/background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
 
-        <TextView
-            android:id="@+id/tv_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hier steht eine lange Frage. Hier steht eine lange Frage. Hier steht eine lange Frage. "
-            android:textColor="@color/nmr_background"
-            android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hier steht eine lange Frage. Hier steht eine lange Frage. Hier steht eine lange Frage. "
+        android:textColor="@color/nmr_background"
+        android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_guest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Toller Gast"
-            android:textColor="@color/icon_color"
-            android:textSize="10sp" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/devider1"
-        style="@style/Divider_horizontal"
-        android:layout_marginTop="5dp"
-        android:background="@color/listview_devider"
-        android:visibility="visible" />
+    <TextView
+        android:id="@+id/tv_guest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Toller Gast"
+        android:textColor="@color/icon_color"
+        android:textSize="10sp" />
 
 </LinearLayout>

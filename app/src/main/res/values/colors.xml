@@ -9,6 +9,9 @@
     <color name="background">#e7e7e7</color>
     <color name="listview_devider">#e1e1e1</color>
     <color name="white">#ffffff</color>
+
+    <color name="transparent">#ffffff</color>
+    <color name="hint_color">#ab272829</color>
 </resources>
 
 

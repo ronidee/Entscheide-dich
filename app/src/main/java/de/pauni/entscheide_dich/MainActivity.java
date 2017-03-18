@@ -20,7 +20,10 @@ public class MainActivity extends Activity {
     static QuestionManager questionManager;
     Handler handler;
 
-    boolean favoritesOnly       =   false;
+    private final int MODE_NORMAL   = 1;
+    private final int MODE_FAV_ONLY = 2;
+
+    private int MODE = MODE_NORMAL;
 
     //Declaring the views
     TextView    tv_Fragen       =   null;
@@ -52,6 +55,8 @@ public class MainActivity extends Activity {
 
         initViews();
         regListeners();
+
+        updateFavOnlyButtonState();
         frageAnzeigen(questionManager.getQuestion());
     }
 
@@ -91,7 +96,6 @@ public class MainActivity extends Activity {
         boolean favorit = question.favorite;
 
         tv_Fragen.setText(text);
-        tv_Sendung.setText("Sendung mit "+guest);
         if (favorit) {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
@@ -99,6 +103,10 @@ public class MainActivity extends Activity {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.icon_color));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
+        changeViewColor(tv_Sendung, 400, R.color.icon_color, R.color.white);
+        tv_Sendung.setText("Sendung mit "+guest);
+        changeViewColor(tv_Sendung, 450, R.color.white, R.color.icon_color);
+
     }
 
 
@@ -124,7 +132,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if (!favoritesOnly) {
+                if (MODE == MODE_NORMAL) {
                     questionManager.selectNext();
                 } else {
                     questionManager.selectNextFavorite();
@@ -158,11 +166,14 @@ public class MainActivity extends Activity {
                     return;
                 }
 
-                if (!favoritesOnly) {
-                    favoritesOnly = true;
+                if (MODE == MODE_NORMAL) {
+                    MODE = MODE_FAV_ONLY;
+
                     ib_favOnly.setImageResource(R.drawable.selector_bt_all_questions);
+                    questionManager.selectNextFavorite();
+                    frageAnzeigen(questionManager.getQuestion());
                 } else {
-                    favoritesOnly = false;
+                    MODE = MODE_NORMAL;
                     ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
                 }
             }
@@ -184,11 +195,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                // getCurrentQuestion returns String[] = {"text", "sendung", "1" or "0"}
+                // get fav-state of current question
                 boolean favorite = questionManager.getQuestion().favorite;
 
                 if (!favorite) {
+                    // set current question as favorite
                     questionManager.setFavorite(true);
+                    // animate color change of view and change image
                     changeViewColor(ib_favorisieren, 200, R.color.icon_color, R.color.nmr_background);
                     ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
                 } else {
@@ -196,6 +209,7 @@ public class MainActivity extends Activity {
                     changeViewColor(ib_favorisieren, 200, R.color.nmr_background, R.color.icon_color);
                     ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
                 }
+                updateFavOnlyButtonState();
             }
         });
 
@@ -226,6 +240,21 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void updateFavOnlyButtonState() {
+        // after the last favorite got "de-favorised" change
+
+        if (questionManager.countFavoredQuestions() == 0) {
+            ib_favOnly.setImageResource(R.drawable.bt_favorites_only_disabled);
+            ib_favOnly.setEnabled(false);
+            MODE = MODE_NORMAL;
+        } else {
+
+            ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
+            ib_favOnly.setEnabled(true);
+        }
+    }
+
+
     private void changeViewColor(final ImageButton ib, int duration, int startColor, int endColor) {
         // Load initial and final colors.
         final int initialColor  =   getResources().getColor(startColor);
@@ -241,6 +270,26 @@ public class MainActivity extends Activity {
 
                 // Apply blended color to the view.
                 ib.setColorFilter(blended);
+            }
+        });
+
+        anim.setDuration(duration).start();
+    }
+    private void changeViewColor(final TextView tv, int duration, int startColor, int endColor) {
+        // Load initial and final colors.
+        final int initialColor  =   getResources().getColor(startColor);
+        final int finalColor    =   getResources().getColor(endColor);
+
+        ValueAnimator anim = ValueAnimator.ofFloat(0, 1);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // Use animation position to blend colors.
+                float position = animation.getAnimatedFraction();
+                int blended = blendColors(initialColor, finalColor, position);
+
+                // Apply blended color to the view.
+                tv.setTextColor(blended);
             }
         });
 

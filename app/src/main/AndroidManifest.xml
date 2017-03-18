@@ -16,7 +16,7 @@
 
         </activity>
         <activity android:name=".SearchQuestionsActivity"
-            android:theme="@style/history_dialog"
+            android:theme="@style/search_dialog"
             android:excludeFromRecents="true">
         </activity>
     </application>

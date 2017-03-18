@@ -34,6 +34,7 @@
                 android:id="@+id/textview_Fragen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
@@ -57,7 +58,6 @@
                 android:id="@+id/textview_sendung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
                 android:text="Sendung mit Tolle Person"
                 android:textAlignment="center"
                 android:textColor="@color/icon_color"
@@ -80,11 +80,13 @@
             android:layout_below="@+id/ll_gast"
             android:gravity="center"
             android:orientation="horizontal">
+
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imagebutton_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
                 android:src="@drawable/ic_share_white_24dp"
                 android:tint="@color/icon_color" />
 

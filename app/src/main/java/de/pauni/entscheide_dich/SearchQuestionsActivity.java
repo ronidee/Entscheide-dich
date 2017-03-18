@@ -60,15 +60,24 @@ public class SearchQuestionsActivity extends Activity{
         et_search.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {  }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {   }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
 
             @Override
-            public void afterTextChanged(Editable inputText) {
-                SearchQuestionAdapter.questions =
-                        MainActivity.questionManager.searchQuestion(inputText.toString());
-                adapter.notifyDataSetChanged();
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // only search words with at least 3 characters
+                if (s.length()>=3) {
+                    SearchQuestionAdapter.questions =
+                            MainActivity.questionManager.searchQuestion(s.toString());
+                    adapter.notifyDataSetChanged();
+                }
+
             }
         });
     }

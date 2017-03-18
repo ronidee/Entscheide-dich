@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -51,6 +52,11 @@ class SearchQuestionAdapter extends BaseAdapter {
         TextView tv_question    = (TextView) vi.findViewById(R.id.tv_question);
         TextView tv_guest       = (TextView) vi.findViewById(R.id.tv_guest);
 
+        tv_question.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        tv_guest.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+
+        (vi.findViewById(R.id.ll_template)).setBackgroundColor(
+                context.getResources().getColor(R.color.white));
 
         tv_question.setText (questions[position].question);
         tv_guest.setText    (questions[position].guest);

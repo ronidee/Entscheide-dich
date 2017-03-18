@@ -178,7 +178,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
 
         Question quest = getQuestion(id);
-        Log.d("dbh", "favorite: " + quest.favorite);
+        Log.d("dbh", "favorite set: " + quest.favorite);
     }
 
 

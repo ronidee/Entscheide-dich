@@ -29,6 +29,7 @@ class QuestionManager {
     private Cursor dbCursor;
 
 
+    // constructor
     public QuestionManager(Context context) {
         if (SharedPrefs.isFirstStart())
             new DatabaseInitializer(context); // creating the database and table
@@ -39,13 +40,31 @@ class QuestionManager {
     }
 
 
+    /**
+     *   Getter methods
+     */
+
+    // returns the current question
     Question getQuestion() {
-        return cursorToQuestion(dbCursor);
+        return getSelectedQuestion(dbCursor);
+    }
+
+    // returns ID of the current question
+    int getId() {
+        return getSelectedQuestion(dbCursor).id;
+    }
+
+    // returns the bool whether random is activated
+    boolean isRandom() {
+        return mode_random;
     }
 
 
-    // Cursor movements:
+    /**
+    /* Cursor movements:
+    */
 
+    // moves the cursor to the next question (by ID)
     void selectNext() {
         if (mode_random)
             randomize();
@@ -53,45 +72,33 @@ class QuestionManager {
         moveToNext_save();
     }
 
-
-
+    // moves the cursor to the next favorite (by ID) (could loop 4 ever)
     void selectNextFavorite() {
         if (mode_random)
             randomize();
 
         do {
             moveToNext_save();
-        } while (!cursorToQuestion(dbCursor).favorite);
+        } while (!getSelectedQuestion(dbCursor).favorite);
     }
 
-
-
-
-
+    // moves the cursor to a specific ID
     void setId(int new_id) {
         Log.d("setId: ", ""+new_id);
-        while (cursorToQuestion(dbCursor).id != new_id) {
+        while (getSelectedQuestion(dbCursor).id != new_id) {
             moveToNext_save();
             Log.d("schleife", " ausgeführt");
         }
     }
 
 
-    int getId() {
-        return cursorToQuestion(dbCursor).id;
-    }
+
 
 
 
     void setRandom(boolean random) {
         mode_random = random;
     }
-
-    boolean isRandom() {
-        return mode_random;
-    }
-
-
 
 
 
@@ -110,9 +117,22 @@ class QuestionManager {
     }
 
     void setFavorite(boolean favorite) {
-        dbh.setFavorite(cursorToQuestion(dbCursor).id, favorite);
+        dbh.setFavorite(getSelectedQuestion(dbCursor).id, favorite);
+        refreshCursor();
     }
 
+    // loads a cursor with the current database
+    private void refreshCursor() {
+        // saving current id, as getId refers to dbCursor and dbCursor is going to be refreshed
+        int i = getId();
+
+        // load the new cursor
+        dbCursor = dbh.getCursor();
+
+        // move cursor to first, then to the current id
+        dbCursor.moveToFirst();
+        setId(i);
+    }
 
     int countAllQuestions() {
         return dbh.countAllQuestions();
@@ -154,7 +174,7 @@ class QuestionManager {
 
         while (!foundCursor.isAfterLast()) {
 
-            Question i = cursorToQuestion(foundCursor);
+            Question i = getSelectedQuestion(foundCursor);
             foundQuestion.add(i);
             foundCursor.moveToNext();
 
@@ -165,7 +185,7 @@ class QuestionManager {
     }
 
 
-    private Question cursorToQuestion(Cursor cursor) {
+    private Question getSelectedQuestion(Cursor cursor) {
         // reading the comma seperated lists (potentially single string or empty)
 
         //Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));

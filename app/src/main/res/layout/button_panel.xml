@@ -44,7 +44,7 @@
         android:layout_toEndOf="@+id/imagebutton_naechste"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/selector_bt_favorites_only" />
+        android:src="@drawable/bt_favorites_only_disabled" />
 
     <ImageButton
         android:id="@+id/imagebutton_search"
