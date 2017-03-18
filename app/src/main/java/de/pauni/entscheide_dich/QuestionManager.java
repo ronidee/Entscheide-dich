@@ -105,12 +105,9 @@ class QuestionManager {
 
         // move cursor random times to next position
         for (int i = 0; i < rand; i++) {
-            // dbCursor.moveToNext();
-
-            if (dbCursor.moveToNext() && dbCursor.isAfterLast()) {
-                dbCursor.moveToFirst();
-            }
+            moveToNext_save();
         }
+        Log.d("qstmng>>>", String.valueOf(getSelectedQuestion(dbCursor).id));
     }
 
     void setFavorite(boolean favorite) {
