@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
     void frageAnzeigen(Question question, boolean animated) {
 
         String  text    = question.question;
-        String  guest   = question.guest;
+        String  guest   = "Sendung mit " + question.guest;
         boolean favorit = question.favorite;
 
         if (favorit) {
