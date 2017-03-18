@@ -6,7 +6,7 @@ package de.pauni.entscheide_dich;
  */
 
 class Question {
-    int id           = 0;
+    int    id        = 0;
     String question  = "fobar";
     String guest     = "fobar";
     String ytlink    = "fobar";

@@ -29,22 +29,38 @@
                 android:layout_weight="0.25"
                 android:background="@color/background"
                 android:visibility="visible" />
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
 
+                android:layout_weight="0.25">
             <TextView
-                android:id="@+id/textview_Fragen"
+                android:id="@+id/textview_question_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.25"
                 android:maxHeight="100dp"
                 android:text="Beispieltext für eine Frage von Entscheide Dich! Dieser Text kann sehr sehr lang sein. Deshalb sollte Layouting ernst genommen werden"
                 android:textAlignment="center"
                 android:textColor="@color/nmr_background"
                 android:textSize="16sp" />
-
+            <TextView
+                android:id="@+id/textview_question_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:maxHeight="100dp"
+                android:text="Beispieltext für eine Frage von Entscheide Dich! Dieser Text kann sehr sehr lang sein. Deshalb sollte Layouting ernst genommen werden"
+                android:textAlignment="center"
+                android:textColor="@color/nmr_background"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

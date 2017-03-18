@@ -7,20 +7,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Created by Roni on 13.03.2017.
+ * This class is executed once, at the first start to generate a database from the json file
  */
 
-public class DatabaseInitializer {
-Context context;
-DatabaseHelper dbh;
+class DatabaseInitializer {
+    private Context context;
+    private DatabaseHelper dbh;
 
-    public DatabaseInitializer(Context c) {
+    DatabaseInitializer(Context c) {
         Log.d("DBI", "DB WURDE ERFOLREICH GROSSDEUTSCH INITIALISIERT FREUNDE!!");
         context = c;
         dbh = new DatabaseHelper(c);
@@ -84,25 +83,24 @@ DatabaseHelper dbh;
                 Log.d("DatabaseInitializer", questionobj.getString("guest"));
                 Log.d("DatabaseInitializer", questionobj.getString("ytlink"));
 
-                Question quest = new Question();
+                // load links and keywords from one question and put them into one "clickables"
+                JSONArray clickablesobj = questionobj.getJSONArray("clickable");
+                String[][] clickables = new String [clickablesobj.length()][1];
 
-                quest.question = questionobj.getString("question");
-                quest.guest    = questionobj.getString("guest");
-                quest.ytlink   = questionobj.getString("ytlink");
-
-
-                JSONArray keywordsobj = questionobj.getJSONArray("clickable");
-
-
-                String[][] keywords = new String [keywordsobj.length()][1];
-
-                for (int l = 0; l < keywordsobj.length(); l++) {
-                    JSONObject keyword = keywordsobj.getJSONObject(l);
-                    keywords[l] = new String[]{ keyword.getString("keyword"), keyword.getString("link")};
+                for (int l = 0; l < clickablesobj.length(); l++) {
+                    JSONObject keyword = clickablesobj.getJSONObject(l);
+                    clickables[l] = new String[]{ keyword.getString("keyword"), keyword.getString("link")};
                 }
 
-                dbh.addQuestion(quest);
 
+                Question question = new Question();
+
+                question.question = questionobj.getString("question");
+                question.guest    = questionobj.getString("guest");
+                question.ytlink   = questionobj.getString("ytlink");
+                question.clickables = clickables;
+
+                dbh.addQuestion(question);
             }
         } catch (Exception e) {
             e.printStackTrace();

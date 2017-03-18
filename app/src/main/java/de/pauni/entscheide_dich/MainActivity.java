@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -17,17 +17,20 @@ import android.widget.TextView;
 *
 */
 public class MainActivity extends Activity {
+    float displayWidth;
+
+    Handler handler = new Handler();
     static QuestionManager questionManager;
-    Handler handler;
 
     private final int MODE_NORMAL   = 1;
     private final int MODE_FAV_ONLY = 2;
-
+    private boolean   animationOn   = true;
     private int MODE = MODE_NORMAL;
 
     //Declaring the views
-    TextView    tv_Fragen       =   null;
-    TextView    tv_Sendung      =   null;
+    TextView    tv_questionIn   =   null;
+    TextView    tv_questionOut  =   null;
+    TextView    tv_guest      =   null;
     ImageButton ib_naechste     =   null;
     ImageButton ib_favOnly      =   null;
     ImageButton ib_share        =   null;
@@ -39,25 +42,24 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MainActivity", "created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //passing a context to ShardedPrafs for static access
         new SharedPrefs(this);
 
 
 
-
-        handler         =   new Handler();
-        questionManager =   new QuestionManager(this);
-
         //loading the current question-ID
+        questionManager = new QuestionManager(this);
         questionManager.setId(SharedPrefs.getCurrentQuestionId());
 
         initViews();
         regListeners();
 
         updateFavOnlyButtonState();
-        frageAnzeigen(questionManager.getQuestion());
+        frageAnzeigen(questionManager.getQuestion(), false);
     }
 
     //Saving the current Id in 'any' possible cases.
@@ -70,32 +72,33 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onStop() {
+        Log.d("MainActivity", "stopped");
         super.onStop();
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
 
     @Override
     protected void onDestroy() {
+        Log.d("MainActivity", "destroyed");
         super.onDestroy();
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
 
     @Override
     protected void onResume() {
-        frageAnzeigen(questionManager.getQuestion());
+        frageAnzeigen(questionManager.getQuestion(), false);
         Log.d("MainActivity", "resumed");
         super.onResume();
     }
 
 
 
-    void frageAnzeigen(Question question) {
-        Log.d("frageAnzeigen", "ausgeführt mit Id: " + question.id);
+    void frageAnzeigen(Question question, boolean animated) {
+
         String  text    = question.question;
         String  guest   = question.guest;
         boolean favorit = question.favorite;
 
-        tv_Fragen.setText(text);
         if (favorit) {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
@@ -103,19 +106,24 @@ public class MainActivity extends Activity {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.icon_color));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
-        changeViewColor(tv_Sendung, 400, R.color.icon_color, R.color.white);
-        tv_Sendung.setText("Sendung mit "+guest);
-        changeViewColor(tv_Sendung, 450, R.color.white, R.color.icon_color);
 
+        if (animated) {
+            slideQuestionOut();
+            changeViewColor(tv_guest, 400, R.color.icon_color, R.color.white);
+            changeViewColor(tv_guest, 500, R.color.white, R.color.icon_color);
+            slideQuestionIn(text);
+        } else {
+            tv_questionIn.setText(text);
+            tv_guest.setText(guest);
+        }
     }
 
 
 
-
     private void initViews() {
-        tv_Fragen       =   (TextView)    findViewById(R.id.textview_Fragen);
-        tv_Sendung      =   (TextView)    findViewById(R.id.textview_sendung);
-
+        tv_questionIn   =   (TextView)    findViewById(R.id.textview_question_in);
+        tv_questionOut  =   (TextView)    findViewById(R.id.textview_question_out);
+        tv_guest      =   (TextView)    findViewById(R.id.textview_sendung);
         ib_naechste     =   (ImageButton) findViewById(R.id.imagebutton_naechste);
         ib_favOnly      =   (ImageButton) findViewById(R.id.imagebutton_nur_favoriten);
         ib_share        =   (ImageButton) findViewById(R.id.imagebutton_share);
@@ -124,7 +132,11 @@ public class MainActivity extends Activity {
         ib_youtube      =   (ImageButton) findViewById(R.id.imagebutton_youtube);
         ib_search       =   (ImageButton) findViewById(R.id.imagebutton_search);
 
-        tv_Fragen.setMovementMethod(new ScrollingMovementMethod());
+
+        // do little important stuff too here... :S
+        displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
+
+        tv_questionIn.setMovementMethod(new ScrollingMovementMethod());
 
     }
     private void regListeners() {
@@ -138,7 +150,7 @@ public class MainActivity extends Activity {
                     questionManager.selectNextFavorite();
                 }
 
-                frageAnzeigen(questionManager.getQuestion());
+                frageAnzeigen(questionManager.getQuestion(), animationOn);
             }
         });
 
@@ -171,7 +183,7 @@ public class MainActivity extends Activity {
 
                     ib_favOnly.setImageResource(R.drawable.selector_bt_all_questions);
                     questionManager.selectNextFavorite();
-                    frageAnzeigen(questionManager.getQuestion());
+                    frageAnzeigen(questionManager.getQuestion(), animationOn);
                 } else {
                     MODE = MODE_NORMAL;
                     ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
@@ -183,7 +195,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                String frage = tv_Fragen.getText().toString() + "\n\nEntscheide Dich! ist echt eine super App!";
+                String frage = tv_questionIn.getText().toString() + "\n\nEntscheide Dich! ist echt eine super App!";
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, frage);
@@ -254,6 +266,25 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * ANIMATIONS
+     */
+
+    private void slideQuestionOut() {
+        // preparing textview for animation
+        tv_questionOut.setX(tv_questionIn.getX());
+        tv_questionOut.setText(tv_questionIn.getText());
+        tv_questionOut.setVisibility(View.VISIBLE);
+
+        tv_questionOut.animate().translationX(-displayWidth);
+    }
+
+    private void slideQuestionIn(String question) {
+        // preparing textview for animation
+        tv_questionIn.setX(displayWidth);
+        tv_questionIn.setText(question);
+        tv_questionIn.animate().translationX(0);
+    }
 
     private void changeViewColor(final ImageButton ib, int duration, int startColor, int endColor) {
         // Load initial and final colors.
