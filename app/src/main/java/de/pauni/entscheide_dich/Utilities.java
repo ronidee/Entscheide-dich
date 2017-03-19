@@ -24,8 +24,8 @@ public class Utilities {
         final String[] keywords = clickables[0];
         final String[] links    = clickables[1];
 
-        for (int i = 0; i < clickables.length; i++) {
-            int indexStart = text.indexOf(keywords[i]);
+        for (int i = 0; i < clickables[0].length; i++) {
+            int indexStart = text.lastIndexOf(keywords[i]);
             int indexEnd = indexStart + keywords[i].length();
 
             final String link = links [i];
