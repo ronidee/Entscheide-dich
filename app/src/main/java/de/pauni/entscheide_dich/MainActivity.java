@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +17,7 @@ import android.widget.TextView;
 */
 public class MainActivity extends Activity {
     float displayWidth;
-
-    Handler handler = new Handler();
+    boolean sessionStart = true;
     static QuestionManager questionManager;
 
     private final int MODE_NORMAL   = 1;
@@ -46,12 +44,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //passing a context to ShardedPrafs for static access
-        new SharedPrefs(this);
-
-
-
-        //loading the current question-ID
+        // activating and loading utilities
+        new SharedPrefs(this); // only passing context, for static access
         questionManager = new QuestionManager(this);
         questionManager.setId(SharedPrefs.getCurrentQuestionId());
 
@@ -59,7 +53,7 @@ public class MainActivity extends Activity {
         regListeners();
 
         updateFavOnlyButtonState();
-        frageAnzeigen(questionManager.getQuestion(), false);
+        displayQuestion(questionManager.getQuestion(), false);
     }
 
     //Saving the current Id in 'any' possible cases.
@@ -69,36 +63,44 @@ public class MainActivity extends Activity {
         Log.d("MainActivity", "paused");
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
-
     @Override
     protected void onStop() {
         Log.d("MainActivity", "stopped");
         super.onStop();
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
-
     @Override
     protected void onDestroy() {
         Log.d("MainActivity", "destroyed");
         super.onDestroy();
         SharedPrefs.saveQuestionId(questionManager.getId());
     }
-
     @Override
     protected void onResume() {
-        frageAnzeigen(questionManager.getQuestion(), false);
+        displayQuestion(questionManager.getQuestion(), false);
         Log.d("MainActivity", "resumed");
         super.onResume();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (sessionStart) {
+            sessionStart = false;
+            return;
+        }
+        fixTextviewLayoutSize();
+    }
 
+    // show's the passed question. Possible to animate the transition
+    private void displayQuestion (Question question, boolean animated) {
 
-    void frageAnzeigen(Question question, boolean animated) {
-
+        // obtaining the questions-object's details
         String  text    = question.question;
         String  guest   = "Sendung mit " + question.guest;
         boolean favorit = question.favorite;
 
+        // showing, whether this question is a favorite or not
         if (favorit) {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
@@ -107,19 +109,41 @@ public class MainActivity extends Activity {
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
 
+        // animate the transition between the questions, if wanted
         if (animated) {
             slideQuestionOut();
-            changeViewColor(tv_guest, 400, R.color.icon_color, R.color.white);
-            changeViewColor(tv_guest, 500, R.color.white, R.color.icon_color);
             slideQuestionIn(text);
+
+            changeViewColor(tv_guest, 400, R.color.icon_color, R.color.white);
+            tv_guest.setText(guest);
+            changeViewColor(tv_guest, 500, R.color.white, R.color.icon_color);
         } else {
             tv_questionIn.setText(text);
             tv_guest.setText(guest);
         }
     }
 
+    // generates a sliding-out animation for the old question
+    private void slideQuestionOut() {
+        // preparing textview for animation
+        tv_questionOut.setX(tv_questionIn.getX());
+        tv_questionOut.setText(tv_questionIn.getText());
+        tv_questionOut.setVisibility(View.VISIBLE);
+        // slide textview out of the window
+        tv_questionOut.animate().translationX(-displayWidth);
+    }
+
+    // generates a sliding-in animation for the new question
+    private void slideQuestionIn(String question) {
+        // preparing textview for animation
+        tv_questionIn.setX(displayWidth);
+        tv_questionIn.setText(question);
+        // slide textview to it's original position (0=origin)
+        tv_questionIn.animate().translationX(0);
+    }
 
 
+    // initializes all views
     private void initViews() {
         tv_questionIn   =   (TextView)    findViewById(R.id.textview_question_in);
         tv_questionOut  =   (TextView)    findViewById(R.id.textview_question_out);
@@ -132,14 +156,15 @@ public class MainActivity extends Activity {
         ib_youtube      =   (ImageButton) findViewById(R.id.imagebutton_youtube);
         ib_search       =   (ImageButton) findViewById(R.id.imagebutton_search);
 
-
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
-
         tv_questionIn.setMovementMethod(new ScrollingMovementMethod());
 
     }
+    // register all OnClickListeners
     private void regListeners() {
+
+        // show next question
         ib_naechste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,18 +175,9 @@ public class MainActivity extends Activity {
                     questionManager.selectNextFavorite();
                 }
 
-                frageAnzeigen(questionManager.getQuestion(), animationOn);
+                displayQuestion(questionManager.getQuestion(), animationOn);
             }
         });
-
-        /*ib_vorige.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionManager.selectPrevious();
-                frageAnzeigen(questionManager.getQuestion());
-
-            }
-        }); */
 
         ib_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,19 +187,21 @@ public class MainActivity extends Activity {
             }
         });
 
+        // toggle favorites-only mode
         ib_favOnly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (questionManager.countFavoredQuestions() == 0) {
                     return;
                 }
 
                 if (MODE == MODE_NORMAL) {
-                    MODE = MODE_FAV_ONLY;
+                    MODE =  MODE_FAV_ONLY;
 
                     ib_favOnly.setImageResource(R.drawable.selector_bt_all_questions);
                     questionManager.selectNextFavorite();
-                    frageAnzeigen(questionManager.getQuestion(), animationOn);
+                    displayQuestion(questionManager.getQuestion(), animationOn);
                 } else {
                     MODE = MODE_NORMAL;
                     ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
@@ -191,18 +209,20 @@ public class MainActivity extends Activity {
             }
         });
 
+        // share current question
         ib_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String frage = tv_questionIn.getText().toString() + "\n\nEntscheide Dich! ist echt eine super App!";
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, frage);
-                startActivity(Intent.createChooser(i, "Teile die Frage mit Feinden:"));
+                String question = tv_questionIn.getText().toString() + "\n\nEntscheide Dich! ist echt eine super App!";
+                Intent intent   = new Intent(Intent.ACTION_SEND);
+                intent.setType  ("text/plain");
+                intent.putExtra (Intent.EXTRA_TEXT, question);
+                startActivity   (Intent.createChooser(intent, "Teile die Frage mit Feinden:"));
             }
         });
 
+        // mark current question as favorite
         ib_favorisieren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,6 +245,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // toggle random mode
         ib_zufaellig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,6 +260,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // open youtube video of current question
         ib_youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,6 +274,7 @@ public class MainActivity extends Activity {
         });
     }
 
+    // enables or disables the favoritesOnly button
     private void updateFavOnlyButtonState() {
         // after the last favorite got "de-favorised" change
 
@@ -266,26 +289,18 @@ public class MainActivity extends Activity {
         }
     }
 
-    /**
-     * ANIMATIONS
-     */
+    // stop cardview from changing sizes by setting the layout of the textview
+    // to a fix size. (Textview is scrollable)
+    private void fixTextviewLayoutSize() {
+        tv_questionOut.setText("A\n\n\n\n\nB");
 
-    private void slideQuestionOut() {
-        // preparing textview for animation
-        tv_questionOut.setX(tv_questionIn.getX());
-        tv_questionOut.setText(tv_questionIn.getText());
-        tv_questionOut.setVisibility(View.VISIBLE);
-
-        tv_questionOut.animate().translationX(-displayWidth);
+        (findViewById(R.id.rl_question_container))
+                .getLayoutParams().height = tv_questionOut.getHeight();
+        (findViewById(R.id.rl_question_container)).requestLayout();
     }
 
-    private void slideQuestionIn(String question) {
-        // preparing textview for animation
-        tv_questionIn.setX(displayWidth);
-        tv_questionIn.setText(question);
-        tv_questionIn.animate().translationX(0);
-    }
-
+    // animates color-change of a view. Thanks to Felipe Bari for this method.
+    // http://stackoverflow.com/questions/18216285/android-animate-color-change-from-color-to-color
     private void changeViewColor(final ImageButton ib, int duration, int startColor, int endColor) {
         // Load initial and final colors.
         final int initialColor  =   getResources().getColor(startColor);
@@ -303,7 +318,6 @@ public class MainActivity extends Activity {
                 ib.setColorFilter(blended);
             }
         });
-
         anim.setDuration(duration).start();
     }
     private void changeViewColor(final TextView tv, int duration, int startColor, int endColor) {
@@ -323,10 +337,9 @@ public class MainActivity extends Activity {
                 tv.setTextColor(blended);
             }
         });
-
         anim.setDuration(duration).start();
     }
-    private int blendColors(int from, int to, float ratio) {
+    private int  blendColors(int from, int to, float ratio) {
         final float inverseRatio = 1f - ratio;
 
         final float r = Color.red(to) * ratio + Color.red(from) * inverseRatio;
@@ -335,6 +348,4 @@ public class MainActivity extends Activity {
 
         return Color.rgb((int) r, (int) g, (int) b);
     }
-
-
 }
