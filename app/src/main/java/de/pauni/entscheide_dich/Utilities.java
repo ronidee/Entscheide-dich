@@ -15,16 +15,22 @@ import android.view.View;
  */
 
 public class Utilities {
+    static String info = "";
 
     static SpannableString getClickableText(final Context c, String text, String[][] clickables) {
-        Log.d("Utilities", "getClickableText");
 
         SpannableString ss = new SpannableString(text);
 
+        //
+        if (clickables[0][0].equals("")) {
+            Log.d("clickable", "empty");
+            return ss;
+        }
         final String[] keywords = clickables[0];
         final String[] links    = clickables[1];
 
         for (int i = 0; i < clickables[0].length; i++) {
+            info = "";
             int indexStart = text.lastIndexOf(keywords[i]);
             int indexEnd = indexStart + keywords[i].length();
 
@@ -44,8 +50,19 @@ public class Utilities {
                 }
             };
             ss.setSpan(clickableSpan, indexStart, indexEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            addInfo(""+indexStart);
+            addInfo(""+indexEnd);
+            addInfo(keywords[i]);
+            addInfo(link);
+            Log.d("Utilities", info);
+
         }
         return ss;
+    }
+
+    static String addInfo(String string) {
+        return info += " " + string;
     }
 }
 
