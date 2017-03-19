@@ -7,6 +7,14 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -88,22 +96,19 @@ public class MainActivity extends Activity {
         }
         sessionStart = false;
         fixTextviewLayoutSize();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("OnWindow..", "ausgeführt");
-                displayQuestion(questionManager.getQuestion(), false);
-            }
-        }, 1000);
-
+        displayQuestion(questionManager.getQuestion(), false);
     }
 
     // show's the passed question. Possible to animate the transition
     private void displayQuestion (Question question, boolean animated) {
 
         // obtaining the questions-object's details
-        String  text    = question.question;
+        SpannableString text = Utilities.getClickableText(this, question.question, question.clickables);
+        // we actually don't need do this every time...
+        tv_questionIn.setMovementMethod(LinkMovementMethod.getInstance());
+        tv_questionIn.setHighlightColor(getResources().getColor(R.color.link_highlight_color));
+
+
         String  guest   = "Sendung mit " + question.guest;
         boolean favorit = question.favorite;
 
@@ -141,7 +146,7 @@ public class MainActivity extends Activity {
     }
 
     // generates a sliding-in animation for the new question
-    private void slideQuestionIn(String question) {
+    private void slideQuestionIn(SpannableString question) {
         // preparing textview for animation
         tv_questionIn.setX(displayWidth);
         tv_questionIn.setText(question);
@@ -303,7 +308,7 @@ public class MainActivity extends Activity {
 
         (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
         tv_questionIn.requestLayout();
-        //tv_questionIn.setText("TSET\nTSET\nTSET\nTSET\nTSET");
+        tv_questionIn.setText("TSET\nTSET\nTSET\nTSET\nTSET");
 
     }
 

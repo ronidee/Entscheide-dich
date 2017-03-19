@@ -12,6 +12,8 @@
 
     <color name="transparent">#ffffff</color>
     <color name="hint_color">#ab272829</color>
+    <color name="link_color">#3ac4dc</color>
+    <color name="link_highlight_color">#3b8bf7ff</color>
 </resources>
 
 
