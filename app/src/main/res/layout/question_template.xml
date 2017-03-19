@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/search_dialog"
     android:id="@+id/ll_template"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,6 +11,7 @@
     android:paddingRight="15dp"
     android:paddingStart="15dp"
     android:paddingTop="5dp"
+    android:theme="@style/search_dialog"
     app:cardBackgroundColor="@android:color/transparent">
 
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hier steht eine lange Frage. Hier steht eine lange Frage. Hier steht eine lange Frage. "
-        android:textColor="@color/nmr_background"
+        android:textColor="@color/hint_color"
         android:textSize="14sp" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Toller Gast"
-        android:textColor="@color/icon_color"
+        android:textColor="@color/hint_color"
         android:textSize="10sp" />
 
 </LinearLayout>

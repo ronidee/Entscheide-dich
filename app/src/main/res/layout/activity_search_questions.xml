@@ -3,14 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
+    android:clipToPadding="false"
     android:theme="@style/search_dialog">
 
     <LinearLayout
         android:id="@+id/ll_searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:outlineProvider="bounds">
 
         <ImageView
             android:id="@+id/iv_searchIcon"
@@ -19,7 +23,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
-            android:padding="15dp"
+            android:padding="18dp"
             android:src="@drawable/ic_search_white_24dp"
             android:tint="@color/background" />
 

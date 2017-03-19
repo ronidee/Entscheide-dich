@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,9 +17,8 @@ import android.widget.TextView;
 */
 public class MainActivity extends Activity {
     float displayWidth;
-    boolean sessionStart = true;
     static QuestionManager questionManager;
-
+    boolean sessionStart = true;
     private final int MODE_NORMAL   = 1;
     private final int MODE_FAV_ONLY = 2;
     private boolean   animationOn   = true;
@@ -53,7 +52,6 @@ public class MainActivity extends Activity {
         regListeners();
 
         updateFavOnlyButtonState();
-        displayQuestion(questionManager.getQuestion(), false);
     }
 
     //Saving the current Id in 'any' possible cases.
@@ -77,7 +75,7 @@ public class MainActivity extends Activity {
     }
     @Override
     protected void onResume() {
-        displayQuestion(questionManager.getQuestion(), false);
+        //displayQuestion(questionManager.getQuestion(), false);
         Log.d("MainActivity", "resumed");
         super.onResume();
     }
@@ -85,11 +83,20 @@ public class MainActivity extends Activity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (sessionStart) {
-            sessionStart = false;
+        if (!sessionStart) {
             return;
         }
+        sessionStart = false;
         fixTextviewLayoutSize();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("OnWindow..", "ausgeführt");
+                displayQuestion(questionManager.getQuestion(), false);
+            }
+        }, 1000);
+
     }
 
     // show's the passed question. Possible to animate the transition
@@ -147,7 +154,7 @@ public class MainActivity extends Activity {
     private void initViews() {
         tv_questionIn   =   (TextView)    findViewById(R.id.textview_question_in);
         tv_questionOut  =   (TextView)    findViewById(R.id.textview_question_out);
-        tv_guest      =   (TextView)    findViewById(R.id.textview_sendung);
+        tv_guest        =   (TextView)    findViewById(R.id.textview_sendung);
         ib_naechste     =   (ImageButton) findViewById(R.id.imagebutton_naechste);
         ib_favOnly      =   (ImageButton) findViewById(R.id.imagebutton_nur_favoriten);
         ib_share        =   (ImageButton) findViewById(R.id.imagebutton_share);
@@ -158,7 +165,6 @@ public class MainActivity extends Activity {
 
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
-        tv_questionIn.setMovementMethod(new ScrollingMovementMethod());
 
     }
     // register all OnClickListeners
@@ -292,11 +298,13 @@ public class MainActivity extends Activity {
     // stop cardview from changing sizes by setting the layout of the textview
     // to a fix size. (Textview is scrollable)
     private void fixTextviewLayoutSize() {
-        tv_questionOut.setText("A\n\n\n\n\nB");
+        tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
+        int h = tv_questionIn.getHeight();
 
-        (findViewById(R.id.rl_question_container))
-                .getLayoutParams().height = tv_questionOut.getHeight();
-        (findViewById(R.id.rl_question_container)).requestLayout();
+        (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
+        tv_questionIn.requestLayout();
+        //tv_questionIn.setText("TSET\nTSET\nTSET\nTSET\nTSET");
+
     }
 
     // animates color-change of a view. Thanks to Felipe Bari for this method.
