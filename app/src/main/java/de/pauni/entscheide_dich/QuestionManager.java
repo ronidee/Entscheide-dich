@@ -21,16 +21,17 @@ import java.util.Random;
  */
 
 class QuestionManager {
-    private DatabaseHelper dbh;
-    boolean mode_random;
-    private Cursor dbCursor;
+    static private DatabaseHelper dbh;
+    static private boolean mode_random;
+    static private Cursor dbCursor;
 
 
     // constructor
-    public QuestionManager(Context context) {
+    QuestionManager(Context context) {
         if (SharedPrefs.isFirstStart())
             new DatabaseInitializer(context); // creating the database and table
-        dbh = new DatabaseHelper(context);
+
+        dbh      = new DatabaseHelper(context);
         dbCursor = dbh.getCursor();
         dbCursor.moveToFirst();
         mode_random = false;
@@ -42,17 +43,17 @@ class QuestionManager {
      */
 
     // returns the current question
-    Question getQuestion() {
+    static Question getQuestion() {
         return getSelectedQuestion(dbCursor);
     }
 
     // returns ID of the current question
-    int getId() {
+    static int getId() {
         return getSelectedQuestion(dbCursor).id;
     }
 
     // returns the bool whether random is activated
-    boolean isRandom() {
+    static boolean isRandom() {
         return mode_random;
     }
 
@@ -62,7 +63,7 @@ class QuestionManager {
     */
 
     // moves the cursor to the next question (by ID)
-    void selectNext() {
+    static void selectNext() {
         if (mode_random)
             randomize();
 
@@ -70,7 +71,7 @@ class QuestionManager {
     }
 
     // moves the cursor to the next favorite (by ID) (could loop 4 ever)
-    void selectNextFavorite() {
+    static void selectNextFavorite() {
         if (mode_random)
             randomize();
 
@@ -80,7 +81,7 @@ class QuestionManager {
     }
 
     // moves the cursor to a specific ID
-    void setId(int new_id) {
+    static void setId(int new_id) {
         Log.d("setId: ", ""+new_id);
         while (getSelectedQuestion(dbCursor).id != new_id) {
             moveToNext_save();
@@ -93,14 +94,14 @@ class QuestionManager {
 
 
 
-    void setRandom(boolean random) {
+    static void setRandom(boolean random) {
         mode_random = random;
     }
 
 
 
 
-    private void randomize() {
+    static private void randomize() {
         int rand = new Random().nextInt(dbh.getQuestionCount());
 
         // move cursor random times to next position
@@ -110,13 +111,13 @@ class QuestionManager {
         Log.d("qstmng>>>", String.valueOf(getSelectedQuestion(dbCursor).id));
     }
 
-    void setFavorite(boolean favorite) {
+    static void setFavorite(boolean favorite) {
         dbh.setFavorite(getSelectedQuestion(dbCursor).id, favorite);
         refreshCursor();
     }
 
     // loads a cursor with the current database
-    private void refreshCursor() {
+    static private void refreshCursor() {
         // saving current id, as getId refers to dbCursor and dbCursor is going to be refreshed
         int i = getId();
 
@@ -128,19 +129,19 @@ class QuestionManager {
         setId(i);
     }
 
-    int countAllQuestions() {
+    static int countAllQuestions() {
         return dbh.countAllQuestions();
     }
 
 
-    int countFavoredQuestions() {
+    static int countFavoredQuestions() {
         return dbh.countFavoredQuestions();
 
     }
 
 
 
-    private void moveToNext_save() {
+    static private void moveToNext_save() {
         dbCursor.moveToNext();
 
         if (dbCursor.isAfterLast()) {
@@ -148,7 +149,7 @@ class QuestionManager {
         }
     }
 
-    private void moveToPrevious_save() {
+    static private void moveToPrevious_save() {
         dbCursor.moveToPrevious();
 
         if (dbCursor.isBeforeFirst()) {
@@ -157,7 +158,7 @@ class QuestionManager {
     }
 
 
-    Question[] searchQuestion(String searchString) {
+    static Question[] searchQuestion(String searchString) {
         Log.d("searchQuestion>>>", "searching for \'" + searchString + "\'");
 
         Cursor foundCursor = dbh.searchQuestion(searchString);
@@ -179,7 +180,7 @@ class QuestionManager {
     }
 
 
-    private Question getSelectedQuestion(Cursor cursor) {
+    static private Question getSelectedQuestion(Cursor cursor) {
         // reading the comma seperated lists (potentially single string or empty)
 
         //Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));

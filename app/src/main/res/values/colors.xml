@@ -2,18 +2,19 @@
 <resources>
     <color name="colorPrimary">#088e87</color>
     <color name="colorPrimaryDark">#066b67</color>
-    <color name="colorAccent">#f7fffe</color>
+    <color name="colorAccent">#f4f4f4</color>
 
-    <color name="nmr_background">#46bcbc</color>
-    <color name="icon_color">#aaaaaa</color>
+    <color name="nmr_background">#23bcbc</color>
+    <color name="cardview_background">@color/white</color>
+
+    <color name="icon_color">#b6b6b6</color>
     <color name="background">#e7e7e7</color>
     <color name="listview_devider">#e1e1e1</color>
     <color name="white">#ffffff</color>
 
+    <color name="font_color">@color/nmr_background</color>
     <color name="transparent">#ffffff</color>
     <color name="hint_color">#ab272829</color>
-    <color name="link_color">#3ac4dc</color>
+    <color name="link_color">@color/nmr_background</color>
     <color name="link_highlight_color">#3b8bf7ff</color>
 </resources>
-
-

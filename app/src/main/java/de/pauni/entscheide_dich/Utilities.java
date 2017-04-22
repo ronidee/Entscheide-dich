@@ -17,6 +17,7 @@ import android.view.View;
 public class Utilities {
     static String info = "";
 
+    // returns a spannablestring with the passed keywords(clickables) being clickable
     static SpannableString getClickableText(final Context c, String text, String[][] clickables) {
 
         SpannableString ss = new SpannableString(text);
@@ -44,9 +45,8 @@ public class Utilities {
 
                 @Override
                 public void updateDrawState(TextPaint ds) {
-                    super.updateDrawState(ds);
                     ds.setUnderlineText(true);
-                    ds.setColor(c.getResources().getColor(R.color.link_color));
+                    //ds.setColor(c.getResources().getColor(R.color.link_color));
                 }
             };
             ss.setSpan(clickableSpan, indexStart, indexEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -60,9 +60,22 @@ public class Utilities {
         }
         return ss;
     }
-
+    // Methode of getClickableText
     static String addInfo(String string) {
         return info += " " + string;
     }
+
+
+    // for sharing txt via other applications
+    static void shareContent (Context c, String message, String mimetype) {
+        //Toast.makeText(context, "Frage wird verpackt...", Toast.LENGTH_SHORT).show();
+
+        Intent intent   = new Intent(Intent.ACTION_SEND);
+        intent.setType  (mimetype);
+        intent.putExtra (Intent.EXTRA_TEXT, message +  "\n\nEntscheide Dich! Von Roni und Paul");
+        c.startActivity (Intent.createChooser(intent, "Teile die Frage mit Feinden:"));
+    }
+
+
 }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -17,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
+        android:elevation="4dp"
         android:paddingTop="40dp"
         android:scaleType="fitCenter"
         android:src="@drawable/logo" />
@@ -27,9 +29,12 @@
         android:id="@+id/ll_card_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_panel"
+        android:layout_above="@+id/ll_buttonpanel"
         android:layout_below="@+id/imageview_Logo"
-        android:gravity="center_vertical">
+        android:layout_marginBottom="30dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp" >
 
         <include
             layout="@layout/cardview_frage"
@@ -37,11 +42,18 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <!-- Das Button-Panel am unteren Rand -->
-    <include
-        android:id="@+id/button_panel"
-        layout="@layout/button_panel"
+
+    <LinearLayout
+        android:id="@+id/ll_buttonpanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp" />
+        android:layout_alignParentStart="true">
+
+        <include
+            android:id="@+id/button_panel"
+            layout="@layout/button_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>

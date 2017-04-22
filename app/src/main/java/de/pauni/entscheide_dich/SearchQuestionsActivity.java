@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 /**
@@ -20,10 +21,15 @@ import android.widget.ListView;
  */
 
 public class SearchQuestionsActivity extends Activity{
-    ListView lv_questions;
-    EditText et_search;
-    Question[] questions;
+    ListView    lv_questions;
+    EditText    et_search;
+    TextView    tv_resultcount;
+    Question[]  questions;
     SearchQuestionAdapter adapter;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +37,11 @@ public class SearchQuestionsActivity extends Activity{
         setContentView(R.layout.activity_search_questions);
         adjustWindowLayout();
 
-        lv_questions = (ListView) findViewById(R.id.lv_result);
-        et_search    = (EditText) findViewById(R.id.et_search);
+        lv_questions    = (ListView) findViewById(R.id.lv_result);
+        tv_resultcount  = (TextView) findViewById(R.id.tv_resultcount);
+        et_search       = (EditText) findViewById(R.id.et_search);
         et_search.requestFocus();
+        tv_resultcount.setText("Ergebnisse: 0");
 
         questions   = new Question[0];
         adapter     = new SearchQuestionAdapter(this, questions);
@@ -54,10 +62,12 @@ public class SearchQuestionsActivity extends Activity{
                 // only search words with at least 3 characters
                 if (s.length()>=3) {
                     SearchQuestionAdapter.questions =
-                            MainActivity.questionManager.searchQuestion(s.toString());
+                            QuestionManager.searchQuestion(s.toString());
                     adapter.notifyDataSetChanged();
+                    tv_resultcount.setText("Ergebnisse: " + lv_questions.getAdapter().getCount());
+                    return;
                 }
-
+                tv_resultcount.setText("Ergebnisse: 0");
             }
         });
     }
@@ -68,13 +78,10 @@ public class SearchQuestionsActivity extends Activity{
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             // setId to the id of the question, the user selected
-            MainActivity.questionManager.setId(SearchQuestionAdapter.questions[position].id);
+            QuestionManager.setId(SearchQuestionAdapter.questions[position].id);
 
-            //close the dialog
+            // close the dialog
             finish();
-
-            //the question will automatically be loaded by the onResume()
-
         }
     };
 

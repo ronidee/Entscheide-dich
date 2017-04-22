@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview_fragen"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:elevation="6dp">
+    app:cardCornerRadius="3dp"
+    app:cardElevation="4dp">
+
 
     <RelativeLayout
         android:id="@+id/ll_fragen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/cardview_background"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
 
         <!-- horizontal divider -->
+
         <View
             android:id="@+id/divider"
             style="@style/Divider_horizontal"
@@ -24,29 +28,26 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="30dp"
             android:background="@color/background"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/rl_question_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
-            android:foregroundGravity="center_vertical"
-            android:gravity="center_vertical">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/textview_question_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:clickable="true"
-                android:contextClickable="true"
                 android:linksClickable="true"
-                android:text="TEST\nTEST\nTEST\nTEST\nTEST"
+                android:text="TEST\nTEST\nTEST\nTEST"
                 android:textAlignment="center"
-                android:textColor="@color/nmr_background"
+                android:textColor="@color/font_color"
                 android:textSize="16sp" />
 
             <TextView
@@ -56,19 +57,26 @@
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="10dp"
-                android:text="TEST\nTEST"
+                android:text="TEST\nTEST\nTEST\nTEST"
                 android:textAlignment="center"
-                android:textColor="@color/nmr_background"
+                android:textColor="@color/font_color"
                 android:textSize="16sp"
                 android:visibility="invisible" />
         </RelativeLayout>
+
+        <include
+            layout="@layout/answer_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/rl_question_container"/>
 
         <TextView
             android:id="@+id/textview_sendung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sendung mit Tolle Person"
             android:layout_below="@+id/rl_question_container"
+            android:text="Sendung mit Tolle Person"
             android:textAlignment="center"
             android:textColor="@color/icon_color"
             android:textSize="12sp" />
@@ -78,11 +86,10 @@
             android:id="@+id/divider1"
             style="@style/Divider_horizontal"
             android:layout_below="@+id/textview_sendung"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/background"
-            android:visibility="visible" />
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/icon_color" />
 
         <!-- Layout with 4 imagebuttons (share, random, youtube, favour) -->
         <LinearLayout
@@ -94,7 +101,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imagebutton_share"
+                android:id="@+id/ib_share_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"

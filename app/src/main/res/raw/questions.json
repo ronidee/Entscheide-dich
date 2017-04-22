@@ -30,7 +30,7 @@
         "clickable": []
     },
     {
-        "question": "Würdest Du lieber mit Geert Wilders wildern oder mit Marie Le Pens penn'?",
+        "question": "Würdest Du lieber mit Geert Wilders wildern oder mit Marine Le Pen penn'?",
         "guest": "Schulz&Böhmermann",
         "ytlink": "https://www.youtube.com/watch?v=gFNPBoxNll4&index=1&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
         "clickable": [
@@ -39,8 +39,8 @@
                 "link": "https://duckduckgo.com/?q=geert+wilders&ia=web"
             },
             {
-                "keyword": "Marie Le Pens",
-                "link": "https://duckduckgo.com/?q=marie+le+pens&ia=web"
+                "keyword": "Marine Le Pen",
+                "link": "https://duckduckgo.com/?q=Marine+le+pen&ia=web"
             }
         ]
     },
@@ -132,11 +132,11 @@
         "clickable": [
             {
                 "keyword": "Lutz Bachmann",
-                "link": "https://duckduckgo.com/?q=lutz+bachmann&ia=web"
+                "link": "https://duckduckgo.com/?q=Lutz+Bachmann&ia=web"
             },
             {
                 "keyword": "Gauland",
-                "link": "https://duckduckgo.com/?q=alexander+gauland&ia=web"
+                "link": "https://duckduckgo.com/?q=Alexander+Gauland&ia=web"
             }
         ]
     },
@@ -151,7 +151,7 @@
             },
             {
                 "keyword": "Samuel Koch",
-                "link": "https://duckduckgo.com/?q=samuel+koch&ia=web"
+                "link": "https://duckduckgo.com/?q=Samuel+Koch&ia=web"
             }
         ]
     },
@@ -159,7 +159,12 @@
         "question": "Hättest Du lieber, dass Dir Klaus über die Leber oder eine Laus über den Kleber läuft?",
         "guest": "Christopher Lauer",
         "ytlink": "https://www.youtube.com/watch?v=FeWwabdrRZg&index=3&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "Klaus",
+                "link": "https://duckduckgo.com/?q=Klaus+Kleber&ia=web"
+            }
+        ]
     },
     {
         "question": "Wärst Du lieber ein hässlicher und sehr unbeliebter Innensenator oder ein schöner und sehr beliebter Hausmeister?",
@@ -171,10 +176,15 @@
         "question": "Würdest Du lieber im Knast die Seife fallen lassen oder im Bundestag Dein Crystal Meth?",
         "guest": "Christopher Lauer",
         "ytlink": "https://www.youtube.com/watch?v=FeWwabdrRZg&index=3&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": []
+        "clickable": [
+            {
+                "keyword": "Bundestag Dein Crystal Meth",
+                "link": "https://de.wikipedia.org/wiki/Volker_Beck#Drogenfund_2016_und_R.C3.BCcktritt"
+            }
+        ]
     },
     {
-        "question": "Hättest Du lieber deine letzte Sackkarre mit 44 oder Deine ersten Sackhaare mit 24?",
+        "question": "Hättest Du lieber Deine letzte Sackkarre mit 44 oder Deine ersten Sackhaare mit 24?",
         "guest": "Christopher Lauer",
         "ytlink": "https://www.youtube.com/watch?v=FeWwabdrRZg&index=3&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
         "clickable": [  ]
@@ -183,13 +193,31 @@
         "question": "Hättest Du lieber einen Sohn mit Barbara Hendricks der Jimi heißt oder eine Tochter mit Claudia Roth die Alarmstufe heißt?",
         "guest": "Christopher Lauer",
         "ytlink": "https://www.youtube.com/watch?v=FeWwabdrRZg&index=3&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "Barbara Hendricks",
+                "link": "https://duckduckgo.com/?q=Barbara+Hendricks&ia=web"
+            },
+            {
+                "keyword": "Jimi",
+                "link": "https://duckduckgo.com/?q=Jimi+Hendrix&ia=web"
+            },
+            {
+                "keyword": "Claudia Roth",
+                "link": "https://duckduckgo.com/?q=Claudia+Roth&ia=web"
+            }
+        ]
     },
     {
         "question": "Hättest Du lieber ein Gedächtnis von sieben Sekunden oder einen Ohrwurm von 7 seconds?",
         "guest": "Christopher Lauer",
         "ytlink": "https://www.youtube.com/watch?v=FeWwabdrRZg&index=3&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "7 seconds",
+                "link": "https://duckduckgo.com/?q=Youssou+NDOUR+7+second&t=h_&ia=videos"
+            }
+        ]
     },
     {
         "question": "Würdest Du lieber der politischen Karriere wegen öffentlich Sigmar Gabriel loben oder als homosexueller Nationalspieler in einer Scheinehe leben?",
@@ -225,7 +253,12 @@
         "question": "Würdest Du lieber bei einem leichten Erdbeben von der Bettkante auf einen Kaktus fallen oder bei einem schweren Hausbrand aus dem dritten Stock auf Peter Altmaier?",
         "guest": "Klaas Heufer-Umlauf",
         "ytlink": "https://www.youtube.com/watch?v=GQsEdwfsHw8&index=4&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "Peter Altmaier",
+                "link": "https://duckduckgo.com/?q=Peter+Altmaier&ia=web"
+            }
+        ]
     },
     {
         "question": "Hättest Du lieber eine sehr schlechte Sicht auf das WM-Finale oder eine sehr gute Sicht auf Klöten-Ralles Klöten?",
@@ -243,7 +276,16 @@
         "question": "Würdest Du lieber von Haftbefehl gesucht werden oder von Xatar gefunden?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "Haftbefehl",
+                "link": "https://duckduckgo.com/?q=Haftbefehl&ia=web"
+            },
+            {
+                "keyword": "Xatar",
+                "link": "https://duckduckgo.com/?q=Xatar&ia=web"
+            }
+        ]
     },
     {
         "question": "Hättest Du lieber die Mähne eines hässlichen Löwen oder den Rüssel eines äußerst attraktiven Elefanten?",
@@ -258,10 +300,19 @@
         "clickable": [  ]
     },
     {
-        "question": "Würdest Du lieber mit Rainer Calmund Kanu fahren oder mit Christoph Daum einen Schneemann bauen?",
+        "question": "Würdest Du lieber mit Reiner Calmund Kanu fahren oder mit Christoph Daum einen Schneemann bauen?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "Reiner Calmund",
+                "link": "https://duckduckgo.com/?q=Reiner+Calmund&ia=web"
+            },
+            {
+                "keyword": "Christoph Daum einen Schneemann bauen",
+                "link": "https://de.wikipedia.org/wiki/Christoph_Daum#Kokain-Aff.C3.A4re"
+            }
+        ]
     },
     {
         "question": "Würdest Du lieber in einer Burka durch Dresden joggen oder in einem Mankini auf einem Einrad durch den Bundestag radeln?",
@@ -277,13 +328,18 @@
         "question": "Würdest Du den Weltfrieden schaffen, wenn Du dafür lebenslang im Körper eines nassen Otters gefangen wärst?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [  ]
+        "clickable": [ ]
     },
     {
         "question": "Würdest Du den Sexismus für immer beenden, wenn Du Dir dafür eine nackte Erika Steinbach auf die Brust tätowieren müsstest?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [ ]
+        "clickable": [
+            {
+                "keyword": "Erika Steinbach",
+                "link": "https://duckduckgo.com/?q=Erika+Steinbach&ia=web"
+            }
+        ]
     },
     {
         "question": "Würdest Du die Altersarmut abschaffen, wenn Du dafür immer die Frisur von Sahra Wagenknecht tragen müsstest?",
@@ -292,7 +348,7 @@
         "clickable": [
             {
                 "keyword": "Sahra Wagenknecht",
-                "link": "http://www.xnxx.com/tags/milf"
+                "link": "https://duckduckgo.com/?q=Sahra+Wagenknecht&ia=web"
             }
         ]
     },
@@ -330,7 +386,12 @@
         "question": "Würdest Du lieber Schnick Schack Schnuck mit einem Hummer oder Strip-Poker mit einem Nacktmull spielen?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "clickable": [  ]
+        "clickable": [
+            {
+            "keyword": "Nacktmull",
+            "link": "https://duckduckgo.com/?q=Nacktmull&ia=web"
+            }
+        ]
     },
     {
         "question": "Hättest Du lieber einen gutartigen Tumor oder einen bösartigen Hamster?",
@@ -339,7 +400,7 @@
         "clickable": [  ]
     },
     {
-        "question": "Hättest Du lieber ein Display auf deiner Stirn, auf dem Deine Gedanken stehen oder Dein Leben lang ein Stück Zwiebel im Mund?",
+        "question": "Hättest Du lieber ein Display auf Deiner Stirn, auf dem Deine Gedanken stehen oder Dein Leben lang ein Stück Zwiebel im Mund?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
         "clickable": [  ]
@@ -357,10 +418,15 @@
         "clickable": [  ]
     },
     {
-        "question": "Hättest Du lieber einen Ohrwurm von Satellit oder einen Bandwurm?",
+        "question": "Hättest Du lieber einen Ohrwurm von Satellite oder einen Bandwurm?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "Satellite",
+                "link": "https://duckduckgo.com/?q=Lena+Satellite&ia=videos"
+            }
+        ]
     },
     {
         "question": "Wärst Du lieber ein Ausländer im Fanblock von Dynamo Dresden oder ein Schwuler auf einem Dortmunder Autobahnparkplatz?",
@@ -369,7 +435,11 @@
         "clickable": [
             {
                 "keyword": "Dynamo Dresden",
-                "link": "http://www.mensheaven.de/"
+                "link": "https://duckduckgo.com/?q=Dynamo+Dresden+Rechtsextremismus&ia=web"
+            },
+            {
+                "keyword": "Dortmunder Autobahnparkplatz",
+                "link": "https://duckduckgo.com/?q=Dortmund+Kirchlinde+Die+Rechte&ia=web"
             }
         ]
     },
@@ -377,7 +447,12 @@
         "question": "Würdest Du lieber jeden Tag Dein Leben lang nur einen Song von Morrissey oder jeden Tag ein neues Album von Lena Meyer-Landrut?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "clickable": [  ]
+        "clickable": [
+            {
+                "keyword": "",
+                "link": "https://duckduckgo.com/?q=Morrissey&ia=web"
+            }
+        ]
     },
     {
         "question": "Wärst Du lieber im Vorspann von Circus Halligalli oder nicht?",
@@ -416,7 +491,7 @@
         "clickable": [  ]
     },
     {
-        "question": "Würdest Du lieber ein Kaugummi von Rainer Calmund weiterkauen oder mit Tempo 10 gegen einen Baum fahren?",
+        "question": "Würdest Du lieber ein Kaugummi von Reiner Calmund weiterkauen oder mit Tempo 10 gegen einen Baum fahren?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
         "clickable": [  ]

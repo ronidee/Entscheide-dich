@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/answer_selector"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/ib_select_answer_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="2dp"
+        android:src="@drawable/answer_unselected" />
+
+    <ImageView
+        android:id="@+id/iv_boehmi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:padding="2dp"
+        android:src="@drawable/boehmi" />
+
+    <ImageButton
+        android:id="@+id/ib_select_answer_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="2dp"
+        android:src="@drawable/answer_unselected" />
+</LinearLayout>

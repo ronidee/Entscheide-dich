@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <ImageButton
         android:id="@+id/imagebutton_naechste"
@@ -10,11 +9,13 @@
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp"
         android:scaleType="fitCenter"
         android:src="@drawable/selector_naechste_frage" />
 
     <ImageButton
-        android:id="@+id/imagebutton_share"
+        android:id="@+id/ib_share_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/imagebutton_naechste"
@@ -55,4 +56,5 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/selector_bt_search" />
+
 </RelativeLayout>
