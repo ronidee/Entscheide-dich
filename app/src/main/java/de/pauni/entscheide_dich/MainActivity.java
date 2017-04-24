@@ -151,13 +151,7 @@ public class MainActivity extends Activity {
             tv_guest.setText(guest);
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                (findViewById(R.id.textview_question_in)).requestLayout();
-                (findViewById(R.id.rl_question_container)).requestLayout();
-            }
-        }, 200);
+
 
     }
     // generates a sliding-out animation for the old question
@@ -168,7 +162,13 @@ public class MainActivity extends Activity {
         tv_questionOut.setVisibility(View.VISIBLE);
         // slide textview out of the window
         tv_questionOut.animate().translationX(-displayWidth);
-        tv_questionOut.setVisibility(View.GONE); //NEVER! EVER! DELETE THIS LINE!!!!!!!!!!!!!!!!
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tv_questionOut.setVisibility(View.GONE); //NEVER! EVER! DELETE THIS LINE!!!!!!!!!!
+            }
+        }, 600); //multiply with animation-factor of the user (can be changed in dev-settings)
 
         //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
         //(findViewById(R.id.rl_question_container)).requestLayout();
