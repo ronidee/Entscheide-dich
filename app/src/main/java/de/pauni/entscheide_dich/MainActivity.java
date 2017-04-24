@@ -3,12 +3,15 @@ package de.pauni.entscheide_dich;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 *
@@ -44,7 +50,7 @@ public class MainActivity extends Activity {
     ImageButton ib_sel_answer_1 =   null;
     ImageButton ib_sel_answer_2 =   null;
 
-    int h;
+    int h; //height of one line of tv_questionX
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +110,11 @@ public class MainActivity extends Activity {
         }
         sessionStart = false;
         //fixTextviewLayoutSize();
+
+        // calculate line height
+        h = tv_questionIn.getHeight()/tv_questionIn.getLineCount();
         displayQuestion(QuestionManager.getQuestion(), false);
     }
-
 
 
     // show's the passed question. Possible to animate the transition
@@ -163,20 +171,20 @@ public class MainActivity extends Activity {
         // slide textview out of the window
         tv_questionOut.animate().translationX(-displayWidth);
 
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                tv_questionOut.setVisibility(View.GONE); //NEVER! EVER! DELETE THIS LINE!!!!!!!!!!
+                tv_questionOut.setVisibility(View.GONE); //NEVER! EVER! DELETE THIS LINE!!!!!!!!!! //ok, you actually can delete this line...
             }
         }, 600); //multiply with animation-factor of the user (can be changed in dev-settings)
+        */
 
         //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
         //(findViewById(R.id.rl_question_container)).requestLayout();
     }
     // generates a sliding-in animation for the new question
     private void slideQuestionIn(SpannableString question) {
-        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        //(findViewById(R.id.rl_question_container)).requestLayout();// preparing textview for animation
+        //(findViewById(R.id.rl_question_container)).requestLayout();
         tv_questionIn.setX(displayWidth);
         tv_questionIn.setText(question);
 
@@ -184,9 +192,11 @@ public class MainActivity extends Activity {
         tv_questionIn.animate().translationX(0);
         //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
 
+        (findViewById(R.id.rl_question_container)).getLayoutParams().
+                height = tv_questionIn.getLineCount() * h;
+
+
     }
-
-
 
     // initializes all views
     private void initViews() {
@@ -222,6 +232,7 @@ public class MainActivity extends Activity {
                 }
 
                 displayQuestion(QuestionManager.getQuestion(), animationOn);
+
             }
         });
 
@@ -317,6 +328,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // select answer 1
         ib_sel_answer_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -326,6 +338,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // select answer 2
         ib_sel_answer_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,6 +348,19 @@ public class MainActivity extends Activity {
             }
         });
 
+        findViewById(R.id.ll_answer_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ib_sel_answer_1.performClick();
+            }
+        });
+
+        findViewById(R.id.ll_answer_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ib_sel_answer_2.performClick();
+            }
+        });
 
 
     }
@@ -422,4 +448,6 @@ public class MainActivity extends Activity {
 
         return Color.rgb((int) r, (int) g, (int) b);
     }
+
+
 }

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/cardview_background"
         android:orientation="vertical"
-        android:paddingTop="10dp">
+        android:paddingTop="20dp">
 
         <!-- This layout contains the question (twice, for cheap animation hack) -->
         <RelativeLayout
@@ -23,15 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:id="@+id/textview_question_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
                 android:clickable="true"
                 android:linksClickable="true"
                 android:text="TEST\nTEST\nTEST\nTEST"
@@ -44,8 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="10dp"
                 android:text="TEST\nTEST\nTEST\nTEST"
                 android:textAlignment="center"
                 android:textColor="@color/font_color"
