@@ -11,11 +11,11 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * Created by Roni on 19.03.2017.
+ * Ansammlung von einigen häufiger genutzten oder sperrigen Funktionen
  */
 
-public class Utilities {
-    static String info = "";
+class Utilities {
+    private static String info = "";
 
     // returns a spannablestring with the passed keywords(clickables) being clickable
     static SpannableString getClickableText(final Context c, String text, String[][] clickables) {
@@ -62,7 +62,7 @@ public class Utilities {
         return ss;
     }
     // Methode of getClickableText
-    static String addInfo(String string) {
+    private static String addInfo(String string) {
         return info += " " + string;
     }
 

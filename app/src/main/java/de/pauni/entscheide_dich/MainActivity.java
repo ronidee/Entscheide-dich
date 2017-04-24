@@ -3,29 +3,23 @@ package de.pauni.entscheide_dich;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /*
 *
 */
+
 public class MainActivity extends Activity {
     float displayWidth;
     boolean sessionStart = true;
@@ -49,6 +43,7 @@ public class MainActivity extends Activity {
     ImageButton ib_search       =   null;
     ImageButton ib_sel_answer_1 =   null;
     ImageButton ib_sel_answer_2 =   null;
+    RelativeLayout rl_qu_cont   =   null;
 
     int h; //height of one line of tv_questionX
 
@@ -170,32 +165,24 @@ public class MainActivity extends Activity {
         tv_questionOut.setVisibility(View.VISIBLE);
         // slide textview out of the window
         tv_questionOut.animate().translationX(-displayWidth);
-
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tv_questionOut.setVisibility(View.GONE); //NEVER! EVER! DELETE THIS LINE!!!!!!!!!! //ok, you actually can delete this line...
-            }
-        }, 600); //multiply with animation-factor of the user (can be changed in dev-settings)
-        */
-
-        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        //(findViewById(R.id.rl_question_container)).requestLayout();
     }
     // generates a sliding-in animation for the new question
     private void slideQuestionIn(SpannableString question) {
-        //(findViewById(R.id.rl_question_container)).requestLayout();
         tv_questionIn.setX(displayWidth);
         tv_questionIn.setText(question);
 
         // slide textview to it's original position (0=origin)
         tv_questionIn.animate().translationX(0);
-        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
 
-        (findViewById(R.id.rl_question_container)).getLayoutParams().
-                height = tv_questionIn.getLineCount() * h;
+        //rl_qu_cont.getLayoutParams().height = tv_questionIn.getLineCount() * h;
+        animateSizeChange(rl_qu_cont.getHeight(), tv_questionIn.getLineCount() * h);
 
-
+    }
+    // generates a size-change animation
+    private void animateSizeChange(int fromY, int toY) {
+        ResizeAnimation resizeAnimation = new ResizeAnimation(rl_qu_cont, toY, fromY);
+        resizeAnimation.setDuration(200);
+        rl_qu_cont.startAnimation(resizeAnimation);
     }
 
     // initializes all views
@@ -212,6 +199,7 @@ public class MainActivity extends Activity {
         ib_search       =   (ImageButton) findViewById(R.id.imagebutton_search);
         ib_sel_answer_1 =   (ImageButton) findViewById(R.id.ib_select_answer_1);
         ib_sel_answer_2 =   (ImageButton) findViewById(R.id.ib_select_answer_2);
+        rl_qu_cont      =   (RelativeLayout) findViewById(R.id.rl_question_container);
 
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
@@ -379,23 +367,6 @@ public class MainActivity extends Activity {
             ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
             ib_favOnly.setEnabled(true);
         }
-    }
-
-    // stop cardview from changing sizes by doing weird stuff
-    private void fixTextviewLayoutSize() {
-        tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
-        tv_questionOut.setText("TEST\nTEST\nTEST\nTEST\nTEST");
-        h = tv_questionIn.getHeight();
-
-        (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        (findViewById(R.id.rl_question_container)).requestLayout();
-
-        tv_questionIn.requestLayout();
-        tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
-
-        tv_questionOut.requestLayout();
-        tv_questionOut.setText("TEST\nTEST\nTEST\nTEST\nTEST");
-
     }
 
 

@@ -183,7 +183,7 @@ class QuestionManager {
     static private Question getSelectedQuestion(Cursor cursor) {
         // reading the comma seperated lists (potentially single string or empty)
 
-        //Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
+        // Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));
 
         String keywords_raw = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS));
         String links_raw    = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_LINKS));

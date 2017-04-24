@@ -7,18 +7,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-
-/*
-*       THANK YOU VERY MUCH >! ANDROIDHIVE.INFO !<
-*       FOR PROVIDING A MODEL OF A DB-HELPER CLASSS
-*       http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
-*/
+/**
+ *       This DatabaseHelper class provides access to the database and
+ *       takes care of all the required operations
+ *
+ *
+ *       THANK YOU VERY MUCH >! ANDROIDHIVE.INFO !<
+ *       FOR PROVIDING A MODEL OF A DB-HELPER CLASSS
+ *       http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
+ */
 
 class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -31,21 +31,21 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // Table Columns names
-    static final String KEY_ID      = "_id";
+    private static final String KEY_ID      = "_id";
     // Der Text der Frage
-    static final String KEY_QUES    = "question";
+    private static final String KEY_QUES    = "question";
     // Der Namame des Gastes
-    static final String KEY_GUEST   = "guest_name";
+    private static final String KEY_GUEST   = "guest_name";
     // Der YT-Link zum jew. Video
-    static final String KEY_YT      = "youtube_link";
+    private static final String KEY_YT      = "youtube_link";
     // Favorite ja oder nein (1/0)
-    static final String KEY_FAV     = "favorite";
+    private static final String KEY_FAV     = "favorite";
     // String der zu clickable sein soll
     static final String KEY_KEYWORDS = "keywords";
     // Link der aufgerufen wird
     static final String KEY_LINKS   = "links";
 
-    public DatabaseHelper(Context context) {
+    DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d("DatabaseHelper>>>", "konstrukter geladen");
     }
@@ -161,7 +161,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return question;
     }
 
-    public int getQuestionCount() {
+    int getQuestionCount() {
         String countQuery = "SELECT  * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);

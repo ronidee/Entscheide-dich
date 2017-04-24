@@ -15,15 +15,6 @@
         android:src="@drawable/selector_naechste_frage" />
 
     <ImageButton
-        android:id="@+id/ib_share_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/imagebutton_naechste"
-        android:background="@android:color/transparent"
-        android:src="@drawable/bt_share"
-        android:visibility="gone" />
-
-    <ImageButton
         android:id="@+id/imagebutton_zurueck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

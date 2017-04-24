@@ -12,7 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * This class is executed once, at the first start to generate a database from the json file
+ * This class is executed only once to generate a database containing
+ * all the question-objects from the json file
  */
 
 class DatabaseInitializer {
@@ -20,14 +21,14 @@ class DatabaseInitializer {
     private DatabaseHelper dbh;
 
     DatabaseInitializer(Context c) {
-        Log.d("DBI", "DB WURDE ERFOLREICH GROSSDEUTSCH INITIALISIERT FREUNDE!!");
+        Log.d("DBI", "DB WURDE ERFOLREICH GROSSDEUTSCH INITIALISIERT!");
         context = c;
         dbh = new DatabaseHelper(c);
         load_init_data();
     }
 
 
-    void load_init_data() {
+    private void load_init_data() {
         // TODO: Load all the question from a json file
         // do what do you want on your interface
 
