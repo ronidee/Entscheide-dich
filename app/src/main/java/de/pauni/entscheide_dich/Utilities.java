@@ -19,6 +19,7 @@ public class Utilities {
 
     // returns a spannablestring with the passed keywords(clickables) being clickable
     static SpannableString getClickableText(final Context c, String text, String[][] clickables) {
+        // splitting the text at the word "oder". (result: aaaaa \n or \n bbbbb)
 
         SpannableString ss = new SpannableString(text);
 

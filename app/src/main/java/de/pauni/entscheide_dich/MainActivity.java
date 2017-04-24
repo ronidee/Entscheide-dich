@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /*
@@ -41,7 +42,6 @@ public class MainActivity extends Activity {
     ImageButton ib_search       =   null;
     ImageButton ib_sel_answer_1 =   null;
     ImageButton ib_sel_answer_2 =   null;
-    ImageView   iv_boehmi       =   null;
 
     int h;
 
@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
             return;
         }
         sessionStart = false;
-        fixTextviewLayoutSize();
+        //fixTextviewLayoutSize();
         displayQuestion(QuestionManager.getQuestion(), false);
     }
 
@@ -112,13 +112,14 @@ public class MainActivity extends Activity {
     // don't make it private, as SearchQuestionsActivity would lose access
     void displayQuestion (Question question, boolean animated) {
 
-        // making boehmi-icon visible again, clearing selections
-        iv_boehmi.setVisibility(View.VISIBLE);
+        // clear selections
         ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
         ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
 
-        // obtaining the questions-object's details
+        // transforming the questions.clickables and the .question-string into one SpannableString
+        // with clickable words, which will bring the user to a web-search about this word
         SpannableString text = Utilities.getClickableText(this, question.question, question.clickables);
+
         // we actually don't need do this every time...
         tv_questionIn.setMovementMethod(LinkMovementMethod.getInstance());
         tv_questionIn.setHighlightColor(getResources().getColor(R.color.link_highlight_color));
@@ -151,27 +152,28 @@ public class MainActivity extends Activity {
     }
     // generates a sliding-out animation for the old question
     private void slideQuestionOut() {
-        (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        (findViewById(R.id.rl_question_container)).requestLayout();
+        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
+        //(findViewById(R.id.rl_question_container)).requestLayout();
         // preparing textview for animation
         tv_questionOut.setX(tv_questionIn.getX());
         tv_questionOut.setText(tv_questionIn.getText());
         tv_questionOut.setVisibility(View.VISIBLE);
         // slide textview out of the window
         tv_questionOut.animate().translationX(-displayWidth);
-        (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        (findViewById(R.id.rl_question_container)).requestLayout();
+        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
+        //(findViewById(R.id.rl_question_container)).requestLayout();
     }
     // generates a sliding-in animation for the new question
     private void slideQuestionIn(SpannableString question) {
-        (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        (findViewById(R.id.rl_question_container)).requestLayout();// preparing textview for animation
+        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
+        //(findViewById(R.id.rl_question_container)).requestLayout();// preparing textview for animation
         tv_questionIn.setX(displayWidth);
         tv_questionIn.setText(question);
         // slide textview to it's original position (0=origin)
         tv_questionIn.animate().translationX(0);
-        (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        (findViewById(R.id.rl_question_container)).requestLayout();}
+        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
+        //(findViewById(R.id.rl_question_container)).requestLayout();
+        }
 
 
 
@@ -189,7 +191,6 @@ public class MainActivity extends Activity {
         ib_search       =   (ImageButton) findViewById(R.id.imagebutton_search);
         ib_sel_answer_1 =   (ImageButton) findViewById(R.id.ib_select_answer_1);
         ib_sel_answer_2 =   (ImageButton) findViewById(R.id.ib_select_answer_2);
-        iv_boehmi       =   (ImageView)   findViewById(R.id.iv_boehmi);
 
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
@@ -311,7 +312,6 @@ public class MainActivity extends Activity {
                 Log.d("Mainactivity:  ", "answer1");
                 ib_sel_answer_1.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
-                iv_boehmi.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -321,7 +321,6 @@ public class MainActivity extends Activity {
                 Log.d("Mainactivity:  ", "answer2");
                 ib_sel_answer_2.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
-                iv_boehmi.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -347,19 +346,20 @@ public class MainActivity extends Activity {
 
     // stop cardview from changing sizes by doing weird stuff
     private void fixTextviewLayoutSize() {
-        LinearLayout ll_a = (LinearLayout) findViewById(R.id.answer_selector);
-        tv_questionIn.setText("TEST\nTEST\nTEST\nTEST");
-        tv_questionOut.setText("TEST\nTEST\nTEST\nTEST");
-        h = ll_a.getHeight();
+        RelativeLayout ll_a = (RelativeLayout) findViewById(R.id.answer_selector);
+        tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
+        tv_questionOut.setText("TEST\nTEST\nTEST\nTEST\nTEST");
+        h = tv_questionIn.getHeight();
 
         (findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
         (findViewById(R.id.rl_question_container)).requestLayout();
 
         tv_questionIn.requestLayout();
-        tv_questionIn.setText("TSET\nTSET\nTSET\nTSET");
+        tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
+        //ll_a.requestLayout();
 
         tv_questionOut.requestLayout();
-        tv_questionOut.setText("TSET\nTSET\nTSET\nTSET");
+        tv_questionOut.setText("TEST\nTEST\nTEST\nTEST\nTEST");
 
     }
 
