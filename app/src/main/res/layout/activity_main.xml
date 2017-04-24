@@ -33,10 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll_buttonpanel"
         android:layout_below="@+id/imageview_Logo"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:paddingLeft="9dp"
-        android:paddingRight="9dp" >
+        android:paddingRight="9dp">
 
         <include
             layout="@layout/cardview_frage"

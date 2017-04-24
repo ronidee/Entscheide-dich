@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -149,17 +150,26 @@ public class MainActivity extends Activity {
             tv_questionIn.setText(text);
             tv_guest.setText(guest);
         }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                (findViewById(R.id.textview_question_in)).requestLayout();
+                (findViewById(R.id.rl_question_container)).requestLayout();
+            }
+        }, 200);
+
     }
     // generates a sliding-out animation for the old question
     private void slideQuestionOut() {
-        //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        //(findViewById(R.id.rl_question_container)).requestLayout();
         // preparing textview for animation
         tv_questionOut.setX(tv_questionIn.getX());
         tv_questionOut.setText(tv_questionIn.getText());
         tv_questionOut.setVisibility(View.VISIBLE);
         // slide textview out of the window
         tv_questionOut.animate().translationX(-displayWidth);
+        tv_questionOut.setVisibility(View.GONE); //NEVER! EVER! DELETE THIS LINE!!!!!!!!!!!!!!!!
+
         //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
         //(findViewById(R.id.rl_question_container)).requestLayout();
     }
@@ -169,11 +179,12 @@ public class MainActivity extends Activity {
         //(findViewById(R.id.rl_question_container)).requestLayout();// preparing textview for animation
         tv_questionIn.setX(displayWidth);
         tv_questionIn.setText(question);
+
         // slide textview to it's original position (0=origin)
         tv_questionIn.animate().translationX(0);
         //(findViewById(R.id.rl_question_container)).getLayoutParams().height=h;
-        //(findViewById(R.id.rl_question_container)).requestLayout();
-        }
+
+    }
 
 
 
@@ -346,7 +357,6 @@ public class MainActivity extends Activity {
 
     // stop cardview from changing sizes by doing weird stuff
     private void fixTextviewLayoutSize() {
-        RelativeLayout ll_a = (RelativeLayout) findViewById(R.id.answer_selector);
         tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
         tv_questionOut.setText("TEST\nTEST\nTEST\nTEST\nTEST");
         h = tv_questionIn.getHeight();
@@ -356,7 +366,6 @@ public class MainActivity extends Activity {
 
         tv_questionIn.requestLayout();
         tv_questionIn.setText("TEST\nTEST\nTEST\nTEST\nTEST");
-        //ll_a.requestLayout();
 
         tv_questionOut.requestLayout();
         tv_questionOut.setText("TEST\nTEST\nTEST\nTEST\nTEST");
