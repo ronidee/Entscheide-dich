@@ -1,4 +1,63 @@
 [
+
+    {
+        "question": "Wärst Du lieber mit Kerstin Ott in einem Wespennest oder mit Biene Maja auf einem Lesbenfest",
+        "guest": "Marius Müller-Westernhagen",
+        "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
+        "clickable": [
+            {
+                "keyword": "Kerstin Ott",
+                "link": "https://duckduckgo.com/?q=Kerstin+Ott&ia=web"
+            },
+        ]
+    },
+    {
+        "question": "Hättest Du lieber einen extrem großen Hut bei MTV Unplugged auf oder einen Zylinder beim Comedypreis",
+        "guest": "Marius Müller-Westernhagen",
+        "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
+        "clickable": [
+            {
+                "keyword": "Comedypreis",
+                "link": "https://duckduckgo.com/?q=Deutscher+Comedypreis&ia=web"
+            },
+        ]
+    },
+    {
+        "question": "Hättest Du lieber einen Sohn der Wilson Gonzalez oder einen, der Jimi Blue heißt?",
+        "guest": "Marius Müller-Westernhagen",
+        "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
+        "clickable": [
+            {
+                "keyword": "Wilson Gonzalez",
+                "link": "https://duckduckgo.com/?q=Wilson+Gonzalez+Ochsenknecht&ia=web"
+            },
+            {
+                "keyword": "Jimi Blue",
+                "link": "https://duckduckgo.com/?q=Jimi+Blue+Ochsenknecht&ia=web"
+            },
+        ]
+    },
+    {
+        "question": "Würdest Du lieber jeden Briefträger den du siehst beißen oder bei jedem vorbeifahrenden Auto bellen?",
+        "guest": "Marius Müller-Westernhagen",
+        "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
+        "clickable": []
+    },
+    {
+        "question": "Wärst Du lieber der Schwippschwager von Jenny Elvers oder der Lochschwager von den Lochis?",
+        "guest": "Marius Müller-Westernhagen",
+        "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
+        "clickable": [
+            {
+                "keyword": "Jenny Elvers",
+                "link": "https://duckduckgo.com/?q=Jenny+Elvers&ia=web"
+            },
+            {
+                "keyword": "Lochis",
+                "link": "https://duckduckgo.com/?q=Die+Lochis&ia=web"
+            },
+        ]
+    },
     {
         "question": "Hättest Du lieber Ratten in der Badewanne oder eine Dauerbaustelle auf dem Dach?",
         "guest": "Schulz&Böhmermann",

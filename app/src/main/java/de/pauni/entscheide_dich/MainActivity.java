@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     TextView    tv_questionIn   =   null;
     TextView    tv_questionOut  =   null;
     TextView    tv_guest        =   null;
+    TextView    tv_answer_1     =   null;
+    TextView    tv_answer_2     =   null;
     ImageButton ib_naechste     =   null;
     ImageButton ib_favOnly      =   null;
     ImageButton ib_share        =   null;
@@ -154,7 +156,8 @@ public class MainActivity extends Activity {
             tv_guest.setText(guest);
         }
 
-
+        tv_answer_1.setText(question.answer_1);
+        tv_answer_2.setText(question.answer_2);
 
     }
     // generates a sliding-out animation for the old question
@@ -190,6 +193,9 @@ public class MainActivity extends Activity {
         tv_questionIn   =   (TextView)    findViewById(R.id.textview_question_in);
         tv_questionOut  =   (TextView)    findViewById(R.id.textview_question_out);
         tv_guest        =   (TextView)    findViewById(R.id.textview_sendung);
+        tv_answer_1     =   (TextView)    findViewById(R.id.tv_answer_1);
+        tv_answer_2     =   (TextView)    findViewById(R.id.tv_answer_2);
+
         ib_naechste     =   (ImageButton) findViewById(R.id.imagebutton_naechste);
         ib_favOnly      =   (ImageButton) findViewById(R.id.imagebutton_nur_favoriten);
         ib_share        =   (ImageButton) findViewById(R.id.ib_share_result);
@@ -199,6 +205,7 @@ public class MainActivity extends Activity {
         ib_search       =   (ImageButton) findViewById(R.id.imagebutton_search);
         ib_sel_answer_1 =   (ImageButton) findViewById(R.id.ib_select_answer_1);
         ib_sel_answer_2 =   (ImageButton) findViewById(R.id.ib_select_answer_2);
+
         rl_qu_cont      =   (RelativeLayout) findViewById(R.id.rl_question_container);
 
         // do little important stuff too here... :S
@@ -419,6 +426,5 @@ public class MainActivity extends Activity {
 
         return Color.rgb((int) r, (int) g, (int) b);
     }
-
 
 }

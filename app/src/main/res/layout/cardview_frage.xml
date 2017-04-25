@@ -53,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_question_container"
+            android:layout_marginTop="8dp"
             android:text="Sendung mit Tolle Person"
             android:textAlignment="center"
             android:textColor="@color/icon_color"
@@ -62,7 +63,7 @@
         <View
             android:id="@+id/divider"
             style="@style/Divider_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="10dp"
             android:background="@color/background" />
 
@@ -71,7 +72,7 @@
             layout="@layout/answer_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp" />
 
 
@@ -80,7 +81,7 @@
             android:id="@+id/divider1"
             style="@style/Divider_horizontal"
             android:layout_below="@+id/textview_sendung"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:background="@color/background" />
 
         <!-- Layout with 4 imagebuttons (share, random, youtube, favour) -->

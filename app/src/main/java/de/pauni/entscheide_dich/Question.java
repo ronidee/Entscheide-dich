@@ -10,6 +10,9 @@ class Question {
     String question  = "foobar";
     String guest     = "foobar";
     String ytlink    = "foobar";
+    String answer_1  = "Antwortmöglichkeit 1";
+    String answer_2  = "Antwortmöglichkeit 2";
+
     boolean favorite =  false;
     String[][] clickables = new String[0][0];
 }
