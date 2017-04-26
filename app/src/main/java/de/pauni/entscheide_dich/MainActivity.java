@@ -169,8 +169,6 @@ public class MainActivity extends Activity {
 
         tv_answer_1.setText(question.answer_1);
         tv_answer_2.setText(question.answer_2);
-        createStatistic(question.percentage_answer_1);
-
     }
     // generates a sliding-out animation for the old question
     private void slideQuestionOut() {

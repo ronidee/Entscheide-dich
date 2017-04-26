@@ -47,7 +47,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String KEY_ANSWER_1 = "answer1";
     private static final String KEY_ANSWER_2 = "answer2";
-    private static final String KEY_PERCENTAGE_ANSWER_1 = "percentage_answer_1";
+    private static final String KEY_COUNT_ANSWER_1 = "count_answer_1";
+    private static final String KEY_COUNT_ANSWER_2 = "count_answer_2";
 
 
 
@@ -74,7 +75,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_LINKS + " TEXT NOT NULL," +
                         KEY_ANSWER_1 + " TEXT NOT NULL," +
                         KEY_ANSWER_2 + " TEXT NOT NULL," +
-                        KEY_PERCENTAGE_ANSWER_1 + " TEXT NOT NULL" +
+                        KEY_COUNT_ANSWER_1 + " TEXT NOT NULL," +
+                        KEY_COUNT_ANSWER_2 + " TEXT NOT NULL" +
                     ")";
 
         db.execSQL(CREATE_TABLE_STRING);
@@ -122,6 +124,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_LINKS, links);
         values.put(KEY_ANSWER_1, question.answer_1);
         values.put(KEY_ANSWER_2, question.answer_2);
+        values.put(KEY_COUNT_ANSWER_1, question.count_answer_1);
+        values.put(KEY_COUNT_ANSWER_2, question.count_answer_2);
 
 
         // Inserting Row
@@ -169,7 +173,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.favorite   = cursor.getInt(4) == 1;
         question.answer_1   = cursor.getString(7); // 5 & 6 = keywords & links
         question.answer_2   = cursor.getString(8);
-        question.percentage_answer_1 = cursor.getInt(9);
+        question.count_answer_1 = cursor.getInt(9);
+        question.count_answer_2 = cursor.getInt(10);
         question.clickables = new String[][] {keywords, links};
 
         cursor.close();
@@ -196,13 +201,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("dbh", "favorite set: " + quest.favorite);
     }
 
-    // Paul, änder das bitte...
+    // Paul, das ist Deins ;)...
     void updateStatistics(int percentages[], int id[]) {
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        for (int i = 0; i <=id.length; i++) {
-            db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + percentages[i] + " WHERE " + KEY_ID + " = " + id[i]+ ";");
-        }
     }
 
 
@@ -250,37 +251,4 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("dbh>>>", String.valueOf(c.getCount()));
         return c;
     }
-
-//BIS HIER WURDE UMGEBAUT ABER NICHT GETESTET
-//AB HIER WURDE NOCH NICHTS GEMACHT
-
-
-    /*
-    // Getting All Contacts
-    public List<Question> getAllQuestions() {
-        List<Question> contactList = new ArrayList<>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Contact contact = new Contact();
-                contact.setID(Integer.parseInt(cursor.getString(0)));
-                contact.setName(cursor.getString(1));
-                contact.setPhoneNumber(cursor.getString(2));
-                // Adding contact to list
-                contactList.add(contact);
-            } while (cursor.moveToNext());
-        }
-
-        // return contact list
-        return contactList;
-    }
-
-
-    */
 }

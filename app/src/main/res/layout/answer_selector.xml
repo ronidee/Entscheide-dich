@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="5dp"
-            android:text="Antwortsatz A Antwortsatz A Antwortsatz A Antwortsatz A Antwortsatz A "
+            android:text="Antwortsatz A"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="5dp"
-            android:text="Antwortsatz B Antwortsatz B Antwortsatz B Antwortsatz B Antwortsatz B "
+            android:text="Antwortsatz B"
             android:textSize="16sp" />
     </LinearLayout>
 
