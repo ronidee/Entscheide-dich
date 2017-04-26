@@ -123,30 +123,26 @@ public class MainActivity extends Activity {
     }
 
 
-    // show's the passed question. Possible to animate the transition
     // don't make it private, as SearchQuestionsActivity would lose access
     void displayQuestion (Question question, boolean animated) {
-        // hide the old statistic
-        hideStatistic();
-
-        // clear selections
-        ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
-        ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
-
+        /**
+         * Steps of this method:
+         * 1) Make certain words of the question clickable
+         * 2) Update the favour-icon
+         * 3) Update the question
+         * 4) Update the guest
+         * 5) Update the answers
+         * 6) Update the statistics-bars
+         */
         // transforming the questions.clickables and the .question-string into one SpannableString
         // with clickable words, which will bring the user to a web-search about this word
-        SpannableString text = Utilities.getClickableText(this, question.question, question.clickables);
-
-        // we actually don't need do this every time...
-        tv_questionIn.setMovementMethod(LinkMovementMethod.getInstance());
-        tv_questionIn.setHighlightColor(getResources().getColor(R.color.link_highlight_color));
+        SpannableString questionText = Utilities.getClickableText(this, question.question, question.clickables);
 
 
-        String  guest   = "Sendung mit " + question.guest;
-        boolean favorit = question.favorite;
+        String  guest = "Sendung mit "+question.guest;
 
         // showing, whether this question is a favorite or not
-        if (favorit) {
+        if (question.favorite) {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
         } else {
@@ -157,13 +153,11 @@ public class MainActivity extends Activity {
         // animate the transition between the questions, if wanted
         if (animated) {
             slideQuestionOut();
-            slideQuestionIn(text);
+            slideQuestionIn(questionText);
+            setGuestAnimated(guest);
 
-            changeViewColor(tv_guest, 550, R.color.icon_color, R.color.cardview_background);
-            tv_guest.setText(guest);
-            changeViewColor(tv_guest, 550, R.color.cardview_background, R.color.icon_color);
         } else {
-            tv_questionIn.setText(text);
+            tv_questionIn.setText(questionText);
             tv_guest.setText(guest);
         }
 
@@ -190,6 +184,15 @@ public class MainActivity extends Activity {
         //rl_qu_cont.getLayoutParams().height = tv_questionIn.getLineCount() * h;
         animateSizeChange(rl_qu_cont.getHeight(), tv_questionIn.getLineCount() * h);
 
+    }
+
+    private void setGuestAnimated(String guest) {
+        // fade out the textview (same color as background)
+        changeViewColor(tv_guest, 550, R.color.icon_color, R.color.cardview_background);
+        // update the guest
+        tv_guest.setText(guest);
+        // fade in the textview
+        changeViewColor(tv_guest, 550, R.color.cardview_background, R.color.icon_color);
     }
     // generates a size-change animation
     private void animateSizeChange(int fromY, int toY) {
@@ -225,6 +228,10 @@ public class MainActivity extends Activity {
 
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
+        // make the textview clickable and set link_color
+        tv_questionIn.setMovementMethod(LinkMovementMethod.getInstance());
+        tv_questionIn.setHighlightColor(getResources().getColor(R.color.link_highlight_color));
+
     }
     // register all OnClickListeners
     private void regListeners() {
