@@ -37,15 +37,16 @@
         android:paddingRight="9dp">
 
         <include
+            android:id="@+id/cardview"
             layout="@layout/cardview_frage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
             layout="@layout/answering_statistic"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/cardview_fragen"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardview" />
 
     </RelativeLayout>
     <!-- Das Button-Panel am unteren Rand -->

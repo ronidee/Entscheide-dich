@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -17,6 +18,7 @@
         </activity>
         <activity android:name=".SearchQuestionsActivity"
             android:theme="@style/search_dialog"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true">
         </activity>
     </application>

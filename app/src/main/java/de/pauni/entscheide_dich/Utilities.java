@@ -66,6 +66,10 @@ class Utilities {
         return info += " " + string;
     }
 
+    static int convertDpsToPixels(Context c, int dps) {
+        final float scale = c.getResources().getDisplayMetrics().density;
+        return (int) (dps * scale + 0.5f);
+    }
 
     // for sharing txt via other applications
     static void shareContent (Context c, String message, String mimetype) {

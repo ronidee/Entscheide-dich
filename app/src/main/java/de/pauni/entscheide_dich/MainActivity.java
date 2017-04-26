@@ -132,8 +132,10 @@ public class MainActivity extends Activity {
          * 3) Update the question
          * 4) Update the guest
          * 5) Update the answers
-         * 6) Update the statistics-bars
+         * 6) Prepare the statistic
          */
+
+        /**STEP 1)*/
         // transforming the questions.clickables and the .question-string into one SpannableString
         // with clickable words, which will bring the user to a web-search about this word
         SpannableString questionText = Utilities.getClickableText(this, question.question, question.clickables);
@@ -141,7 +143,7 @@ public class MainActivity extends Activity {
 
         String  guest = "Sendung mit "+question.guest;
 
-        // showing, whether this question is a favorite or not
+        /**STEP 2)*/
         if (question.favorite) {
             ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
@@ -150,7 +152,8 @@ public class MainActivity extends Activity {
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
 
-        // animate the transition between the questions, if wanted
+
+        /**STEP 3 & 5)*/
         if (animated) {
             slideQuestionOut();
             slideQuestionIn(questionText);
@@ -161,8 +164,13 @@ public class MainActivity extends Activity {
             tv_guest.setText(guest);
         }
 
+        /**STEP 5)*/
         tv_answer_1.setText(question.answer_1);
         tv_answer_2.setText(question.answer_2);
+
+        /**STEP 6)*/
+        prepareStatistic(question.count_answer_1, question.count_answer_2);
+
     }
     // generates a sliding-out animation for the old question
     private void slideQuestionOut() {
@@ -185,7 +193,7 @@ public class MainActivity extends Activity {
         animateSizeChange(rl_qu_cont.getHeight(), tv_questionIn.getLineCount() * h);
 
     }
-
+    // generates a fade in/out animation for the new guest
     private void setGuestAnimated(String guest) {
         // fade out the textview (same color as background)
         changeViewColor(tv_guest, 550, R.color.icon_color, R.color.cardview_background);
@@ -200,6 +208,51 @@ public class MainActivity extends Activity {
         resizeAnimation.setDuration(200);
         rl_qu_cont.startAnimation(resizeAnimation);
     }
+    // shows the statistics and set the respective colours
+    private void showStatistic(int answer) {
+        // the bar corresponding to the users choice will get nmr_background color
+        int selectedColor = getResources().getColor(R.color.selected_answer);
+        int unselectedColor = getResources().getColor(R.color.semitransparent);
+
+        statistic_bar_1.setBackgroundColor(unselectedColor);
+        statistic_bar_2.setBackgroundColor(unselectedColor);
+
+        // the bar from the answer the user selected, Also will be cyan, the other remains grey
+        switch (answer) {
+            case 1:
+                statistic_bar_1.setBackgroundColor(selectedColor);
+                break;
+            case 2:
+                statistic_bar_2.setBackgroundColor(selectedColor);
+                break;
+        }
+
+        // make the layout visible
+        ll_answering_statistic.setVisibility(View.VISIBLE);
+    }
+    private void prepareStatistic(int count1, int count2) {
+        // make the previous statistic disappear
+        ll_answering_statistic.setVisibility(View.GONE);
+
+        // calculate the percentage
+        int percent1 = (100*count1)/(count1+count2);
+        int percent2 = 100-count1;
+
+
+        // layout_weight are set to the percent of each answer, the weightSum is 100
+        statistic_bar_1.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                percent1));
+
+        statistic_bar_2.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                percent2));
+
+        ll_answering_statistic.getLayoutParams().height = Utilities.convertDpsToPixels(this, 6);
+    }
+
 
     // initializes all views
     private void initViews() {
@@ -383,47 +436,8 @@ public class MainActivity extends Activity {
 
     }
 
-    private void createStatistic(int percentage_answer_1) {
-        int percentage_answer_2 = 100 - percentage_answer_1;
 
-        // layout_weight are set to the percent of each answer, the weightSum is 100
-        statistic_bar_1.setLayoutParams(new TableRow.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                percentage_answer_1));
 
-        statistic_bar_2.setLayoutParams(new TableRow.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                percentage_answer_2
-        ));
-
-    }
-
-    private void showStatistic(int answer) {
-        // the bar corresponding to the users choice will get nmr_background color
-        int blueColor = getResources().getColor(R.color.nmr_background);
-
-        switch (answer) {
-            case 1:
-                statistic_bar_1.setBackgroundColor(blueColor);
-                break;
-            case 2:
-                statistic_bar_2.setBackgroundColor(blueColor);
-                break;
-        }
-
-        // make the layout visible
-        ll_answering_statistic.setVisibility(View.VISIBLE);
-    }
-    private void hideStatistic() {
-        //make the statistic disappear
-        ll_answering_statistic.setVisibility(View.GONE);
-
-        int greyColor = getResources().getColor(R.color.icon_color);
-        statistic_bar_1.setBackgroundColor(greyColor);
-        statistic_bar_2.setBackgroundColor(greyColor);
-    }
 
 
     // enables or disables the favoritesOnly button
