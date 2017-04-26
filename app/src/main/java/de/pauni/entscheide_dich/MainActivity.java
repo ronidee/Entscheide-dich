@@ -1,6 +1,7 @@
 package de.pauni.entscheide_dich;
 
 import android.animation.ValueAnimator;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,9 +11,12 @@ import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 
@@ -36,6 +40,7 @@ public class MainActivity extends Activity {
     TextView    tv_guest        =   null;
     TextView    tv_answer_1     =   null;
     TextView    tv_answer_2     =   null;
+
     ImageButton ib_naechste     =   null;
     ImageButton ib_favOnly      =   null;
     ImageButton ib_share        =   null;
@@ -45,8 +50,12 @@ public class MainActivity extends Activity {
     ImageButton ib_search       =   null;
     ImageButton ib_sel_answer_1 =   null;
     ImageButton ib_sel_answer_2 =   null;
-    RelativeLayout rl_qu_cont   =   null;
 
+    View        statistic_bar_1 =   null;
+    View        statistic_bar_2 =   null;
+
+    RelativeLayout rl_qu_cont   =   null;
+    LinearLayout ll_answering_statistic = null;
     int h; //height of one line of tv_questionX
 
     @Override
@@ -117,6 +126,8 @@ public class MainActivity extends Activity {
     // show's the passed question. Possible to animate the transition
     // don't make it private, as SearchQuestionsActivity would lose access
     void displayQuestion (Question question, boolean animated) {
+        // hide the old statistic
+        hideStatistic();
 
         // clear selections
         ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
@@ -158,6 +169,7 @@ public class MainActivity extends Activity {
 
         tv_answer_1.setText(question.answer_1);
         tv_answer_2.setText(question.answer_2);
+        createStatistic(question.percentage_answer_1);
 
     }
     // generates a sliding-out animation for the old question
@@ -206,11 +218,15 @@ public class MainActivity extends Activity {
         ib_sel_answer_1 =   (ImageButton) findViewById(R.id.ib_select_answer_1);
         ib_sel_answer_2 =   (ImageButton) findViewById(R.id.ib_select_answer_2);
 
+        statistic_bar_1 =   findViewById(R.id.statistic_bar_1);
+        statistic_bar_2 =   findViewById(R.id.statistic_bar_2);
+
         rl_qu_cont      =   (RelativeLayout) findViewById(R.id.rl_question_container);
+        ll_answering_statistic = (LinearLayout) findViewById(R.id.ll_answering_statistic);
+
 
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
-
     }
     // register all OnClickListeners
     private void regListeners() {
@@ -327,7 +343,8 @@ public class MainActivity extends Activity {
         ib_sel_answer_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Mainactivity:  ", "answer1");
+                Log.d("Mainactivity:  ", "select answer1");
+                showStatistic(1);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
             }
@@ -337,7 +354,8 @@ public class MainActivity extends Activity {
         ib_sel_answer_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Mainactivity:  ", "answer2");
+                Log.d("Mainactivity:  ", "select answer2");
+                showStatistic(2);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
             }
@@ -358,6 +376,48 @@ public class MainActivity extends Activity {
         });
 
 
+    }
+
+    private void createStatistic(int percentage_answer_1) {
+        int percentage_answer_2 = 100 - percentage_answer_1;
+
+        // layout_weight are set to the percent of each answer, the weightSum is 100
+        statistic_bar_1.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                percentage_answer_1));
+
+        statistic_bar_2.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                percentage_answer_2
+        ));
+
+    }
+
+    private void showStatistic(int answer) {
+        // the bar corresponding to the users choice will get nmr_background color
+        int blueColor = getResources().getColor(R.color.nmr_background);
+
+        switch (answer) {
+            case 1:
+                statistic_bar_1.setBackgroundColor(blueColor);
+                break;
+            case 2:
+                statistic_bar_2.setBackgroundColor(blueColor);
+                break;
+        }
+
+        // make the layout visible
+        ll_answering_statistic.setVisibility(View.VISIBLE);
+    }
+    private void hideStatistic() {
+        //make the statistic disappear
+        ll_answering_statistic.setVisibility(View.GONE);
+
+        int greyColor = getResources().getColor(R.color.icon_color);
+        statistic_bar_1.setBackgroundColor(greyColor);
+        statistic_bar_2.setBackgroundColor(greyColor);
     }
 
 

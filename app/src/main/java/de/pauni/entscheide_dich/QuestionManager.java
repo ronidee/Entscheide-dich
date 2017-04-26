@@ -116,6 +116,10 @@ class QuestionManager {
         refreshCursor();
     }
 
+    static void updateStatistics(int percentages[], int id[]) {
+        dbh.updateStatistics(percentages, id);
+    }
+
     // loads a cursor with the current database
     static private void refreshCursor() {
         // saving current id, as getId refers to dbCursor and dbCursor is going to be refreshed

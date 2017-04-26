@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_answering_statistic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:animateLayoutChanges="true">
+
+    <!-- horizontal divider -->
+    <View
+        android:id="@+id/statistic_bar_1"
+        style="@style/Divider_horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="50"
+        android:background="@color/nmr_background" />
+
+    <!-- horizontal divider -->
+    <View
+        android:id="@+id/statistic_bar_2"
+        style="@style/Divider_horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="50"
+        android:background="@color/colorPrimaryDark" />
+</LinearLayout>

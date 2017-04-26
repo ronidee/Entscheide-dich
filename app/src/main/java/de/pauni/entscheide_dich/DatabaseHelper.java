@@ -41,9 +41,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
     // Favorite ja oder nein (1/0)
     private static final String KEY_FAV     = "favorite";
     // String der zu clickable sein soll
-    static final String KEY_KEYWORDS = "keywords";
+    static final String KEY_KEYWORDS        = "keywords";
     // Link der aufgerufen wird
-    static final String KEY_LINKS   = "links";
+    static final String KEY_LINKS           = "links";
+
+    private static final String KEY_ANSWER_1 = "answer1";
+    private static final String KEY_ANSWER_2 = "answer2";
+    private static final String KEY_PERCENTAGE_ANSWER_1 = "percentage_answer_1";
+
+
 
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -65,7 +71,10 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_YT + " TEXT NOT NULL," +
                         KEY_FAV + " INTEGER NOT NULL," +
                         KEY_KEYWORDS + " TEXT NOT NULL," +
-                        KEY_LINKS + " TEXT NOT NULL" +
+                        KEY_LINKS + " TEXT NOT NULL," +
+                        KEY_ANSWER_1 + " TEXT NOT NULL," +
+                        KEY_ANSWER_2 + " TEXT NOT NULL," +
+                        KEY_PERCENTAGE_ANSWER_1 + " TEXT NOT NULL" +
                     ")";
 
         db.execSQL(CREATE_TABLE_STRING);
@@ -108,9 +117,11 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_QUES, question.question);
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
-        values.put(KEY_FAV, question.favorite);
+        values.put(KEY_FAV, question.favorite); // isn't his redundant? All favs are false...
         values.put(KEY_KEYWORDS, strings);
         values.put(KEY_LINKS, links);
+        values.put(KEY_ANSWER_1, question.answer_1);
+        values.put(KEY_ANSWER_2, question.answer_2);
 
 
         // Inserting Row
@@ -133,7 +144,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-        // reading the comma seperated lists (potentially single string or empty)
+        // reading the comma separated lists (potentially single string or empty)
         String keywords_raw = cursor.getString(cursor.getColumnIndex(KEY_KEYWORDS));
         String links_raw    = cursor.getString(cursor.getColumnIndex(KEY_LINKS));
 
@@ -141,6 +152,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         String[] keywords;
         String[] links;
 
+        // splitting the comma separated lists into arrays
         if (keywords_raw.contains(",")) {
             keywords = keywords_raw.split(",");
             links    = links_raw.split(",");
@@ -155,6 +167,9 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.guest      = cursor.getString(2);
         question.ytlink     = cursor.getString(3);
         question.favorite   = cursor.getInt(4) == 1;
+        question.answer_1   = cursor.getString(7); // 5 & 6 = keywords & links
+        question.answer_2   = cursor.getString(8);
+        question.percentage_answer_1 = cursor.getInt(9);
         question.clickables = new String[][] {keywords, links};
 
         cursor.close();
@@ -181,6 +196,14 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("dbh", "favorite set: " + quest.favorite);
     }
 
+    // Paul, änder das bitte...
+    void updateStatistics(int percentages[], int id[]) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        for (int i = 0; i <=id.length; i++) {
+            db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + percentages[i] + " WHERE " + KEY_ID + " = " + id[i]+ ";");
+        }
+    }
 
 
     Cursor getCursor() {
