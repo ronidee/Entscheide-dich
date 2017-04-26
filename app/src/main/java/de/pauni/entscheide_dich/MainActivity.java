@@ -231,8 +231,10 @@ public class MainActivity extends Activity {
         ll_answering_statistic.setVisibility(View.VISIBLE);
     }
     private void prepareStatistic(int count1, int count2) {
-        // make the previous statistic disappear
-        ll_answering_statistic.setVisibility(View.GONE);
+        // remove the previous selection and diagram
+        ll_answering_statistic.setVisibility(View.INVISIBLE);
+        ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
+        ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
 
         // calculate the percentage
         int percent1 = (100*count1)/(count1+count2);
@@ -250,7 +252,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 percent2));
 
-        ll_answering_statistic.getLayoutParams().height = Utilities.convertDpsToPixels(this, 6);
+        ll_answering_statistic.getLayoutParams().height = Utilities.convertDpsToPixels(this, 8);
     }
 
 

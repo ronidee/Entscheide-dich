@@ -63,25 +63,25 @@
         <View
             android:id="@+id/divider"
             style="@style/Divider_horizontal"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="10dp"
             android:background="@color/background" />
 
+        <!-- answer selector -->
         <include
             android:id="@+id/answer_selector"
             layout="@layout/answer_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp" />
-
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp" />
 
         <!-- horizontal divider -->
         <View
             android:id="@+id/divider1"
             style="@style/Divider_horizontal"
             android:layout_below="@+id/textview_sendung"
-            android:layout_marginTop="8dp"
             android:background="@color/background" />
 
         <!-- Layout with 4 imagebuttons (share, random, youtube, favour) -->
@@ -92,5 +92,9 @@
             android:layout_height="wrap_content"
             android:gravity="center" />
 
+        <include
+            layout="@layout/answering_statistic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

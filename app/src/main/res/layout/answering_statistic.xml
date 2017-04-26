@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_answering_statistic"
     android:layout_width="match_parent"
-    android:layout_height="5dp"
+    android:layout_height="3dp"
     android:animateLayoutChanges="true"
     android:orientation="horizontal"
     android:weightSum="100">
@@ -13,14 +13,14 @@
     <View
         android:id="@+id/statistic_bar_1"
         style="@style/Divider_horizontal"
-        android:layout_height="5dp"
+        android:layout_height="3dp"
         android:layout_weight="50"
-        android:background="@color/nmr_background" />
+        android:background="@color/selected_answer" />
 
     <View
         android:id="@+id/statistic_bar_2"
         style="@style/Divider_horizontal"
-        android:layout_height="5dp"
+        android:layout_height="3dp"
         android:layout_weight="50"
-        android:background="@color/colorPrimaryDark" />
+        android:background="@color/semitransparent" />
 </LinearLayout>

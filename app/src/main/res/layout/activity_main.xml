@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:fitsSystemWindows="true"
-
     tools:context="de.pauni.entscheide_dich.MainActivity">
 
     <!-- Das Logo von Entscheide Dich -->
@@ -41,12 +40,6 @@
             layout="@layout/cardview_frage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <include
-            layout="@layout/answering_statistic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cardview" />
 
     </RelativeLayout>
     <!-- Das Button-Panel am unteren Rand -->

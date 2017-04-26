@@ -17,7 +17,7 @@
 
     <color name="font_color">@color/nmr_background</color>
     <color name="transparent">#ffffff</color>
-    <color name="semitransparent">#4b000000</color>
+    <color name="semitransparent">#3c000000</color>
     <color name="hint_color">#ab272829</color>
     <color name="link_color">@color/nmr_background</color>
     <color name="link_highlight_color">#3b8bf7ff</color>
