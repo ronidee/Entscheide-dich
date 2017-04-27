@@ -29,8 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:clickable="true"
-                android:linksClickable="true"
                 android:text="TEST\nTEST\nTEST\nTEST"
                 android:textAlignment="center"
                 android:textColor="@color/font_color"
