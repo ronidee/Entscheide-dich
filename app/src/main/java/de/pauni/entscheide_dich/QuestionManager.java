@@ -85,7 +85,7 @@ class QuestionManager {
         Log.d("setId: ", ""+new_id);
         while (getSelectedQuestion(dbCursor).id != new_id) {
             moveToNext_save();
-            Log.d("schleife", " ausgeführt");
+            Log.d("QuestionManager", " Schleife ausgeführt (setId)");
         }
     }
 

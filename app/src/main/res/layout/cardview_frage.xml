@@ -29,17 +29,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="TEST\nTEST\nTEST\nTEST"
+                android:clickable="false"
+                android:isScrollContainer="false"
                 android:textAlignment="center"
                 android:textColor="@color/font_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textview_question_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="TEST\nTEST\nTEST\nTEST"
                 android:textAlignment="center"
                 android:textColor="@color/font_color"
                 android:textSize="16sp"

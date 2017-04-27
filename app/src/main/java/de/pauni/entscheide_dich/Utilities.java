@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -16,6 +17,7 @@ import android.view.View;
 
 class Utilities {
     private static String info = "";
+    public static float scale = 0;
 
     // returns a spannablestring with the passed keywords(clickables) being clickable
     static SpannableString getClickableText(final Context c, String text, String[][] clickables) {
@@ -41,13 +43,14 @@ class Utilities {
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View textView) {
+                    Log.d("Utilities","clickableSpan onClick");
                     c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
                 }
+
 
                 @Override
                 public void updateDrawState(TextPaint ds) {
                     ds.setUnderlineText(true);
-                    //ds.setColor(c.getResources().getColor(R.color.link_color));
                 }
             };
             ss.setSpan(clickableSpan, indexStart, indexEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -66,9 +69,8 @@ class Utilities {
         return info += " " + string;
     }
 
-    static int convertDpsToPixels(Context c, int dps) {
-        final float scale = c.getResources().getDisplayMetrics().density;
-        return (int) (dps * scale + 0.5f);
+    static float convertDpsToPixels(int dps) {
+        return (dps * scale + 0.5f);
     }
 
     // for sharing txt via other applications

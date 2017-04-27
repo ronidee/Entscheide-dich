@@ -1,7 +1,6 @@
 package de.pauni.entscheide_dich;
 
 import android.animation.ValueAnimator;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,7 +11,6 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -68,6 +66,7 @@ public class MainActivity extends Activity {
         new SharedPrefs(this); // passing context, for static access
         new QuestionManager(this);
         QuestionManager.setId(SharedPrefs.getCurrentQuestionId());
+        Utilities.scale = getResources().getDisplayMetrics().density;
 
         initViews();
         regListeners();
@@ -153,7 +152,7 @@ public class MainActivity extends Activity {
         }
 
 
-        /**STEP 3 & 5)*/
+        /**STEP 3 & 4)*/
         if (animated) {
             slideQuestionOut();
             slideQuestionIn(questionText);
@@ -163,6 +162,9 @@ public class MainActivity extends Activity {
             tv_questionIn.setText(questionText);
             tv_guest.setText(guest);
         }
+
+        tv_questionIn.setMovementMethod(new MovementMethod());
+
 
         /**STEP 5)*/
         tv_answer_1.setText(question.answer_1);
@@ -252,7 +254,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 percent2));
 
-        ll_answering_statistic.getLayoutParams().height = Utilities.convertDpsToPixels(this, 8);
+        ll_answering_statistic.getLayoutParams().height = (int) Utilities.convertDpsToPixels(8);
     }
 
 
@@ -284,7 +286,6 @@ public class MainActivity extends Activity {
         // do little important stuff too here... :S
         displayWidth    =   this.getResources().getDisplayMetrics().widthPixels;
         // make the textview clickable and set link_color
-        tv_questionIn.setMovementMethod(LinkMovementMethod.getInstance());
         tv_questionIn.setHighlightColor(getResources().getColor(R.color.link_highlight_color));
 
     }
