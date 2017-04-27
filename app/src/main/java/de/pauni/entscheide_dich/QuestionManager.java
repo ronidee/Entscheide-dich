@@ -210,6 +210,10 @@ class QuestionManager {
         question.guest      = cursor.getString(2);
         question.ytlink     = cursor.getString(3);
         question.favorite   = cursor.getInt(4) == 1;
+        question.answer_1   = cursor.getString(7); // 5 & 6 = keywords & links
+        question.answer_2   = cursor.getString(8);
+        question.count_answer_1 = cursor.getInt(9);
+        question.count_answer_2 = cursor.getInt(10);
         question.clickables = new String[][] {keywords, links};
 
         return question;

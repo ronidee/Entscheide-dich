@@ -197,6 +197,11 @@ public class MainActivity extends Activity {
     }
     // generates a fade in/out animation for the new guest
     private void setGuestAnimated(String guest) {
+        // if the guest didn't change, do nothing
+        if (tv_guest.getText().toString().equals(guest)) {
+            return;
+        }
+
         // fade out the textview (same color as background)
         changeViewColor(tv_guest, 550, R.color.icon_color, R.color.cardview_background);
         // update the guest
@@ -210,28 +215,7 @@ public class MainActivity extends Activity {
         resizeAnimation.setDuration(200);
         rl_qu_cont.startAnimation(resizeAnimation);
     }
-    // shows the statistics and set the respective colours
-    private void showStatistic(int answer) {
-        // the bar corresponding to the users choice will get nmr_background color
-        int selectedColor = getResources().getColor(R.color.selected_answer);
-        int unselectedColor = getResources().getColor(R.color.semitransparent);
 
-        statistic_bar_1.setBackgroundColor(unselectedColor);
-        statistic_bar_2.setBackgroundColor(unselectedColor);
-
-        // the bar from the answer the user selected, Also will be cyan, the other remains grey
-        switch (answer) {
-            case 1:
-                statistic_bar_1.setBackgroundColor(selectedColor);
-                break;
-            case 2:
-                statistic_bar_2.setBackgroundColor(selectedColor);
-                break;
-        }
-
-        // make the layout visible
-        ll_answering_statistic.setVisibility(View.VISIBLE);
-    }
     private void prepareStatistic(int count1, int count2) {
         // remove the previous selection and diagram
         ll_answering_statistic.setVisibility(View.INVISIBLE);
@@ -255,6 +239,28 @@ public class MainActivity extends Activity {
                 percent2));
 
         ll_answering_statistic.getLayoutParams().height = (int) Utilities.convertDpsToPixels(8);
+    }
+    // shows the statistics and set the respective colours
+    private void showStatistic(int answer) {
+        // the bar corresponding to the users choice will get nmr_background color
+        int selectedColor = getResources().getColor(R.color.selected_answer);
+        int unselectedColor = getResources().getColor(R.color.semitransparent);
+
+        statistic_bar_1.setBackgroundColor(unselectedColor);
+        statistic_bar_2.setBackgroundColor(unselectedColor);
+
+        // the bar from the answer the user selected, Also will be cyan, the other remains grey
+        switch (answer) {
+            case 1:
+                statistic_bar_1.setBackgroundColor(selectedColor);
+                break;
+            case 2:
+                statistic_bar_2.setBackgroundColor(selectedColor);
+                break;
+        }
+
+        // make the layout visible
+        ll_answering_statistic.setVisibility(View.VISIBLE);
     }
 
 

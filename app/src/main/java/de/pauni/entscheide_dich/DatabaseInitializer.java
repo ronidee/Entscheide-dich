@@ -83,6 +83,8 @@ class DatabaseInitializer {
                 Log.d("DatabaseInitializer", questionobj.getString("question"));
                 Log.d("DatabaseInitializer", questionobj.getString("guest"));
                 Log.d("DatabaseInitializer", questionobj.getString("ytlink"));
+                Log.d("DatabaseInitializer", questionobj.getString("answer1"));
+                Log.d("DatabaseInitializer", questionobj.getString("answer2"));
 
                 // load links and keywords from one question and put them into one "clickables"
                 JSONArray clickablesobj = questionobj.getJSONArray("clickable");
@@ -99,6 +101,8 @@ class DatabaseInitializer {
                 question.question = questionobj.getString("question");
                 question.guest    = questionobj.getString("guest");
                 question.ytlink   = questionobj.getString("ytlink");
+                question.answer_1 = questionobj.getString("answer1");
+                question.answer_2 = questionobj.getString("answer2");
                 question.clickables = clickables;
 
                 dbh.addQuestion(question);

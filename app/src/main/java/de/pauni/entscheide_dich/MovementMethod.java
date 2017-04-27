@@ -15,7 +15,7 @@ import android.widget.TextView;
 class MovementMethod extends LinkMovementMethod {
     private float x = -1;
     private float y = -1;
-    private float tolerance = Utilities.convertDpsToPixels(5);
+    private float tolerance = Utilities.convertDpsToPixels(10);
 
     @Override
     public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {

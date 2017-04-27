@@ -4,8 +4,8 @@
         "question": "Wärst Du lieber mit Kerstin Ott in einem Wespennest oder mit Biene Maja auf einem Lesbenfest",
         "guest": "Marius Müller-Westernhagen",
         "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit Kerstin Ott in einem Wespennest",
+        "answer2": "mit Biene Maja auf einem Lesbenfest",
         "clickable": [
             {
                 "keyword": "Kerstin Ott",
@@ -17,8 +17,8 @@
         "question": "Hättest Du lieber einen extrem großen Hut bei MTV Unplugged auf oder einen Zylinder beim Comedypreis",
         "guest": "Marius Müller-Westernhagen",
         "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen extrem großen Hut bei MTV Unplugged",
+        "answer2": "einen Zylinder beim Comedypreis",
         "clickable": [
             {
                 "keyword": "Comedypreis",
@@ -30,8 +30,8 @@
         "question": "Hättest Du lieber einen Sohn der Wilson Gonzalez oder einen, der Jimi Blue heißt?",
         "guest": "Marius Müller-Westernhagen",
         "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Wilson Gonzalez",
+        "answer2": "Jimi Blue",
         "clickable": [
             {
                 "keyword": "Wilson Gonzalez",
@@ -47,16 +47,16 @@
         "question": "Würdest Du lieber jeden Briefträger den du siehst beißen oder bei jedem vorbeifahrenden Auto bellen?",
         "guest": "Marius Müller-Westernhagen",
         "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "jeden Briefträger den du siehst beißen",
+        "answer2": "bei jedem vorbeifahrenden Auto bellen",
         "clickable": []
     },
     {
         "question": "Wärst Du lieber der Schwippschwager von Jenny Elvers oder der Lochschwager von den Lochis?",
         "guest": "Marius Müller-Westernhagen",
         "ytlink": "https://www.youtube.com/watch?v=k3S1_MXNJ9Y",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Schwippschwager von Jenny Elvers",
+        "answer2": "Lochschwager von den Lochis",
         "clickable": [
             {
                 "keyword": "Jenny Elvers",
