@@ -15,7 +15,8 @@
     android:paddingTop="5dp"
     android:theme="@style/search_dialog"
     app:cardBackgroundColor="@color/transparent"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:id="@+id/ll_question"

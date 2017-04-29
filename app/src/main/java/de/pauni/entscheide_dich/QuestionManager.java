@@ -4,6 +4,7 @@ package de.pauni.entscheide_dich;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +26,21 @@ class QuestionManager {
     static private boolean mode_random;
     static private Cursor dbCursor;
 
-
     // constructor
     QuestionManager(Context context) {
-        if (SharedPrefs.isFirstStart())
-            new DatabaseInitializer(context); // creating the database and table
-
         dbh      = new DatabaseHelper(context);
         dbCursor = dbh.getCursor();
         dbCursor.moveToFirst();
         mode_random = false;
+
+
+        DownloadManager downloadManager = new DownloadManager();
+        downloadManager.updateDatabase();
+        Toast.makeText(
+                context,
+                SharedPrefs.getSyncedLocalvotes() ? "Update erfolgreich" : "Update fehlgeschlagen",
+                Toast.LENGTH_SHORT
+        ).show();
     }
 
 
@@ -70,6 +76,11 @@ class QuestionManager {
         moveToNext_save();
     }
 
+    // moves the cursor to the previous question (by ID)
+    static void selectPrevious() {
+        moveToPrevious_save();
+    }
+
     // moves the cursor to the next favorite (by ID) (could loop 4 ever)
     static void selectNextFavorite() {
         if (mode_random)
@@ -81,15 +92,18 @@ class QuestionManager {
     }
 
     // moves the cursor to a specific ID
-    static void setId(int new_id) {
-        Log.d("setId: ", ""+new_id);
+    static void SelectQuestionbyId(int new_id) {
+        Log.d("SelectQuestionbyId: ", ""+new_id);
         while (getSelectedQuestion(dbCursor).id != new_id) {
             moveToNext_save();
-            Log.d("QuestionManager", " Schleife ausgeführt (setId)");
+            Log.d("QuestionManager", " Schleife ausgeführt (SelectQuestionbyId)");
         }
     }
 
 
+    static DatabaseHelper getDbh () {
+        return dbh;
+    }
 
 
 
@@ -116,9 +130,6 @@ class QuestionManager {
         refreshCursor();
     }
 
-    static void updateStatistics(int percentages[], int id[]) {
-        dbh.updateStatistics(percentages, id);
-    }
 
     // loads a cursor with the current database
     static private void refreshCursor() {
@@ -130,7 +141,7 @@ class QuestionManager {
 
         // move cursor to first, then to the current id
         dbCursor.moveToFirst();
-        setId(i);
+        SelectQuestionbyId(i);
     }
 
     static int countAllQuestions() {
@@ -163,7 +174,7 @@ class QuestionManager {
 
 
     static Question[] searchQuestion(String searchString) {
-        Log.d("searchQuestion>>>", "searching for \'" + searchString + "\'");
+        Log.d("QMR: SearchQ>>>", "searching for \'" + searchString + "\'");
 
         Cursor foundCursor = dbh.searchQuestion(searchString);
         foundCursor.moveToFirst();
@@ -184,7 +195,7 @@ class QuestionManager {
     }
 
 
-    static private Question getSelectedQuestion(Cursor cursor) {
+    static Question getSelectedQuestion(Cursor cursor) {
         // reading the comma seperated lists (potentially single string or empty)
 
         // Log.d("foo", String.valueOf(cursor.getColumnIndex(DatabaseHelper.KEY_KEYWORDS)));

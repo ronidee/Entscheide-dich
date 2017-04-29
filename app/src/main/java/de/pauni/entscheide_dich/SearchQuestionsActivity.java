@@ -68,7 +68,6 @@ public class SearchQuestionsActivity extends Activity{
                     tv_resultcount.setText("Ergebnisse: " + lv_questions.getAdapter().getCount());
                     return;
                 }
-                tv_resultcount.setText("Ergebnisse: 0");
             }
         });
     }
@@ -78,8 +77,8 @@ public class SearchQuestionsActivity extends Activity{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Log.d("SearchQActiv: ", "onitemclick");
-            // setId to the id of the question, the user selected
-            QuestionManager.setId(SearchQuestionAdapter.questions[position].id);
+            // SelectQuestionbyId to the id of the question, the user selected
+            QuestionManager.SelectQuestionbyId(SearchQuestionAdapter.questions[position].id);
 
             // close the dialog
             finish();

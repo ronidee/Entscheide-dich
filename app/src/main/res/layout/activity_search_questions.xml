@@ -59,12 +59,13 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_searchbar"
         android:background="@color/colorPrimaryDark"
+        android:clickable="true"
         android:dividerHeight="5dp"
-        android:fastScrollEnabled="true" />
+        android:fastScrollEnabled="true"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/lv_result"
         android:orientation="horizontal">
 
@@ -72,11 +73,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/bt_search"
-            android:tint="@color/link_highlight_color"/>
+            android:tint="@color/link_highlight_color"
+            android:visibility="gone" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Durchsuche alle Entscheide dich!-Fragen"/>
+            android:text="Durchsuche alle Entscheide dich!-Fragen" />
     </LinearLayout>
 
 </RelativeLayout>

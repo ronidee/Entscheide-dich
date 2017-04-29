@@ -3,6 +3,10 @@ package de.pauni.entscheide_dich;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,16 +26,12 @@ class SharedPrefs extends Activity {
     //the keys of the things to save
     private static final String CURRENT_QUESTION_ID = "question_index";
     private static final String FIRST_START  = "first_start";
+    private static final String SYNCED_VOTES  = "synced_votes";
 
     SharedPrefs(Context c) {
         prefs = c.getSharedPreferences(PREFS, 0);
     }
 
-    static void saveQuestionId(int value) {
-        editor = prefs.edit();
-        editor.putInt(CURRENT_QUESTION_ID, value);
-        editor.apply();
-    }
 
     static boolean isFirstStart() {
         //If this FIRST_START doesn't exist, return true and change it to false.
@@ -44,6 +44,21 @@ class SharedPrefs extends Activity {
         } else return false;
     }
 
+
+    static void setSyncedLocalvotes(boolean synced) {
+        editor = prefs.edit();
+        editor.putBoolean(SYNCED_VOTES, synced);
+        editor.apply();
+    }
+    static boolean getSyncedLocalvotes() {
+        return prefs.getBoolean(SYNCED_VOTES, false);
+    }
+
+    static void saveQuestionId(int value) {
+        editor = prefs.edit();
+        editor.putInt(CURRENT_QUESTION_ID, value);
+        editor.apply();
+    }
     static int getCurrentQuestionId() {
         return prefs.getInt(CURRENT_QUESTION_ID, 1);
     }

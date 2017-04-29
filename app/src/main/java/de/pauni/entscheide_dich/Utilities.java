@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.UUID;
+
 /**
  * Ansammlung von einigen häufiger genutzten oder sperrigen Funktionen
  */
@@ -81,6 +83,11 @@ class Utilities {
         intent.setType  (mimetype);
         intent.putExtra (Intent.EXTRA_TEXT, message +  "\n\nEntscheide Dich! Von Roni und Paul");
         c.startActivity (Intent.createChooser(intent, "Teile die Frage mit Feinden:"));
+    }
+
+    // generate a unique id for the device
+    static String generateUniqueId() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
 

@@ -30,25 +30,19 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "FRAGEN_LISTE";
 
 
-    // Table Columns names
-    private static final String KEY_ID      = "_id";
-    // Der Text der Frage
-    private static final String KEY_QUES    = "question";
-    // Der Namame des Gastes
-    private static final String KEY_GUEST   = "guest_name";
-    // Der YT-Link zum jew. Video
-    private static final String KEY_YT      = "youtube_link";
-    // Favorite ja oder nein (1/0)
-    private static final String KEY_FAV     = "favorite";
-    // String der zu clickable sein soll
-    static final String KEY_KEYWORDS        = "keywords";
-    // Link der aufgerufen wird
-    static final String KEY_LINKS           = "links";
 
-    private static final String KEY_ANSWER_1 = "answer1";
-    private static final String KEY_ANSWER_2 = "answer2";
-    private static final String KEY_COUNT_ANSWER_1 = "count_answer_1";
-    private static final String KEY_COUNT_ANSWER_2 = "count_answer_2";
+    private static final String KEY_ID      = "_id";            // Table Columns names
+    private static final String KEY_QUES    = "question";       // Der Text der Frage
+    private static final String KEY_GUEST   = "guest_name";     // Der Name des Gastes
+    private static final String KEY_YT      = "youtube_link";   // Der YT-Link zum jew. Video
+    private static final String KEY_FAV     = "favorite";       // Favorite ja oder nein (1/0)
+    static final String KEY_KEYWORDS        = "keywords";       // String der zu clickable sein soll
+    static final String KEY_LINKS           = "links";          // Link der aufgerufen wird
+    private static final String KEY_ANSWER_1 = "answer1";       // Antwortmöglichkeit 1
+    private static final String KEY_ANSWER_2 = "answer2";       // Antwortmöglichkeit 2
+    private static final String KEY_LOCALVOTE = "localvote";      // Antwort des Users
+    private static final String KEY_COUNT_ANSWER_1 = "count_answer_1"; // Anzahl der Votes für Antwort 1
+    private static final String KEY_COUNT_ANSWER_2 = "count_answer_2"; // Anzahl der Votes für Antwort 2
 
 
 
@@ -75,6 +69,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_LINKS + " TEXT NOT NULL," +
                         KEY_ANSWER_1 + " TEXT NOT NULL," +
                         KEY_ANSWER_2 + " TEXT NOT NULL," +
+                        KEY_LOCALVOTE + " TEXT NOT NULL," +
                         KEY_COUNT_ANSWER_1 + " TEXT NOT NULL," +
                         KEY_COUNT_ANSWER_2 + " TEXT NOT NULL" +
                     ")";
@@ -124,6 +119,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_LINKS, links);
         values.put(KEY_ANSWER_1, question.answer_1);
         values.put(KEY_ANSWER_2, question.answer_2);
+        values.put(KEY_LOCALVOTE,        question.localvote);
         values.put(KEY_COUNT_ANSWER_1, question.count_answer_1);
         values.put(KEY_COUNT_ANSWER_2, question.count_answer_2);
 
@@ -132,7 +128,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }
-
 
 
 
@@ -190,6 +185,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+
+
     void setFavorite(int id, boolean favorite) {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
@@ -199,8 +196,22 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Paul, das ist Deins ;)...
-    void updateStatistics(int percentages[], int id[]) {
+    void updateQuestion (Question question) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUES,            question.question);
+        values.put(KEY_GUEST,           question.guest);
+        values.put(KEY_ANSWER_1,        question.answer_1);
+        values.put(KEY_ANSWER_2,        question.answer_2);
+        values.put(KEY_LOCALVOTE,        question.localvote);
+        values.put(KEY_COUNT_ANSWER_1,  question.count_answer_1);
+        values.put(KEY_COUNT_ANSWER_2,  question.count_answer_2);
+        values.put(KEY_YT,              question.ytlink);
+
+        // updating row
+        db.update(TABLE_NAME, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(question.id) });
     }
 
 

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +24,17 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     float displayWidth;
-    boolean sessionStart = true;
-    boolean searchDialogWasOpen = false;
+    private boolean sessionStart = true;
+    private boolean searchDialogWasOpen = false;
+    private boolean animationOn   = true;
+    private boolean blocked = false;
 
     private final int MODE_NORMAL   = 1;
     private final int MODE_FAV_ONLY = 2;
-    private boolean   animationOn   = true;
     private int MODE = MODE_NORMAL;
+
+    DownloadManager downloadManager;
+
 
     //Declaring the views
     TextView    tv_questionIn   =   null;
@@ -62,16 +66,23 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // equip classes with required objects
         new SharedPrefs(this); // passing context, for static access
+
+        if (SharedPrefs.isFirstStart()) {
+            new DatabaseInitializer(this);
+        }
+
         new QuestionManager(this);
-        QuestionManager.setId(SharedPrefs.getCurrentQuestionId());
+
+        QuestionManager.SelectQuestionbyId(SharedPrefs.getCurrentQuestionId());
+        downloadManager = new DownloadManager();
         Utilities.scale = getResources().getDisplayMetrics().density;
 
         initViews();
         regListeners();
 
         updateFavOnlyButtonState();
+
     }
 
     //Saving the current Id in 'any' possible cases.
@@ -138,8 +149,6 @@ public class MainActivity extends Activity {
         // transforming the questions.clickables and the .question-string into one SpannableString
         // with clickable words, which will bring the user to a web-search about this word
         SpannableString questionText = Utilities.getClickableText(this, question.question, question.clickables);
-
-
         String  guest = "Sendung mit "+question.guest;
 
         /**STEP 2)*/
@@ -151,20 +160,16 @@ public class MainActivity extends Activity {
             ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
         }
 
-
         /**STEP 3 & 4)*/
         if (animated) {
-            slideQuestionOut();
-            slideQuestionIn(questionText);
+            slideQuestionOutLeft();
+            slideQuestionInRight(questionText);
             setGuestAnimated(guest);
-
         } else {
             tv_questionIn.setText(questionText);
             tv_guest.setText(guest);
         }
-
-        tv_questionIn.setMovementMethod(new MovementMethod());
-
+        tv_questionIn.setMovementMethod(new MovementMethod(this));
 
         /**STEP 5)*/
         tv_answer_1.setText(question.answer_1);
@@ -172,10 +177,33 @@ public class MainActivity extends Activity {
 
         /**STEP 6)*/
         prepareStatistic(question.count_answer_1, question.count_answer_2);
-
     }
+    void displayPrevQuestion (Question question, boolean animated) {
+       SpannableString questionText = Utilities.getClickableText(this, question.question, question.clickables);
+        String  guest = "Sendung mit "+question.guest;
+        if (question.favorite) {
+            ib_favorisieren.setColorFilter(getResources().getColor(R.color.nmr_background));
+            ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
+        } else {
+            ib_favorisieren.setColorFilter(getResources().getColor(R.color.icon_color));
+            ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+        }
+        if (animated) {
+            slideQuestionOutRight();
+            slideQuestionInLeft(questionText);
+            setGuestAnimated(guest);
+        } else {
+            tv_questionIn.setText(questionText);
+            tv_guest.setText(guest);
+        }
+        tv_questionIn.setMovementMethod(new MovementMethod(this));
+        tv_answer_1.setText(question.answer_1);
+        tv_answer_2.setText(question.answer_2);
+        prepareStatistic(question.count_answer_1, question.count_answer_2);
+    }
+
     // generates a sliding-out animation for the old question
-    private void slideQuestionOut() {
+    private void slideQuestionOutLeft() {
         // preparing textview for animation
         tv_questionOut.setX(tv_questionIn.getX());
         tv_questionOut.setText(tv_questionIn.getText());
@@ -183,17 +211,32 @@ public class MainActivity extends Activity {
         // slide textview out of the window
         tv_questionOut.animate().translationX(-displayWidth);
     }
+    private void slideQuestionOutRight() {
+        // preparing textview for animation
+        tv_questionOut.setX(tv_questionIn.getX());
+        tv_questionOut.setText(tv_questionIn.getText());
+        tv_questionOut.setVisibility(View.VISIBLE);
+        // slide textview out of the window
+        tv_questionOut.animate().translationX(+displayWidth);
+    }
     // generates a sliding-in animation for the new question
-    private void slideQuestionIn(SpannableString question) {
+    private void slideQuestionInRight(SpannableString question) {
         tv_questionIn.setX(displayWidth);
         tv_questionIn.setText(question);
 
         // slide textview to it's original position (0=origin)
         tv_questionIn.animate().translationX(0);
-
         //rl_qu_cont.getLayoutParams().height = tv_questionIn.getLineCount() * h;
         animateSizeChange(rl_qu_cont.getHeight(), tv_questionIn.getLineCount() * h);
+    }
+    private void slideQuestionInLeft(SpannableString question) {
+        tv_questionIn.setX(-displayWidth);
+        tv_questionIn.setText(question);
 
+        // slide textview to it's original position (0=origin)
+        tv_questionIn.animate().translationX(0);
+        //rl_qu_cont.getLayoutParams().height = tv_questionIn.getLineCount() * h;
+        animateSizeChange(rl_qu_cont.getHeight(), tv_questionIn.getLineCount() * h);
     }
     // generates a fade in/out animation for the new guest
     private void setGuestAnimated(String guest) {
@@ -209,6 +252,7 @@ public class MainActivity extends Activity {
         // fade in the textview
         changeViewColor(tv_guest, 550, R.color.cardview_background, R.color.icon_color);
     }
+
     // generates a size-change animation
     private void animateSizeChange(int fromY, int toY) {
         ResizeAnimation resizeAnimation = new ResizeAnimation(rl_qu_cont, toY, fromY);
@@ -238,7 +282,7 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 percent2));
 
-        ll_answering_statistic.getLayoutParams().height = (int) Utilities.convertDpsToPixels(8);
+        ll_answering_statistic.getLayoutParams().height = (int) Utilities.convertDpsToPixels(7);
     }
     // shows the statistics and set the respective colours
     private void showStatistic(int answer) {
@@ -263,6 +307,13 @@ public class MainActivity extends Activity {
         ll_answering_statistic.setVisibility(View.VISIBLE);
     }
 
+
+    Runnable unblockButton = new Runnable() {
+        @Override
+        public void run() {
+            blocked = false;
+        }
+    };
 
     // initializes all views
     private void initViews() {
@@ -302,7 +353,12 @@ public class MainActivity extends Activity {
         ib_naechste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (blocked)
+                    return;
 
+                // block the button for 0.2 seconds
+                blocked = true;
+                (new Handler()).postDelayed(unblockButton, 150);
                 if (MODE == MODE_NORMAL) {
                     QuestionManager.selectNext();
                 } else {
@@ -310,7 +366,6 @@ public class MainActivity extends Activity {
                 }
 
                 displayQuestion(QuestionManager.getQuestion(), animationOn);
-
             }
         });
 
@@ -412,6 +467,8 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Log.d("Mainactivity:  ", "select answer1");
                 showStatistic(1);
+                // add the vote to the "global" statistics
+                downloadManager.plusOne(getApplicationContext(), QuestionManager.getId(), 1);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
             }
@@ -423,11 +480,14 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Log.d("Mainactivity:  ", "select answer2");
                 showStatistic(2);
+                // add the vote to the "global" statistics
+                downloadManager.plusOne(getApplicationContext(), QuestionManager.getId(), 2);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
             }
         });
 
+        // referring to their respective selectore_button
         findViewById(R.id.ll_answer_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
