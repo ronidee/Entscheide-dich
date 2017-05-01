@@ -30,10 +30,7 @@ public class MainActivity extends Activity {
     private boolean sessionStart = true;
     private boolean animationOn  = true;
     private boolean blocked = false;
-
-    private final int MODE_NORMAL   = 1;
-    private final int MODE_FAV_ONLY = 2;
-    private int MODE = MODE_NORMAL;
+    private boolean favoritesonly = false;
 
     static private Handler handler = new Handler();
 
@@ -84,7 +81,7 @@ public class MainActivity extends Activity {
         initViews();
         regListeners();
 
-        updateFavOnlyButtonState();
+        updateFavOnlyButtonState(QuestionManager.getQuestion().favorite);
 
     }
 
@@ -274,8 +271,14 @@ public class MainActivity extends Activity {
         ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
 
         // calculate the percentage
-        int percent1 = (100*count1)/(count1+count2);
-        int percent2 = 100-count1;
+        int percent1 = 50;
+        int percent2 = 50;
+
+        if (count1+count2 != 0) {
+            percent1 = (100*count1)/(count1+count2);
+            percent2 = 100-percent1;
+        }
+
 
 
         // layout_weight are set to the percent of each answer, the weightSum is 100
@@ -360,10 +363,12 @@ public class MainActivity extends Activity {
                 // block the button for 0.2 seconds
                 blocked = true;
                 (new Handler()).postDelayed(unblockButton, 150);
-                if (MODE == MODE_NORMAL) {
-                    QuestionManager.selectNext();
-                } else {
+
+
+                if (favoritesonly) {
                     QuestionManager.selectNextFavorite();
+                } else {
+                    QuestionManager.selectNext();
                 }
 
                 displayQuestion(QuestionManager.getQuestion(), animationOn);
@@ -389,14 +394,17 @@ public class MainActivity extends Activity {
                     return;
                 }
 
-                if (MODE == MODE_NORMAL) {
-                    MODE =  MODE_FAV_ONLY;
-
+                if (!favoritesonly) {
+                    favoritesonly = true;
                     ib_favOnly.setImageResource(R.drawable.selector_bt_all_questions);
-                    QuestionManager.selectNextFavorite();
-                    displayQuestion(QuestionManager.getQuestion(), animationOn);
+
+                    if (!(QuestionManager.getQuestion().favorite)) {
+                        QuestionManager.selectNextFavorite();
+                        displayQuestion(QuestionManager.getQuestion(), animationOn);
+                    }
+
                 } else {
-                    MODE = MODE_NORMAL;
+                    favoritesonly = false;
                     ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
                 }
             }
@@ -427,15 +435,23 @@ public class MainActivity extends Activity {
                     ib_favorisieren.setImageResource(R.drawable.ic_favorite_white_24dp);
                 } else {
                     QuestionManager.setFavorite(false);
-                    changeViewColor(ib_favorisieren, 200, R.color.nmr_background, R.color.icon_color);
-                    ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    if (favoritesonly && QuestionManager.countFavoredQuestions()>0) {
+                        Log.d("ib_favorisieren", "skipped to nxt fav");
+                        QuestionManager.selectNextFavorite();
+                        displayQuestion(QuestionManager.getQuestion(), true);
+                    } else {
+                        changeViewColor(ib_favorisieren, 200, R.color.nmr_background, R.color.icon_color);
+                        ib_favorisieren.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    }
                 }
-                updateFavOnlyButtonState();
+
+                // invert, because after non-fav Q get clicked, Q becomes fav
+                updateFavOnlyButtonState(!favorite);
             }
         });
 
         // toggle random mode
-        ib_zufaellig.setOnClickListener(new View.OnClickListener() {
+        /*ib_zufaellig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -447,7 +463,7 @@ public class MainActivity extends Activity {
                     changeViewColor(ib_zufaellig, 500, R.color.nmr_background, R.color.icon_color);
                 }
             }
-        });
+        });*/
 
         // open youtube video of current question
         ib_youtube.setOnClickListener(new View.OnClickListener() {
@@ -517,17 +533,25 @@ public class MainActivity extends Activity {
 
 
     // enables or disables the favoritesOnly button
-    private void updateFavOnlyButtonState() {
-        // after the last favorite got "de-favorised" change
+    private void updateFavOnlyButtonState(boolean questionIsFavorite) {
 
-        if (QuestionManager.countFavoredQuestions() == 0) {
-            ib_favOnly.setImageResource(R.drawable.bt_favorites_only_disabled);
-            ib_favOnly.setEnabled(false);
-            MODE = MODE_NORMAL;
-        } else {
-
+        // if user liked current Q, enable the favOnly button; redundant, but ok...
+        if (questionIsFavorite) {
+            Log.d("updateFavButton", "liked");
             ib_favOnly.setImageResource(R.drawable.selector_bt_favorites_only);
             ib_favOnly.setEnabled(true);
+
+            // if user de-liked current Q, do nothing, except...
+        } else if (QuestionManager.countFavoredQuestions() > 0) {
+            Log.d("updateFavButton", "de-liked");
+
+
+            // ...if user de-liked the last favorite, disable favOnly button
+        } else {
+            Log.d("updateFavButton", "de-liked last fav");
+            ib_favOnly.setImageResource(R.drawable.bt_favorites_only_disabled);
+            ib_favOnly.setEnabled(false);
+            favoritesonly = false;
         }
     }
 

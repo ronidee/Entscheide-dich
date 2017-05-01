@@ -9,15 +9,15 @@ import java.util.List;
 /**
  * Random list, but only type integer. But the name "RandomIntegerList" or "RandomIntList"
  * isn't fancy enough, so  this RandomIntList is just a pretender. In other words:
- * A wannabe RandomList
+ * A wannabe RandomizedList
  */
 
-class RandomList {
+class RandomizedList {
     private List<Integer> list = new ArrayList<>();
-    private int index;
+    private int index; // index goes 1 by 1 through the randomized list
     private int listsize;
 
-    RandomList(int listsize) {
+    RandomizedList(int listsize) {
         this.listsize = listsize;
         index = listsize-1;
         create(listsize);
@@ -31,7 +31,7 @@ class RandomList {
     }
 
     int getNext() {
-        Log.d("RandomList", "next");
+        Log.d("RandomizedList", "next");
         index += 1;
         if (index>=listsize) {
             index = 1;
@@ -39,13 +39,16 @@ class RandomList {
         return list.get(index);
     }
     int getPrevious() {
-        Log.d("RandomList", "prev");
+        Log.d("RandomizedList", "prev");
         index-=1;
         if (index<0) {
             index = listsize;
         }
         return list.get(index);
     }
+
+
+
     void shuffle() {
         Collections.shuffle(list);
     }

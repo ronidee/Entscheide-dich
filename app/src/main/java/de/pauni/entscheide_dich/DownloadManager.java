@@ -226,8 +226,8 @@ class DownloadManager {
         JSONArray  ja = new JSONArray();
         try {
             while (!cursor.isAfterLast()) {
-                // get the current question, which the cursor selected
-                Question question = QuestionManager.getSelectedQuestion(cursor);
+                // get the current question, which the cursor selects
+                Question question = DatabaseHelper.getSelectedQuestion(cursor);
                 cursor.moveToNext();
 
                 // Gen. a JObj with id and hashed question

@@ -396,16 +396,16 @@
         "question": "Hättest Du lieber am helllichten Tag auf offener Straße Geschlechtsverkehr oder mitten in der Nacht im geschlossenen Schlafzimmer Berufsverkehr?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "am helllichten Tag auf offener Straße Geschlechtsverkehr",
+        "answer2": "mitten in der Nacht im geschlossenen Schlafzimmer Berufsverkehr",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber von Haftbefehl gesucht werden oder von Xatar gefunden?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "von Haftbefehl gesucht",
+        "answer2": "von Xatar gefunden",
         "clickable": [
             {
                 "keyword": "Haftbefehl",
@@ -421,24 +421,24 @@
         "question": "Hättest Du lieber die Mähne eines hässlichen Löwen oder den Rüssel eines äußerst attraktiven Elefanten?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "die Mähne eines hässlichen Löwen",
+        "answer2": "den Rüssel eines äußerst attraktiven Elefanten",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber zehn Stunden im Gulli oder zehn Minuten in einem Fahrstuhl mit Oliver Pocher feststecken?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "zehn Stunden im Gulli",
+        "answer2": "zehn Minuten in einem Fahrstuhl mit Oliver Pocher",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber mit Reiner Calmund Kanu fahren oder mit Christoph Daum einen Schneemann bauen?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit Reiner Calmund Kanu fahren",
+        "answer2": "mit Christoph Daum einen Schneemann bauen",
         "clickable": [
             {
                 "keyword": "Reiner Calmund",
@@ -454,8 +454,8 @@
         "question": "Würdest Du lieber in einer Burka durch Dresden joggen oder in einem Mankini auf einem Einrad durch den Bundestag radeln?",
         "guest": "Wolfgang Bosbach",
         "ytlink": "https://www.youtube.com/watch?v=GO9j9UBrvHQ&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=5",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "in einer Burka durch Dresden joggen",
+        "answer2": "in einem Mankini auf einem Einrad durch den Bundestag radeln",
         "clickable": [  ]
     },
 
@@ -468,16 +468,16 @@
         "question": "Würdest Du den Weltfrieden schaffen, wenn Du dafür lebenslang im Körper eines nassen Otters gefangen wärst?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Ja, ich würde den Weltfrieden schaffen",
+        "answer2": "Nein, ich würde den Weltfrieden nicht schaffen",
         "clickable": [ ]
     },
     {
-        "question": "Würdest Du den Sexismus für immer beenden, wenn Du Dir dafür eine nackte Erika Steinbach auf die Brust tätowieren müsstest?",
+        "question": "Würdest Du den Sexismus in der Welt für immer beenden, wenn Du Dir dafür eine nackte Erika Steinbach auf die Brust tätowieren müsstest?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Ja, ich würde den Sexismus für immer beenden",
+        "answer2": "Nein, ich würde den Sexismus nicht für immer beenden",
         "clickable": [
             {
                 "keyword": "Erika Steinbach",
@@ -489,8 +489,8 @@
         "question": "Würdest Du die Altersarmut abschaffen, wenn Du dafür immer die Frisur von Sahra Wagenknecht tragen müsstest?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Ja, ich würde die Altersarmut abschaffen",
+        "answer2": "Nein, ich würde die Altersarmut nicht abschaffen",
         "clickable": [
             {
                 "keyword": "Sahra Wagenknecht",
@@ -502,24 +502,24 @@
         "question": "Würdest Du das Flüchtlingsproblem lösen, wenn Du dafür Dein Leben lang in einem IKEA wohnen müsstest?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Ja, ich würde das Flüchtlingsproblem lösen",
+        "answer2": "Nein, ich würde das Flüchtlingsproblem nicht lösen",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du die Landminen abschaffen, wenn Du dafür wöchentlich Heavy Petting mit Angela Merkel haben müsstest?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Ja, ich würde die Landminen abschaffen",
+        "answer2": "Nein, ich würde die Landminen nicht abschaffen",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du die Welt vom Heuschnupfen befreien, wenn Du dafür bei jedem öffentlichen Auftritt eine gut sichtbare Erektion hättest?",
         "guest": "Gregor Gysi",
         "ytlink": "https://www.youtube.com/watch?v=_4r2tKmMND0&index=6&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Ja, ich würde die Welt vom Heuschnupfen befreien",
+        "answer2": "Nein, ich würde die Welt nicht vom Heuschnupfen befreien",
         "clickable": [  ]
     },
 
@@ -559,24 +559,24 @@
         "question": "Hätttest Du lieber eine große Nase oder einen großen Penis?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine große Nase",
+        "answer2": "einen großen Penis",
         "clickable": [  ]
     },
     {
-        "question": "Wärst Du lieber der Vater von Miley Cyrus oder Tochter von Boris Becker?",
+        "question": "Wärst Du lieber der Vater von Miley Cyrus oder die Tochter von Boris Becker?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "der Vater von Miley Cyrus",
+        "answer2": "Tochter von Boris Becker",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber Schnick Schack Schnuck mit einem Hummer oder Strip-Poker mit einem Nacktmull spielen?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Schnick Schack Schnuck mit einem Hummer",
+        "answer2": "Strip-Poker mit einem Nacktmull",
         "clickable": [
             {
             "keyword": "Nacktmull",
@@ -588,40 +588,40 @@
         "question": "Hättest Du lieber einen gutartigen Tumor oder einen bösartigen Hamster?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen gutartigen Tumor",
+        "answer2": "einen bösartigen Hamster",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber ein Display auf Deiner Stirn, auf dem Deine Gedanken stehen oder Dein Leben lang ein Stück Zwiebel im Mund?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein Display auf Deiner Stirn, auf dem Deine Gedanken stehen",
+        "answer2": "Dein Leben lang ein Stück Zwiebel im Mund",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber Dein Leben lang eine grüne Spandex Hose an oder keine Beine mehr?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Dein Leben lang eine grüne Spandex Hose",
+        "answer2": "keine Beine mehr",
         "clickable": [  ]
     },
     {
         "question": "Hätetst Du lieber den Geruch von Thomas Gottschalk in der Nase oder den Geschmack von Thomas Gottschalk im Schrank?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "den Geruch von Thomas Gottschalk in der Nase",
+        "answer2": "lieber",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Ohrwurm von Satellite oder einen Bandwurm?",
         "guest": "Mike Krüger",
         "ytlink": "https://www.youtube.com/watch?v=21hMMygYeGc&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=7",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Ohrwurm von Satellite",
+        "answer2": "einen Bandwurm?",
         "clickable": [
             {
                 "keyword": "Satellite",
@@ -633,8 +633,8 @@
         "question": "Wärst Du lieber ein Ausländer im Fanblock von Dynamo Dresden oder ein Schwuler auf einem Dortmunder Autobahnparkplatz?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein Ausländer im Fanblock von Dynamo Dresden",
+        "answer2": "ein Schwuler auf einem Dortmunder Autobahnparkplatz",
         "clickable": [
             {
                 "keyword": "Dynamo Dresden",
@@ -650,8 +650,8 @@
         "question": "Würdest Du lieber jeden Tag Dein Leben lang nur einen Song von Morrissey oder jeden Tag ein neues Album von Lena Meyer-Landrut?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Dein Leben lang nur einen Song von Morrissey",
+        "answer2": "jeden Tag ein neues Album von Lena Meyer-Landrut",
         "clickable": [
             {
                 "keyword": "",
@@ -663,272 +663,272 @@
         "question": "Wärst Du lieber im Vorspann von Circus Halligalli oder nicht?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "im Vorspann von Circus Halligalli",
+        "answer2": "lieber nicht",
         "clickable": [  ]
     },
     {
         "question": "Wärst Du lieber mit Sebastian Edathy beim Kinderturnen oder mit Bill Cosby im Schlaflabor?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit Sebastian Edathy beim Kinderturnen",
+        "answer2": "mit Bill Cosby im Schlaflabor",
         "clickable": [ ]
     },
     {
         "question": "Würdest Du lieber Dinge zu Ende bringen können oder ... ?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "lieber Dinge zu Ende bringen können",
+        "answer2": "...",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Toaster als einzigen Freund oder einen starken Bieber als Erzfreind?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Toaster als einzigen Freund",
+        "answer2": "einen starken Bieber als Erzfreind",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber ein unerreichbares Jucken am Rücken oder eine fußläufig erreichbare Schwiegermutter?",
         "guest": "Olli Schulz",
         "ytlink": "https://www.youtube.com/watch?v=RHmYTNEoYzw&index=8&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein unerreichbares Jucken am Rücken",
+        "answer2": "eine fußläufig erreichbare Schwiegermutter",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen bedenklichen Auftritt beim Roten Sofa oder unbedenklichen roten Stuhl?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen bedenklichen Auftritt beim Roten Sofa",
+        "answer2": "unbedenklichen roten Stuhl",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber ein Kaugummi von Reiner Calmund weiterkauen oder mit Tempo 10 gegen einen Baum fahren?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein Kaugummi von Reiner Calmund weiterkauen",
+        "answer2": "mit Tempo 10 gegen einen Baum fahren",
         "clickable": [  ]
     },
     {
         "question": "Wärst Du lieber ein Schwarzer in den USA oder ein Maikäfer im Juni?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein Schwarzer in den USA",
+        "answer2": "ein Maikäfer im Juni",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber eine Kuh mit dem Mund melken oder einen Ochsen mit der Hand?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine Kuh mit dem Mund melken",
+        "answer2": "einen Ochsen mit der Hand",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber eine Wurstbude mit Conchita Wurst oder einen Lieferdienst mit Jan Josef Liefers?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine Wurstbude mit Conchita Wurst",
+        "answer2": "einen Lieferdienst mit Jan Josef Liefers?",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du dich lieber von einem Hammerhai nageln lassen oder von einer Vogelspinne vögeln?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "von einem Hammerhai nageln lassen",
+        "answer2": "von einer Vogelspinne vögeln lassen",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber ein Speeddate mit Sandra Bullock oder ein Blinddate mit Stevie Wonder?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein Speeddate mit Sandra Bullock ",
+        "answer2": "ein Blinddate mit Stevie Wonder",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber schwimmen mit Franzi van Almsick spielen oder eine Runde Uno mit dem UNO-Generalsekretär?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "schwimmen mit Franzi van Almsick",
+        "answer2": "eine Runde Uno mit dem UNO-Generalsekretär",
         "clickable": [ ]
     },
     {
         "question": "Hättest Du lieber einen Damenbart oder Herrentittchen?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Damenbart",
+        "answer2": "Herrentittchen",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber ein Kind das Frei.Wild hört oder ein Wildschwein, das Kinder beißt?",
         "guest": "Dr. Mark Benecke",
         "ytlink": "https://www.youtube.com/watch?v=VXWAhOnBOK8&index=9&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein Kind das Frei.Wild hört",
+        "answer2": "ein Wildschwein, das Kinder beißt",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Affen und ein Pferd zu Hause oder einen Propeller auf dem Kopf?",
         "guest": "Farin Urlaub",
         "ytlink": "https://www.youtube.com/watch?v=nZJ-ryXLavg&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=10",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Affen und ein Pferd zu Hause",
+        "answer2": "einen Propeller auf dem Kopf",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen sehr kurzen Penis mit einem coolen Tribal oder ein Gesichtstattoo mit einem Rechtschreibfehler?",
         "guest": "Farin Urlaub",
         "ytlink": "https://www.youtube.com/watch?v=nZJ-ryXLavg&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=10",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen sehr kurzen Penis mit einem coolen Tribal",
+        "answer2": "ein Gesichtstattoo mit einem Rechtschreibfehler",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber in einer Talkshow auftreten in der geraucht und getrunken werden darf oder für Bob Geldof einen Song organisieren um Geld für Afrika zu sammeln?",
         "guest": "Farin Urlaub",
         "ytlink": "https://www.youtube.com/watch?v=nZJ-ryXLavg&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=10",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "in einer Talkshow auftreten in der geraucht und getrunken werden darf",
+        "answer2": "für Bob Geldof einen Song organisieren um Geld für Afrika zu sammeln",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber, dass ständig jemand vor Dir hergeht, der dich lautstark ankündigt oder einen stinkenden Bauchnabel?",
         "guest": "Farin Urlaub",
         "ytlink": "https://www.youtube.com/watch?v=nZJ-ryXLavg&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=10",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "dass ständig jemand vor Dir hergeht, der dich lautstark ankündigt",
+        "answer2": "einen stinkenden Bauchnabel",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Parka von Kanye West oder eine Weste von Peter Parker?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Parka von Kanye West",
+        "answer2": "eine Weste von Peter Parker",
         "clickable": [  ]
     },
     {
         "question": "Wärst Du lieber ein sehr schlechter Fußball-Profi oder ein hoch angesehener Eiskunsttänzer?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein sehr schlechter Fußball-Profi",
+        "answer2": "ein hoch angesehener Eiskunsttänzer",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber eine Maultasche von Louis Vuitton oder eine Gürtelrose von Dolce&Gabbana?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine Maultasche von Louis Vuitton",
+        "answer2": "eine Gürtelrose von Dolce&Gabbana",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber mit Sebastian Edathy eine Toys\"R\"Us Filiale eröffnen oder einen Stripclub mit Jack the Ripper?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit Sebastian Edathy eine Toys\"R\"Us Filiale eröffnen",
+        "answer2": "einen Stripclub mit Jack the Ripper eröffnen",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber deine Festplatte korrekt auswerfen oder Deine Sackhaare sicher entfernen?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Festplatte korrekt auswerfen",
+        "answer2": "Sackhaare sicher entfernen",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber eine leichte Erkältung, die sich gewaschen hat oder eine schwere Sexualpartnerin, die sich nicht gewaschen hat?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine leichte Erkältung, die sich gewaschen hat",
+        "answer2": "eine schwere Sexualpartnerin, die sich nicht gewaschen hat",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber Schäuble gegen's Schienbein treten oder einem süßen Ponny in's Gesicht schlagen?",
         "guest": "Jürgen Domian",
         "ytlink": "https://www.youtube.com/watch?v=aj24kGMA-0M&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=11",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Schäuble gegen's Schienbein treten",
+        "answer2": "einem süßen Ponny in's Gesicht schlagen",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber eine griesgrämig Robbe kloppen oder einen süß guckenden Hitler streicheln?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine griesgrämig Robbe kloppen",
+        "answer2": "einen süß guckenden Hitler streicheln",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber zwanzig Finger oder zwei Nasen?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "zwanzig Finger",
+        "answer2": "zwei Nasen",
         "clickable": [  ]
     },
     {
         "question": "Wärst Du lieber ein heißer Urlaubsflirt von Elke Heidenreich oder ein unwichtiger One-Night-Stand von Hellmuth Karasek?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "ein heißer Urlaubsflirt von Elke Heidenreich",
+        "answer2": "ein unwichtiger One-Night-Stand von Hellmuth Karasek",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Gürtel aus einem Murmeltier oder eine Murmel aus einem Gürteltier?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Gürtel aus einem Murmeltier",
+        "answer2": "eine Murmel aus einem Gürteltier",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber mit Monica Lierhaus Mikado spielen oder mit Michael J. Fox ein Kartenhaus bauen?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit Monica Lierhaus Mikado spielen",
+        "answer2": "mit Michael J. Fox ein Kartenhaus bauen",
         "clickable": [  ]
     },
     {
         "question": "Hätetst Du lieber dass der Tod Dich scheidet oder eine Scheide Dich tötet?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "dass der Tod Dich scheidet",
+        "answer2": "eine Scheide Dich tötet",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber mit einem Pferd verstecken spielen oder mit einem Chamäleon fangen?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit einem Pferd verstecken spielen",
+        "answer2": "mit einem Chamäleon fangen?",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen zurückhaltenden Stalker oder einen aufdringlichen Berner Sennenhund?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen zurückhaltenden Stalker",
+        "answer2": "einen aufdringlichen Berner Sennenhund",
         "clickable": [  ]
     },
     {
@@ -943,152 +943,144 @@
         "question": "Würdest Du bei Gefahr lieber Tinte aus Deiner Nase absondern oder Deinen Schwanz absondern?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "bei Gefahr Tinte aus Deiner Nase absondern",
+        "answer2": "bei Gefahr Deinen Schwanz absondern",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber das Gehirn von Til Schweiger oder das Aussehen von Stephen Hawking?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "das Gehirn von Til Schweiger",
+        "answer2": "das Aussehen von Stephen Hawking",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber mit Reiner Calmund Tretboot oder mit Oscar Pistorius Tandem fahren?",
         "guest": "Roger Willemsen",
         "ytlink": "https://www.youtube.com/watch?v=Sf-U9I9Qvm0&index=12&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit Reiner Calmund Tretboot fahren",
+        "answer2": "mit Oscar Pistorius Tandem fahren",
         "clickable": [  ]
     },
     {
         "question": "Hätten Du lieber einen eingewachsenen Zehennagel oder einen ausgewachsenen Buckelwal?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen eingewachsenen Zehennagel",
+        "answer2": "einen ausgewachsenen Buckelwal",
         "clickable": [  ]
     },
     {
         "question": "Wärst Du lieber der Gynäkologe von Charlotte Roche oder der Proktologe von Harald Schmidt?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "der Gynäkologe von Charlotte Roche",
+        "answer2": "der Proktologe von Harald Schmidt",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber mit einem Pedalo durch den Himmel fahren oder mit einem Segway durch die Hölle?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "mit einem Pedalo durch den Himmel fahren",
+        "answer2": "mit einem Segway durch die Hölle fahren",
         "clickable": [  ]
     },
     {
-        "question": "Hießt Du lieber Fickie Mac Bumsfick oder hättest Du lieber Dein Leben lang ein Stück Popcorn in der Backentasche?",
+        "question": "Hießest Du lieber Fickie Mac Bumsfick oder hättest Du lieber Dein Leben lang ein Stück Popcorn in der Backentasche?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Fickie Mac Bumsfick heißen",
+        "answer2": "Dein Leben lang ein Stück Popcorn in der Backentasche haben",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Röntgenblick bei adipösen Frauen oder einen tödlichen Laserblick kurz vor'm Orgasmus?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Röntgenblick bei adipösen Frauen",
+        "answer2": "einen tödlichen Laserblick kurz vor'm Orgasmus",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du Dir eher für immer die Zähne mit Senf putzen oder den Po mit Schleifpapier abwischen?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "die Zähne mit Senf putzen",
+        "answer2": "den Po mit Schleifpapier abwischen",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber, dass schlechtes Bier aus Deinen Brustwarzen kommt oder guter Rotwein aus Deinem Penis?",
         "guest": "Herbert Feuerstein",
         "ytlink": "https://www.youtube.com/watch?v=c3sy4cC8FCE&index=13&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "dass schlechtes Bier aus Deinen Brustwarzen kommt",
+        "answer2": "dass guter Rotwein aus Deinem Penis kommt",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber eine dritte Brust oder einen starken sächsischen Dialekt?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine dritte Brust",
+        "answer2": "einen starken sächsischen Dialekt",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber einen bösen Hitler umbringen oder mit einem netten Hitler einen schönen Abend verbringen?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen bösen Hitler umbringen",
+        "answer2": "mit einem netten Hitler einen schönen Abend verbringen",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber einen Penis oder fünf Penisse?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Penis",
+        "answer2": "fünf Penisse",
         "clickable": [  ]
     },
     {
         "question": "Hättest Du lieber Reinhold Messners Ohren oder Niki Laudas Füße?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "Reinhold Messners Ohren",
+        "answer2": "Niki Laudas Füße",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber RTL von innen kaputt machen oder Pro7 von außen?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "RTL von innen kaputt machen",
+        "answer2": "Pro7 von außen kaputt machen",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber einen Hoden am Kinn tragen oder ein wohlhabendes Opossum heiraten?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "einen Hoden am Kinn tragen",
+        "answer2": "ein wohlhabendes Opossum heiraten",
         "clickable": [  ]
     },
     {
         "question": "Wärst Du lieber die Frau von Helmut Kohl oder der Schlüpfer von Olivia Jones?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "die Frau von Helmut Kohl",
+        "answer2": "der Schlüpfer von Olivia Jones",
         "clickable": [  ]
     },
     {
         "question": "Würdest Du lieber eine Sendung mit Kraftklub gucken oder eine ohne Kraftklub?",
         "guest": "Katrin Bauerfeind",
         "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
-        "clickable": [  ]
-    },
-    {
-        "question": "Wärst Du lieber die Frau von Helmut Kohl oder der Schlüpfer von Olivia Jones?",
-        "guest": "Katrin Bauerfeind",
-        "ytlink": "https://www.youtube.com/watch?v=p747P2pG2fs&list=PLHeo4sayeLKrAtRmFIGBCwArkfWw7Z-nM&index=14",
-        "answer1": "",
-        "answer2": "",
+        "answer1": "eine Sendung mit Kraftklub",
+        "answer2": "eine Sendung ohne Kraftklub",
         "clickable": [  ]
     }
 ]

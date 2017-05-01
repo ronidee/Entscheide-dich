@@ -145,8 +145,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-
-
+    // add single question to db
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -179,14 +178,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_FRAGEN_LISTE, null, values);
         db.close(); // Closing database connection
     }
-
-
-    Cursor getCursor() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE, null);
-    }
-
-    // Getting single question
+    // get single question from db
     Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
@@ -195,8 +187,17 @@ class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
+        return getSelectedQuestion(cursor);
+    }
+    // get current db cursor
+    Cursor getCursor() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE, null);
+    }
 
 
+
+    static Question getSelectedQuestion(Cursor cursor) {
         // reading the comma separated lists (potentially single string or empty)
         String keywords_raw = cursor.getString(cursor.getColumnIndex(KEY_KEYWORDS));
         String links_raw    = cursor.getString(cursor.getColumnIndex(KEY_LINKS));
@@ -220,13 +221,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.guest      = cursor.getString  (cursor.getColumnIndex(KEY_GUEST));
         question.ytlink     = cursor.getString  (cursor.getColumnIndex(KEY_YT));
         question.favorite   = cursor.getInt     (cursor.getColumnIndex(KEY_FAV)) == 1;
+        question.answer_1   = cursor.getString(7); // 5 & 6 = keywords & links
+        question.answer_2   = cursor.getString(8);
+        question.count_answer_1 = cursor.getInt(9);
+        question.count_answer_2 = cursor.getInt(10);
         question.clickables = new String[][] {keywords, links};
 
-        Log.d("getQuestion ", "answer1 = " + question.answer_1);
-        cursor.close();
+        //cursor.close();
         return question;
     }
-
 
     void setFavorite(int id, boolean favorite) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -270,16 +273,21 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    Cursor searchQuestion(String searchString) {
+    List<Question> searchQuestions (String searchString) {
         SQLiteDatabase db = this.getReadableDatabase();
-        //Log.d("dbh>>>", "SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_QUES + " LIKE \'" + searchString + "\';");
-        //Cursor c = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_ID + " < \'" + searchString + "\';", null);
 
         Cursor c = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_QUES + " LIKE \'%" + searchString + "%\';", null);
         c.moveToFirst();
 
+        List<Question> questions = new ArrayList<>();
+
+        while (!c.isAfterLast()) {
+            questions.add(getSelectedQuestion(c));
+            c.moveToNext();
+        }
+
         Log.d("dbh>>>", String.valueOf(c.getCount()));
-        return c;
+        return questions;
     }
 
 

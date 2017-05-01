@@ -60,8 +60,7 @@
         android:layout_below="@+id/ll_searchbar"
         android:background="@color/colorPrimaryDark"
         android:clickable="true"
-        android:dividerHeight="5dp"
-        android:fastScrollEnabled="true"/>
+        android:dividerHeight="5dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
