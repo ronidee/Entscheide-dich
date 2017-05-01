@@ -10,6 +10,7 @@ import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 class Utilities {
     private static String info = "";
     public static float scale = 0;
+
 
     // returns a spannablestring with the passed keywords(clickables) being clickable
     static SpannableString getClickableText(final Context c, String text, String[][] clickables) {
@@ -85,11 +87,25 @@ class Utilities {
         c.startActivity (Intent.createChooser(intent, "Teile die Frage mit Feinden:"));
     }
 
+
     // generate a unique id for the device
     static String generateUniqueId() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
+
+    static void toast(final String message, final Context c) {
+        MainActivity.getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (MainActivity.appInBackground) {
+                    Log.d("Utilities", "blocked  toast, because App is in background");
+                    return;
+                }
+                Toast.makeText(c, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }
 

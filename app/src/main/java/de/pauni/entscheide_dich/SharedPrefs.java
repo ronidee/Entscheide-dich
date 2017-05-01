@@ -27,6 +27,7 @@ class SharedPrefs extends Activity {
     private static final String CURRENT_QUESTION_ID = "question_index";
     private static final String FIRST_START  = "first_start";
     private static final String SYNCED_VOTES  = "synced_votes";
+    private static final String UPDATED_DB  = "updated_db";
 
     SharedPrefs(Context c) {
         prefs = c.getSharedPreferences(PREFS, 0);
@@ -45,14 +46,25 @@ class SharedPrefs extends Activity {
     }
 
 
-    static void setSyncedLocalvotes(boolean synced) {
+    static void setSyncedVotesSuccessfully(boolean synced) {
         editor = prefs.edit();
         editor.putBoolean(SYNCED_VOTES, synced);
         editor.apply();
     }
-    static boolean getSyncedLocalvotes() {
+    static boolean getSyncedVotesSuccessfully() {
         return prefs.getBoolean(SYNCED_VOTES, false);
     }
+
+    static void setUpdatedSuccessfully(boolean synced) {
+        editor = prefs.edit();
+        editor.putBoolean(UPDATED_DB, synced);
+        editor.apply();
+    }
+    static boolean getUpdatedSuccessfully() {
+        return prefs.getBoolean(UPDATED_DB, false);
+    }
+
+
 
     static void saveQuestionId(int value) {
         editor = prefs.edit();

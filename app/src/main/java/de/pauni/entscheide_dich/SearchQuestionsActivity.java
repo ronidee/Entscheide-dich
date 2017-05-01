@@ -77,8 +77,8 @@ public class SearchQuestionsActivity extends Activity{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Log.d("SearchQActiv: ", "onitemclick");
-            // SelectQuestionbyId to the id of the question, the user selected
-            QuestionManager.SelectQuestionbyId(SearchQuestionAdapter.questions[position].id);
+            // selectQuestionById to the id of the question, the user selected
+            QuestionManager.selectQuestionById(SearchQuestionAdapter.questions[position].id);
 
             // close the dialog
             finish();

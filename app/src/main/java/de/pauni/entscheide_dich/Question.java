@@ -19,8 +19,8 @@ class Question {
     String answer_1  = "Antwortmöglichkeit 1";
     String answer_2  = "Antwortmöglichkeit 2";
     int localvote = 0;
-    int count_answer_1 = 20;
-    int count_answer_2 = 80;
+    int count_answer_1 = 0;
+    int count_answer_2 = 0;
 
     boolean favorite =  false;
     String[][] clickables = new String[0][0];
@@ -30,7 +30,7 @@ class Question {
                 + count_answer_1 + count_answer_2;
 
         String hash = Hashing.md5().hashString(sum, Charsets.UTF_8).toString();
-        Log.d("Question/getHash()", hash);
+        //Log.d("Question/getHash()", hash);
         return hash;
     }
 

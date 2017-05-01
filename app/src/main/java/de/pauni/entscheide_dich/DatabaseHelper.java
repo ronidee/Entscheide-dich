@@ -27,7 +27,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "entscheideDich";
 
     // Table names
-    private static final String TABLE_NAME = "FRAGEN_LISTE";
+    private static final String TABLE_FRAGEN_LISTE = "TABLE_FRAGEN_LISTE";
+    private static final String TABLE_VOTE_BUFFER = "VOTE_BUFFFER";
 
 
 
@@ -40,10 +41,13 @@ class DatabaseHelper extends SQLiteOpenHelper {
     static final String KEY_LINKS           = "links";          // Link der aufgerufen wird
     private static final String KEY_ANSWER_1 = "answer1";       // Antwortmöglichkeit 1
     private static final String KEY_ANSWER_2 = "answer2";       // Antwortmöglichkeit 2
-    private static final String KEY_LOCALVOTE = "localvote";      // Antwort des Users
+    private static final String KEY_LOCALVOTE = "localvote";    // Antwort des Users
     private static final String KEY_COUNT_ANSWER_1 = "count_answer_1"; // Anzahl der Votes für Antwort 1
     private static final String KEY_COUNT_ANSWER_2 = "count_answer_2"; // Anzahl der Votes für Antwort 2
 
+
+    private static final String KEY_QUES_ID = "question_id"; // Der Text der Frage
+    private static final String KEY_VOTE    = "vote";        // Der Name des Gastes
 
 
     DatabaseHelper(Context context) {
@@ -55,10 +59,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Erstelle eine Tabelle mit den Infos die eine Frage jeweils hat
-
-        String CREATE_TABLE_STRING =
-                "CREATE TABLE " + TABLE_NAME +
+        String CREATE_QUESTION_TABLE_STRING =
+                "CREATE TABLE " + TABLE_FRAGEN_LISTE +
                     "(" +
                         KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         KEY_QUES + " TEXT NOT NULL," +
@@ -74,28 +76,77 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_COUNT_ANSWER_2 + " TEXT NOT NULL" +
                     ")";
 
-        db.execSQL(CREATE_TABLE_STRING);
-        Log.d("DatabaseHelper>>>", "    DB created");
+        String CREATE_BUFFER_TABLE_STRING =
+                "CREATE TABLE " + TABLE_VOTE_BUFFER +
+                    "(" +
+                        KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        KEY_QUES_ID + " TEXT NOT NULL," +
+                        KEY_VOTE + " TEXT NOT NULL" +
+                    ")";
 
+
+        db.execSQL(CREATE_QUESTION_TABLE_STRING);
+        db.execSQL(CREATE_BUFFER_TABLE_STRING);
+        Log.d("DatabaseHelper>>>", "    DB created");
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older tables if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        // Create tables again
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRAGEN_LISTE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VOTE_BUFFER);
+
         onCreate(db);
     }
 
-    /*
-     * All CRUD(Create, Read, Update, Delete) Operations
-     */
+
+
+
+    void addVoteToBuffer(int ques_id, int vote) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUES_ID, ques_id);
+        values.put(KEY_VOTE, vote);
+
+        // Inserting Row
+        db.insert(TABLE_VOTE_BUFFER, null, values);
+        //db.close();
+    }
+    int[] getVote(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_VOTE_BUFFER + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
+
+        if(cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        int qId     = cursor.getInt(1);
+        int ansNum  = cursor.getInt(2);
+
+        cursor.close();
+        return new int[] { qId, ansNum };
+    }
+    int getVoteBufferCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_VOTE_BUFFER;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+
+        // return count
+        return count;
+    }
+    void clearVotingBuffer() {
+        this.getReadableDatabase().delete(TABLE_VOTE_BUFFER, null, null);
+    }
 
 
 
 
-    // Adding new question. Only required at app's 1. start if Database doesn't exist yet
+
     void addQuestion(Question question) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -119,23 +170,26 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_LINKS, links);
         values.put(KEY_ANSWER_1, question.answer_1);
         values.put(KEY_ANSWER_2, question.answer_2);
-        values.put(KEY_LOCALVOTE,        question.localvote);
+        values.put(KEY_LOCALVOTE, question.localvote);
         values.put(KEY_COUNT_ANSWER_1, question.count_answer_1);
         values.put(KEY_COUNT_ANSWER_2, question.count_answer_2);
 
 
         // Inserting Row
-        db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_FRAGEN_LISTE, null, values);
         db.close(); // Closing database connection
     }
 
 
-
+    Cursor getCursor() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE, null);
+    }
 
     // Getting single question
     Question getQuestion(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_ID + " = \'" + id + "\' " , null);
 
         if(cursor != null) {
             cursor.moveToFirst();
@@ -173,8 +227,39 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return question;
     }
 
+
+    void setFavorite(int id, boolean favorite) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("UPDATE " + TABLE_FRAGEN_LISTE + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
+
+        Question quest = getQuestion(id);
+        Log.d("dbh", "favorite set: " + quest.favorite);
+    }
+    void updateQuestion (Question question) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUES,            question.question);
+        values.put(KEY_GUEST,           question.guest);
+        values.put(KEY_ANSWER_1,        question.answer_1);
+        values.put(KEY_ANSWER_2,        question.answer_2);
+        values.put(KEY_LOCALVOTE,       question.localvote);
+        values.put(KEY_COUNT_ANSWER_1,  question.count_answer_1);
+        values.put(KEY_COUNT_ANSWER_2,  question.count_answer_2);
+        values.put(KEY_YT,              question.ytlink);
+
+        // updating row
+        db.update(
+                TABLE_FRAGEN_LISTE,
+                values,
+                KEY_ID + "=" + question.id,
+                null
+        );
+    }
+
+
     int getQuestionCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + TABLE_FRAGEN_LISTE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -185,78 +270,26 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-
-
-    void setFavorite(int id, boolean favorite) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("UPDATE " + TABLE_NAME + " SET " + KEY_FAV + " = " + (favorite ? (1) : (0)) + " WHERE " + KEY_ID + " = " + id + ";");
-
-        Question quest = getQuestion(id);
-        Log.d("dbh", "favorite set: " + quest.favorite);
-    }
-
-    // Paul, das ist Deins ;)...
-    void updateQuestion (Question question) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_QUES,            question.question);
-        values.put(KEY_GUEST,           question.guest);
-        values.put(KEY_ANSWER_1,        question.answer_1);
-        values.put(KEY_ANSWER_2,        question.answer_2);
-        values.put(KEY_LOCALVOTE,        question.localvote);
-        values.put(KEY_COUNT_ANSWER_1,  question.count_answer_1);
-        values.put(KEY_COUNT_ANSWER_2,  question.count_answer_2);
-        values.put(KEY_YT,              question.ytlink);
-
-        // updating row
-        db.update(TABLE_NAME, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(question.id) });
-    }
-
-
-    Cursor getCursor() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-    }
-
-    Cursor getCursorFavorites() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_FAV + " = 1" , null);
-    }
-
-
-
-
-
-    int countAllQuestions() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT count() AS count FROM " + TABLE_NAME , null);
-        c.moveToFirst();
-
-        return c.getInt(c.getColumnIndex("count"));
-    }
-
-
-    int countFavoredQuestions() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT COUNT(*) AS count FROM " + TABLE_NAME + " WHERE " + KEY_FAV + " = 1" , null);
-        c.moveToFirst();
-
-        return c.getInt(c.getColumnIndex("count"));
-
-    }
-
-
     Cursor searchQuestion(String searchString) {
         SQLiteDatabase db = this.getReadableDatabase();
-        //Log.d("dbh>>>", "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_QUES + " LIKE \'" + searchString + "\';");
-        //Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " < \'" + searchString + "\';", null);
+        //Log.d("dbh>>>", "SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_QUES + " LIKE \'" + searchString + "\';");
+        //Cursor c = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_ID + " < \'" + searchString + "\';", null);
 
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_QUES + " LIKE \'%" + searchString + "%\';", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_QUES + " LIKE \'%" + searchString + "%\';", null);
         c.moveToFirst();
 
         Log.d("dbh>>>", String.valueOf(c.getCount()));
         return c;
     }
+
+
+    int countFavoredQuestions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT COUNT(*) AS count FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_FAV + " = 1" , null);
+        c.moveToFirst();
+
+        return c.getInt(c.getColumnIndex("count"));
+
+    }
+
 }

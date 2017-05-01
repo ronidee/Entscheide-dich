@@ -4,7 +4,6 @@ package de.pauni.entscheide_dich;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,10 @@ import java.util.Random;
  */
 
 class QuestionManager {
-    static private DatabaseHelper dbh;
-    static private boolean mode_random;
-    static private Cursor dbCursor;
+    private static DatabaseHelper dbh;
+    private static boolean mode_random;
+    private static Cursor dbCursor;
+    private static RandomList randomList;
 
     // constructor
     QuestionManager(Context context) {
@@ -32,17 +32,12 @@ class QuestionManager {
         dbCursor = dbh.getCursor();
         dbCursor.moveToFirst();
         mode_random = false;
+        randomList = new RandomList(dbh.getQuestionCount());
 
-
-        DownloadManager downloadManager = new DownloadManager();
+        DownloadManager downloadManager = new DownloadManager(context);
         downloadManager.updateDatabase();
-        Toast.makeText(
-                context,
-                SharedPrefs.getSyncedLocalvotes() ? "Update erfolgreich" : "Update fehlgeschlagen",
-                Toast.LENGTH_SHORT
-        ).show();
-    }
 
+    }
 
     /**
      *   Getter methods
@@ -70,21 +65,24 @@ class QuestionManager {
 
     // moves the cursor to the next question (by ID)
     static void selectNext() {
-        if (mode_random)
-            randomize();
-
+        if (mode_random) {
+            //randomize();
+            selectQuestionById(randomList.getNext());
+        }
         moveToNext_save();
     }
 
     // moves the cursor to the previous question (by ID)
     static void selectPrevious() {
-        moveToPrevious_save();
+        //moveToPrevious_save();
+        selectQuestionById(randomList.getPrevious());
     }
 
     // moves the cursor to the next favorite (by ID) (could loop 4 ever)
     static void selectNextFavorite() {
-        if (mode_random)
+        if (mode_random) {
             randomize();
+        }
 
         do {
             moveToNext_save();
@@ -92,11 +90,10 @@ class QuestionManager {
     }
 
     // moves the cursor to a specific ID
-    static void SelectQuestionbyId(int new_id) {
-        Log.d("SelectQuestionbyId: ", ""+new_id);
+    static void selectQuestionById(int new_id) {
+        Log.d("selectQuestionById: ", ""+new_id);
         while (getSelectedQuestion(dbCursor).id != new_id) {
             moveToNext_save();
-            Log.d("QuestionManager", " Schleife ausgeführt (SelectQuestionbyId)");
         }
     }
 
@@ -141,12 +138,9 @@ class QuestionManager {
 
         // move cursor to first, then to the current id
         dbCursor.moveToFirst();
-        SelectQuestionbyId(i);
+        selectQuestionById(i);
     }
 
-    static int countAllQuestions() {
-        return dbh.countAllQuestions();
-    }
 
 
     static int countFavoredQuestions() {

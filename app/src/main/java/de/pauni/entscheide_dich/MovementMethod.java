@@ -39,7 +39,7 @@ class MovementMethod extends LinkMovementMethod {
         }
 
         if (swiped) {
-            Log.d("MoveMeth", " returned");
+            //Log.d("MoveMeth", " returned");
             return true;
         }
 
@@ -49,7 +49,7 @@ class MovementMethod extends LinkMovementMethod {
 
 
         if (dx>=swipeNextGuesture) {
-            Log.d("MoveMeth", "swipe next");
+            //Log.d("MoveMeth", "swipe next");
             // onTouchEvent is triggered very repeatedly
             swiped = true;
             QuestionManager.selectNext();
@@ -57,7 +57,7 @@ class MovementMethod extends LinkMovementMethod {
         }
 
         if (dx<=swipePreviousGesture) {
-            Log.d("MoveMeth", "swipe previous");
+            //Log.d("MoveMeth", "swipe previous");
             swiped = true;
             QuestionManager.selectPrevious();
             ((MainActivity) context).displayPrevQuestion(QuestionManager.getQuestion(), true);

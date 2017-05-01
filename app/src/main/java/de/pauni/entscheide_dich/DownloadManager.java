@@ -2,10 +2,9 @@ package de.pauni.entscheide_dich;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 
 /**
@@ -27,14 +27,155 @@ import java.net.URL;
 
 class DownloadManager {
     private static String CT_JSON = "application/json";
+    private static String URL_UPDATE = "http://0x000.net/api/update_questions";
+    private static String URL_GETALL = "http://0x000.net/api/all_questions";
+    private static String URL_VOTE   = "http://0x000.net/api/vote";
+    private static DatabaseHelper dbh;
+    private Context context;
+
+    DownloadManager(final Context context) {
+        this.context = context;
+        dbh = new DatabaseHelper(context);
+
+        Runnable voteSynchronizer = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    SharedPrefs.setSyncedVotesSuccessfully(false);
+
+                    int voteCount = dbh.getVoteBufferCount();
+                    if (voteCount != 0) {
+                        int questionId;
+                        int ansNum;
+                        Question question;
+
+                        final JSONObject mainObj = new JSONObject();
+                        JSONArray ja = new JSONArray();
+
+                        for (int i = 1; i <= voteCount; i++) {
+                            int[] vote = dbh.getVote(i);
+                            questionId = vote[0];
+                            ansNum = vote[1];
+
+                            // pasting the information from table_vote_buffer to table_questions
+                            question = dbh.getQuestion(questionId);
+                            question.localvote = ansNum;
+                            dbh.updateQuestion(question);
+
+                            // generate a json object with the votes
+                            JSONObject jo = new JSONObject();
+
+                            try {
+                                jo.put("id", questionId);
+                                jo.put("answer", ansNum);
+                                ja.put(jo);
+                            } catch (JSONException e) { e.printStackTrace(); }
+                        }
+
+                        try {
+                            mainObj.put("i_vote", ja);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        // send json object to the server, save success-state
+                        String inputLine = sendToServer(mainObj.toString(), CT_JSON, URL_VOTE);
+                        if (inputLine != null && inputLine.equals("ok")) {
+                            SharedPrefs.setSyncedVotesSuccessfully(true);
+
+                            // server received the votes, they're safe to delete now
+                            dbh.clearVotingBuffer();
+                        }
+
+                        // toast the result
+                        Utilities.toast(SharedPrefs.getSyncedVotesSuccessfully()
+                                ? "Deine Antworten wurden erfolgreich abgeschickt"
+                                : "Deine Antworten konnten nicht abgeschickt werden", context);
+                    }
+
+                    SystemClock.sleep(1000 * 60 * 5); //sleep 5 Minutes
+                }
+            }
+        };
+        Thread voteSynchronizerThread = new Thread(voteSynchronizer);
+        voteSynchronizerThread.start();
+    }
 
 
+
+    // Send inventory sheet to server, receive update, save update to db
+    void updateDatabase() {
+        final String success = "Update erfolgreich";    // Toast messages
+        final String fail    = "Update fehlgeschlagen";
+
+        Runnable networkRunnable = new Runnable() {
+            @Override
+            public void run() {
+
+                String jsonString = sendToServer(getInventorySheet(), CT_JSON, URL_UPDATE);
+                writeInputTodatabase(jsonString);
+                Utilities.toast(SharedPrefs.getUpdatedSuccessfully() ? success : fail, context);
+
+            }
+        };
+        new Thread(networkRunnable).start();
+    }
+    // save the of the user into a secondary table in the db
+    static void plusOne(int questionId, int ansNum) {
+        // save vote in local database
+        dbh.addVoteToBuffer(questionId, ansNum);
+    }
+
+
+
+
+    // writes json containing Questions objects to the db
+    private static void writeInputTodatabase(String jsonstring) {
+        SharedPrefs.setUpdatedSuccessfully(false);
+
+        if (jsonstring == null) {
+            return; //error alert is handled at method call
+        }
+
+        JSONObject      rootobj;
+        List<Question>  add;
+        List<Question>  update;
+        List<Question>  delete;
+
+        // create question-lists from the respective jsonarrays
+        try {
+            rootobj = new JSONObject(jsonstring);
+            add     = ((JSONArray) rootobj.getJSONArray("add")).questionList();
+            update  = ((JSONArray) rootobj.getJSONArray("update")).questionList();
+            delete  = ((JSONArray) rootobj.getJSONArray("delete")).questionList();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return; //error alert is handled at method call
+        }
+
+        // add all questions of the list to the db
+        for (int i=0; i<add.size(); i++) {          // IF CRASH HERE, INIT LIST AFTER DECLARE
+            dbh.addQuestion(add.get(i));
+        }
+
+        // update all questions of the list in the db
+        for (int i=0; i<update.size(); i++) {       // IF CRASH HERE, INIT LIST AFTER DECLARE
+            dbh.updateQuestion(update.get(i));
+        }
+
+        // delete all questions of the list from the db
+        /*for (int i=0; i<delete.size(); i++) {
+            dbh.deleteQuestion(update.get(i));
+        }*/
+
+
+    }
 
     // returns null, if failed
-    private static String sendToServer(final String output, final String contentType) {
+    private static String sendToServer(final String output, final String contentType, String address) {
         URL url;
         try {
-            url = new URL("http://0x000.net/api");
+            url = new URL(address);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;
@@ -52,7 +193,7 @@ class DownloadManager {
             return null;
         }
 
-        String inputLine;
+        String inputLine = "";
         try {
             OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
 
@@ -61,41 +202,23 @@ class DownloadManager {
             BufferedReader input = new BufferedReader(new InputStreamReader(
                     httpCon.getInputStream()));
 
-            while ((inputLine = input.readLine()) != null)
+            String buffer;
+            while ((buffer = input.readLine()) != null) {
+                inputLine += buffer;
                 Log.d("DlMgr/inutline", inputLine);
+            }
             input.close();
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "download failed";
         }
 
         return inputLine;
     }
 
-
-    void updateDatabase() {
-
-        Runnable networkRunnable = new Runnable() {
-            @Override
-            public void run() {
-
-
-                String jsonString = sendToServer(getInventorySheet(), CT_JSON);
-                if (jsonString != null) {
-                    writeInputTodatabase(jsonString);
-                }
-
-
-            }
-        };
-        new Thread(networkRunnable).start();
-    }
-
-
-
+    // generates a inventory sheet of all questions'(id + md5-checksum. Format: json)
     private static String getInventorySheet() {
-        DatabaseHelper dbh = QuestionManager.getDbh();
         Cursor cursor = dbh.getCursor();
         cursor.moveToFirst();
 
@@ -122,106 +245,6 @@ class DownloadManager {
         }
 
         return mainObj.toString();
-    }
-    private static void writeInputTodatabase(String jsonstring) {
-        if (jsonstring == null) {
-            Log.d("DlMgr/WITd", "null");
-        }
-
-        try {
-
-
-
-            DatabaseHelper dbh = QuestionManager.getDbh();
-
-            JSONArray all_questions = new JSONArray(jsonstring);
-
-
-
-            // looping through All nodes
-            for (int i = 0; i < all_questions.length(); i++) {
-                JSONObject questionobj = all_questions.getJSONObject(i);
-
-                Log.d("DatabaseInitializer", questionobj.getString("question"));
-                Log.d("DatabaseInitializer", questionobj.getString("guest"));
-                Log.d("DatabaseInitializer", questionobj.getString("ytlink"));
-                Log.d("DatabaseInitializer", questionobj.getString("answer1"));
-                Log.d("DatabaseInitializer", questionobj.getString("answer2"));
-
-                // load links and keywords from one question and put them into one "clickables"
-                JSONArray clickablesobj = questionobj.getJSONArray("clickable");
-                String[][] clickables = new String[clickablesobj.length()][1];
-
-                for (int l = 0; l < clickablesobj.length(); l++) {
-                    JSONObject keyword = clickablesobj.getJSONObject(l);
-                    clickables[l] = new String[]{keyword.getString("keyword"), keyword.getString("link")};
-                }
-
-
-                Question question = new Question();
-
-                question.question = questionobj.getString("question");
-                question.guest = questionobj.getString("guest");
-                question.ytlink = questionobj.getString("ytlink");
-                question.answer_1 = questionobj.getString("answer1");
-                question.answer_2 = questionobj.getString("answer2");
-                question.clickables = clickables;
-
-                dbh.updateQuestion(question);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    void plusOne(Context c, int questionId, int ansNum) {
-        // save vote in local database
-
-        DatabaseHelper dbh = new DatabaseHelper(c);
-
-        Question q = dbh.getQuestion(questionId); //read the current question from the db
-        q.localvote = ansNum;                      // change the localvote
-        dbh.updateQuestion(q);                    // save the modified question to the db
-
-        // send it to the server
-        final JSONObject mainObj = new JSONObject();
-        JSONArray ja = new JSONArray();
-        JSONObject jo = new JSONObject();
-
-        try {
-            jo.put("id", questionId);
-            jo.put("answer", ansNum);
-
-            ja.put(jo);
-
-            mainObj.put("i_vote", ja);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Runnable networkRunnable = new Runnable() {
-            @Override
-            public void run() {
-                String inputLine = sendToServer(mainObj.toString(), CT_JSON);
-                if (inputLine != null) {
-                    SharedPrefs.setSyncedLocalvotes(false);
-                    return;
-                }
-
-                SharedPrefs.setSyncedLocalvotes(true);
-                final Handler handler = new Handler();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d("Dlm", "trying..");
-                        handler.postDelayed(this, 500);
-                    }
-                });
-            }
-        };
-
-        new Thread(networkRunnable).start();
     }
 
 }

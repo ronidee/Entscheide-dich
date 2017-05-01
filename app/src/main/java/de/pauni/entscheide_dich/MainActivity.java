@@ -24,16 +24,19 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     float displayWidth;
-    private boolean sessionStart = true;
+
+    static  boolean appInBackground = false;
     private boolean searchDialogWasOpen = false;
-    private boolean animationOn   = true;
+    private boolean sessionStart = true;
+    private boolean animationOn  = true;
     private boolean blocked = false;
 
     private final int MODE_NORMAL   = 1;
     private final int MODE_FAV_ONLY = 2;
     private int MODE = MODE_NORMAL;
 
-    DownloadManager downloadManager;
+    static private Handler handler = new Handler();
+
 
 
     //Declaring the views
@@ -62,6 +65,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        appInBackground = false;
         Log.d("MainActivity", "created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -74,8 +78,7 @@ public class MainActivity extends Activity {
 
         new QuestionManager(this);
 
-        QuestionManager.SelectQuestionbyId(SharedPrefs.getCurrentQuestionId());
-        downloadManager = new DownloadManager();
+        QuestionManager.selectQuestionById(SharedPrefs.getCurrentQuestionId());
         Utilities.scale = getResources().getDisplayMetrics().density;
 
         initViews();
@@ -88,24 +91,28 @@ public class MainActivity extends Activity {
     //Saving the current Id in 'any' possible cases.
     @Override
     protected void onPause() {
+        appInBackground = true;
         super.onPause();
         Log.d("MainActivity", "paused");
         SharedPrefs.saveQuestionId(QuestionManager.getId());
     }
     @Override
     protected void onStop() {
+        appInBackground = true;
         Log.d("MainActivity", "stopped");
         super.onStop();
         SharedPrefs.saveQuestionId(QuestionManager.getId());
     }
     @Override
     protected void onDestroy() {
+        appInBackground = true;
         Log.d("MainActivity", "destroyed");
         super.onDestroy();
         SharedPrefs.saveQuestionId(QuestionManager.getId());
     }
     @Override
     protected void onResume() {
+        appInBackground = false;
         if (searchDialogWasOpen) {
             displayQuestion(QuestionManager.getQuestion(), false);
         }
@@ -308,12 +315,6 @@ public class MainActivity extends Activity {
     }
 
 
-    Runnable unblockButton = new Runnable() {
-        @Override
-        public void run() {
-            blocked = false;
-        }
-    };
 
     // initializes all views
     private void initViews() {
@@ -468,7 +469,7 @@ public class MainActivity extends Activity {
                 Log.d("Mainactivity:  ", "select answer1");
                 showStatistic(1);
                 // add the vote to the "global" statistics
-                downloadManager.plusOne(getApplicationContext(), QuestionManager.getId(), 1);
+                DownloadManager.plusOne(QuestionManager.getId(), 1);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_unselected);
             }
@@ -481,7 +482,7 @@ public class MainActivity extends Activity {
                 Log.d("Mainactivity:  ", "select answer2");
                 showStatistic(2);
                 // add the vote to the "global" statistics
-                downloadManager.plusOne(getApplicationContext(), QuestionManager.getId(), 2);
+                DownloadManager.plusOne(QuestionManager.getId(), 2);
                 ib_sel_answer_2.setImageResource(R.drawable.answer_selected);
                 ib_sel_answer_1.setImageResource(R.drawable.answer_unselected);
             }
@@ -491,20 +492,26 @@ public class MainActivity extends Activity {
         findViewById(R.id.ll_answer_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ib_sel_answer_1.performClick();
+                ib_sel_answer_1.callOnClick();
             }
         });
 
         findViewById(R.id.ll_answer_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ib_sel_answer_2.performClick();
+                ib_sel_answer_2.callOnClick();
             }
         });
 
 
     }
 
+    Runnable unblockButton = new Runnable() {
+        @Override
+        public void run() {
+            blocked = false;
+        }
+    };
 
 
 
@@ -523,7 +530,6 @@ public class MainActivity extends Activity {
             ib_favOnly.setEnabled(true);
         }
     }
-
 
     // animates color-change of a view. Thanks to Felipe Bari for this method.
     // http://stackoverflow.com/questions/18216285/android-animate-color-change-from-color-to-color
@@ -573,6 +579,10 @@ public class MainActivity extends Activity {
         final float b = Color.blue(to) * ratio + Color.blue(from) * inverseRatio;
 
         return Color.rgb((int) r, (int) g, (int) b);
+    }
+
+    static Handler getHandler() {
+        return handler;
     }
 
 }
