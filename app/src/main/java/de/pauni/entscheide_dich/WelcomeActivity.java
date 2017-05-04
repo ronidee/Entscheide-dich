@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
+
 /**
  * This activity loads at start. Shows a welcome message and initializes all needed classes
  * Once done all this, switches to MainActivity
@@ -35,7 +38,7 @@ public class WelcomeActivity extends Activity {
             public void run() {
 
                 if (SharedPrefs.isFirstStart()) {
-                    DatabaseInitializer y = new DatabaseInitializer(context);
+                    new DatabaseInitializer(context);
                 }
 
                 //((WelcomeActivity) context).finish();

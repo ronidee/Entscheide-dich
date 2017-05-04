@@ -5,12 +5,14 @@ import android.database.Cursor;
 import android.os.SystemClock;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -27,9 +29,9 @@ import java.util.List;
 
 class DownloadManager {
     private static String CT_JSON = "application/json";
-    private static String URL_UPDATE = "cc";
+    private static String URL_UPDATE = "http://anito.org:5000/api/update_questions";
     private static String URL_GETALL = "http://0x000.net/api/all_questions";
-    private static String URL_VOTE   = "http://0x000.net/api/vote";
+    private static String URL_VOTE   = "http://anito.org:5000/api/vote";
     private static DatabaseHelper dbh;
     private Context context;
 
@@ -73,6 +75,7 @@ class DownloadManager {
                         }
 
                         try {
+                            mainObj.put("device_id", SharedPrefs.getUID());
                             mainObj.put("i_vote", ja);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -80,6 +83,7 @@ class DownloadManager {
 
                         // send json object to the server, save success-state
                         String inputLine = sendToServer(mainObj.toString(), CT_JSON, URL_VOTE);
+                        Log.d("DWNmgr", mainObj.toString());
                         if (inputLine != null && inputLine.equals("ok")) {
                             SharedPrefs.setSyncedVotesSuccessfully(true);
 
@@ -93,7 +97,7 @@ class DownloadManager {
                                 : "Deine Antworten konnten nicht abgeschickt werden", context);
                     }
 
-                    SystemClock.sleep(1000 * 60 * 5); //sleep 5 Minutes
+                    SystemClock.sleep(1000 * 10); //sleep 5 Minutes
                 }
             }
         };
@@ -105,6 +109,8 @@ class DownloadManager {
 
     // Send inventory sheet to server, receive update, save update to db
     void updateDatabase() {
+        Log.d("DownloadManager", "updateDatabase aufgerufen");
+
         final String success = "Update erfolgreich";    // Toast messages
         final String fail    = "Update fehlgeschlagen";
 
@@ -112,6 +118,7 @@ class DownloadManager {
             @Override
             public void run() {
 
+                SharedPrefs.setUpdatedSuccessfully(false);
                 String jsonString = sendToServer(getInventorySheet(), CT_JSON, URL_UPDATE);
                 writeInputTodatabase(jsonString);
                 Utilities.toast(SharedPrefs.getUpdatedSuccessfully() ? success : fail, context);
@@ -124,6 +131,7 @@ class DownloadManager {
     static void plusOne(int questionId, int ansNum) {
         // save vote in local database
         dbh.addVoteToBuffer(questionId, ansNum);
+
     }
 
 
@@ -131,7 +139,7 @@ class DownloadManager {
 
     // writes json containing Questions objects to the db
     private static void writeInputTodatabase(String jsonstring) {
-        SharedPrefs.setUpdatedSuccessfully(false);
+        Log.d("DownloadManager", "writeInputTodatabase aufgerufen");
 
         if (jsonstring == null) {
             return; //error alert is handled at method call
@@ -147,18 +155,18 @@ class DownloadManager {
 
         try {
             rootobj = new JSONObject(jsonstring);
-            add     = ((JSONArray) rootobj.getJSONArray("add"   )).questionList();
-            update  = ((JSONArray) rootobj.getJSONArray("update")).questionList();
-            delete  = ((JSONArray) rootobj.getJSONArray("delete")).questionList();
+            //add     = Utilities.toQuestionList(rootobj.getJSONArray("add"   ));
+            update  = Utilities.toQuestionList(rootobj.getJSONArray("update"));
+            delete  = Utilities.toQuestionList(rootobj.getJSONArray("delete"));
         } catch (JSONException e) {
             e.printStackTrace();
             return; //error alert is handled at method call
         }
 
         // add all questions of the list to the db
-        for (int i=0; i<add.size(); i++) {          // IF CRASH HERE, INIT LIST AFTER DECLARE
+        /*for (int i=0; i<add.size(); i++) {          // IF CRASH HERE, INIT LIST AFTER DECLARE
             dbh.addQuestion(add.get(i));
-        }
+        }*/
 
         // update all questions of the list in the db
         for (int i=0; i<update.size(); i++) {       // IF CRASH HERE, INIT LIST AFTER DECLARE
@@ -170,57 +178,13 @@ class DownloadManager {
             dbh.deleteQuestion(update.get(i));
         }*/
 
-
-    }
-
-    // returns null, if failed
-    private static String sendToServer(final String output, final String contentType, String address) {
-        URL url;
-        try {
-            url = new URL(address);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        final HttpURLConnection httpCon;
-        try {
-            httpCon = (HttpURLConnection) url.openConnection();
-            httpCon.setDoOutput(true);
-            httpCon.setRequestProperty("Content-Type", contentType);
-            httpCon.setRequestProperty("X-APIKEY", "123456789");
-            httpCon.setRequestMethod("PUT");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        String inputLine = "";
-        try {
-            OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
-
-            out.write(output);
-            out.close();
-            BufferedReader input = new BufferedReader(new InputStreamReader(
-                    httpCon.getInputStream()));
-
-            String buffer;
-            while ((buffer = input.readLine()) != null) {
-                inputLine += buffer;
-                Log.d("DlMgr/inutline", inputLine);
-            }
-            input.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "download failed";
-        }
-
-        return inputLine;
+        SharedPrefs.setUpdatedSuccessfully(true);
     }
 
     // generates a inventory sheet of all questions'(id + md5-checksum. Format: json)
     private static String getInventorySheet() {
+        Log.d("DownloadManager", "getInventorySheet aufgerufen");
+
         Cursor cursor = dbh.getCursor();
         cursor.moveToFirst();
 
@@ -247,6 +211,63 @@ class DownloadManager {
         }
 
         return mainObj.toString();
+    }
+
+    // returns null, if failed
+    private static String sendToServer(final String output, final String contentType, String address) {
+        Log.d("DownloadManager", "sendToServer aufgerufen");
+
+        URL url;
+        try {
+            url = new URL(address);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        final HttpURLConnection httpCon;
+        try {
+            Log.d("DownloadManager", "pass1");
+            httpCon = (HttpURLConnection) url.openConnection();
+            Log.d("DownloadManager", "pass2");
+            httpCon.setDoOutput(true);
+            Log.d("DownloadManager", "pass3");
+            httpCon.setRequestProperty("Content-Type", contentType);
+            httpCon.setRequestProperty("X-APIKEY", "123456789");
+            Log.d("DownloadManager", "pass4");
+            httpCon.setRequestMethod("POST");
+            Log.d("DownloadManager", "pass4.1");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        String inputLine = "";
+        try {
+            OutputStream outputStream = httpCon.getOutputStream();
+            Log.d("DownloadManager", "pass5");
+            OutputStreamWriter out = new OutputStreamWriter(outputStream);
+            Log.d("DownloadManager", "pass5.1");
+            out.write(output);
+            out.close();
+            BufferedReader input = new BufferedReader(new InputStreamReader(
+                    httpCon.getInputStream()));
+
+            Log.d("DownloadManager", "pass6");
+            String buffer;
+            while ((buffer = input.readLine()) != null) {
+                inputLine += buffer;
+                Log.d("DownloadManager", "pass7...");
+            }
+            input.close();
+            Log.d("DlMgr/inutline", inputLine);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "download failed";
+        }
+
+        return inputLine;
     }
 
 }

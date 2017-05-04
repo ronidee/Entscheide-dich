@@ -1,7 +1,5 @@
 package de.pauni.entscheide_dich;
 
-import android.util.Log;
-
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -20,19 +18,17 @@ class Question {
     String answer_1  = "Antwortmöglichkeit 1";
     String answer_2  = "Antwortmöglichkeit 2";
     int localvote = 0;
-    int count_answer_1 = 0;
-    int count_answer_2 = 0;
+    int answer_1_count = 0;
+    int answer_2_count = 0;
 
     boolean favorite =  false;
     String[][] clickables = new String[0][0];
 
     String getHash() {
-        String sum = id + question + guest + ytlink + answer_1 + answer_2
-                + count_answer_1 + count_answer_2;
+        String sum = question + guest + ytlink + answer_1 + answer_2
+                + answer_1_count + answer_2_count;
 
-        String hash = Hashing.md5().hashString(sum, Charsets.UTF_8).toString();
-        //Log.d("Question/getHash()", hash);
-        return hash;
+        return Hashing.md5().hashString(sum, Charsets.UTF_8).toString();
     }
 
 }

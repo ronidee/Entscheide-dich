@@ -3,12 +3,10 @@ package de.pauni.entscheide_dich;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * Diese SharedPreferences Helperclass kümmert sich um all den Code zum
@@ -132,5 +130,10 @@ class SharedPrefs extends Activity {
         }
 
         return favList;
+    }
+
+    static String getUID() {
+        return prefs.getString("uid", Utilities.generateUniqueId());
+
     }
 }

@@ -11,6 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -19,7 +25,7 @@ import java.util.UUID;
 
 class Utilities {
     private static String info = "";
-    public static float scale = 0;
+    static float scale = 0;
 
 
     // returns a spannablestring with the passed keywords(clickables) being clickable
@@ -86,6 +92,42 @@ class Utilities {
         c.startActivity (Intent.createChooser(intent, "Teile die Frage mit Feinden:"));
     }
 
+    static List<Question> toQuestionList(JSONArray jsonArray) {
+        List<Question> questionList = new ArrayList<>();
+
+        // looping through All nodes
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                JSONObject questionobj = jsonArray.getJSONObject(i);
+
+                // load links and keywords from one question and put them into one "clickables"
+                org.json.JSONArray clickablesJArray = questionobj.getJSONArray("keywords"); // KEYWORDS ARE ACTUALLY INFOLINKS/CLICKABLES IF YOU READ THIS AND YOU THINK WHAT, THIS DOESN'T MAKE ANY SENSE, DON'T FEEL ALONE MY FRIEND YOU'RE NOT ALINE. I THINK SO TOO BUT PAUL IS LAZY AND CLOSE MINDED.
+                String[][] clickables = new String[clickablesJArray.length()][1];
+
+                for (int l = 0; l < clickablesJArray.length(); l++) {
+                    JSONObject keyword = clickablesJArray.getJSONObject(l);
+                    clickables[l] = new String[]{keyword.getString("keyword"), keyword.getString("link")};
+                }
+
+                Question question   = new Question();
+                question.id         = Integer.valueOf(questionobj.getString("id"));
+                question.question   = questionobj.getString("question");
+                question.guest      = questionobj.getString("guest");
+                question.ytlink     = questionobj.getString("youtube_link");
+                question.answer_1   = questionobj.getString("answer_1");
+                question.answer_2   = questionobj.getString("answer_2");
+                question.answer_1_count = questionobj.getInt("answer_1_count");
+                question.answer_2_count = questionobj.getInt("answer_2_count");
+                question.clickables = clickables;
+
+                questionList.add(question);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return new ArrayList<>();
+            }
+        }
+        return questionList;
+    }
 
     // generate a unique id for the device
     static String generateUniqueId() {

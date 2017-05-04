@@ -43,8 +43,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ANSWER_1       = "answer1";        // Antwortmöglichkeit 1
     private static final String KEY_ANSWER_2       = "answer2";        // Antwortmöglichkeit 2
     private static final String KEY_LOCALVOTE      = "localvote";      // Antwort des Users
-    private static final String KEY_COUNT_ANSWER_1 = "count_answer_1"; // Anzahl der Votes für Antwort 1
-    private static final String KEY_COUNT_ANSWER_2 = "count_answer_2"; // Anzahl der Votes für Antwort 2
+    private static final String KEY_COUNT_ANSWER_1 = "answer_1_count"; // Anzahl der Votes für Antwort 1
+    private static final String KEY_COUNT_ANSWER_2 = "answer_2_count"; // Anzahl der Votes für Antwort 2
 
 
     private static final String KEY_QUES_ID = "question_id"; // Der Text der Frage
@@ -173,8 +173,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_ANSWER_1, question.answer_1);
         values.put(KEY_ANSWER_2, question.answer_2);
         values.put(KEY_LOCALVOTE, question.localvote);
-        values.put(KEY_COUNT_ANSWER_1, question.count_answer_1);
-        values.put(KEY_COUNT_ANSWER_2, question.count_answer_2);
+        values.put(KEY_COUNT_ANSWER_1, question.answer_1_count);
+        values.put(KEY_COUNT_ANSWER_2, question.answer_2_count);
 
 
         // Inserting Row
@@ -227,8 +227,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.favorite   = cursor.getInt     (cursor.getColumnIndex(KEY_FAV)) == 1;
         question.answer_1   = cursor.getString  (cursor.getColumnIndex(KEY_ANSWER_1));
         question.answer_2   = cursor.getString  (cursor.getColumnIndex(KEY_ANSWER_2));
-        question.count_answer_1 = cursor.getInt (cursor.getColumnIndex(KEY_COUNT_ANSWER_1));
-        question.count_answer_2 = cursor.getInt (cursor.getColumnIndex(KEY_COUNT_ANSWER_2));
+        question.answer_1_count = cursor.getInt (cursor.getColumnIndex(KEY_COUNT_ANSWER_1));
+        question.answer_2_count = cursor.getInt (cursor.getColumnIndex(KEY_COUNT_ANSWER_2));
         question.clickables = new String[][] {keywords, links};
 
 
@@ -244,25 +244,24 @@ class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("dbh", "favorite set: " + quest.favorite);
     }
     void updateQuestion (Question question) {
+        Log.d("DatabaseHelper", "updateQuestion aufgerufen");
+        Log.d("DatabaseHelper", question.answer_1);
         SQLiteDatabase db = this.getWritableDatabase();
+
 
         ContentValues values = new ContentValues();
         values.put(KEY_QUES,            question.question);
         values.put(KEY_GUEST,           question.guest);
         values.put(KEY_ANSWER_1,        question.answer_1);
         values.put(KEY_ANSWER_2,        question.answer_2);
-        values.put(KEY_LOCALVOTE,       question.localvote);
-        values.put(KEY_COUNT_ANSWER_1,  question.count_answer_1);
-        values.put(KEY_COUNT_ANSWER_2,  question.count_answer_2);
+        values.put(KEY_COUNT_ANSWER_1,  question.answer_1_count);
+        values.put(KEY_COUNT_ANSWER_2,  question.answer_2_count);
         values.put(KEY_YT,              question.ytlink);
 
         // updating row
-        db.update(
-                TABLE_FRAGEN_LISTE,
-                values,
-                KEY_ID + "=" + question.id,
-                null
-        );
+        Log.d("DatabaseHelper wanted", ""+question.id);
+        Log.d("DatabaseHelper result:", ""+ db.update (TABLE_FRAGEN_LISTE, values, KEY_ID + " = " + question.id, null));
+        //db.close();
     }
 
 

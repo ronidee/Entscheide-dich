@@ -32,7 +32,7 @@ class RandomizedList {
     }
 
     int getNext() {
-        Log.d("RandomizedList", "next");
+        //Log.d("RandomizedList", "next");
         index += 1;
         if (index>=listsize) {
             index = 1;

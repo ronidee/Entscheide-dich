@@ -78,6 +78,9 @@ public class MainActivity extends Activity {
 
         updateFavOnlyButtonState(QuestionManager.getQuestion().favorite);
 
+        QuestionManager.selectQuestionById(2);
+        String check = QuestionManager.getQuestion().getHash();
+        //Log.d("Main CHECK ", check + " " + QuestionManager.getQuestion().question);
     }
 
     //Saving the current Id in 'any' possible cases.
@@ -175,7 +178,7 @@ public class MainActivity extends Activity {
         tv_answer_2.setText(question.answer_2);
 
         /**STEP 6)*/
-        prepareStatistic(question.count_answer_1, question.count_answer_2);
+        prepareStatistic(question.answer_1_count, question.answer_2_count);
     }
     void displayPrevQuestion (Question question, boolean animated) {
        SpannableString questionText = Utilities.getClickableText(this, question.question, question.clickables);
@@ -198,7 +201,7 @@ public class MainActivity extends Activity {
         tv_questionIn.setMovementMethod(new MovementMethod(this));
         tv_answer_1.setText(question.answer_1);
         tv_answer_2.setText(question.answer_2);
-        prepareStatistic(question.count_answer_1, question.count_answer_2);
+        prepareStatistic(question.answer_1_count, question.answer_2_count);
     }
 
     // generates a sliding-out animation for the old question
