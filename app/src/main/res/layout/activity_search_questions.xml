@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorAccent"
     android:clipToPadding="false"
     android:theme="@style/search_dialog">
 
@@ -10,75 +10,74 @@
         android:id="@+id/ll_searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_searchIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:background="@android:color/transparent"
-            android:padding="18dp"
-            android:src="@drawable/ic_search_white_24dp"
-            android:tint="@color/background" />
-
-        <EditText
-            android:id="@+id/et_search"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="0.74"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:hint=" Stichwort eingeben"
-            android:inputType="textFilter"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:textColor="@color/listview_devider"
-            android:textColorHint="@color/hint_color"
-            android:textSize="18sp" />
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_resultcount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/lv_result"
-            android:layout_marginEnd="14dp"
-            android:text="LOLLOL"
-            android:textColor="@color/hint_color"
-            android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/iv_searchIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@android:color/transparent"
+                android:padding="15dp"
+                android:src="@drawable/ic_search_white_24dp"
+                android:tint="@color/background" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="0.74"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:hint=" Stichwort eingeben"
+                android:inputType="textFilter"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/listview_devider"
+                android:textColorHint="@color/hint_color"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/ib_toggle_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                android:src="@android:drawable/ic_menu_more" />
+        </LinearLayout>
 
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/lv_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_searchbar"
-        android:background="@color/colorPrimaryDark"
+        android:animationCache="false"
+        android:background="@color/colorAccent"
         android:clickable="true"
-        android:dividerHeight="5dp" />
+        android:divider="@color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="13dp"
+        android:scrollingCache="false" />
 
-    <LinearLayout
+    <include
+        layout="@layout/empty_listview_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lv_result"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bt_search"
-            android:tint="@color/link_highlight_color"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Durchsuche alle Entscheide dich!-Fragen" />
-    </LinearLayout>
-
+        android:layout_centerInParent="true" />
 </RelativeLayout>

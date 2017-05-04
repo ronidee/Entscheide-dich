@@ -21,7 +21,7 @@ class DatabaseInitializer {
     private DatabaseHelper dbh;
 
     DatabaseInitializer(Context c) {
-        Log.d("DBI", "DB WURDE ERFOLREICH GROSSDEUTSCH INITIALISIERT!");
+        Log.d("DBI", "Konstruktor geladen");
         context = c;
         dbh = new DatabaseHelper(c);
         load_init_data();
@@ -80,11 +80,8 @@ class DatabaseInitializer {
             for (int i = 0; i < all_questions.length(); i++) {
                 JSONObject questionobj = all_questions.getJSONObject(i);
 
-                Log.d("DatabaseInitializer", questionobj.getString("question"));
-                Log.d("DatabaseInitializer", questionobj.getString("guest"));
-                Log.d("DatabaseInitializer", questionobj.getString("ytlink"));
-                Log.d("DatabaseInitializer", questionobj.getString("answer1"));
-                Log.d("DatabaseInitializer", questionobj.getString("answer2"));
+                Log.d("DatabaseInitializer", "create entry " + questionobj.getString("guest"));
+
 
                 // load links and keywords from one question and put them into one "clickables"
                 JSONArray clickablesobj = questionobj.getJSONArray("clickable");
@@ -100,6 +97,7 @@ class DatabaseInitializer {
 
                 question.question = questionobj.getString("question");
                 question.guest    = questionobj.getString("guest");
+                question.hashtag  = questionobj.getString("hashtag");
                 question.ytlink   = questionobj.getString("ytlink");
                 question.answer_1 = questionobj.getString("answer1");
                 question.answer_2 = questionobj.getString("answer2");

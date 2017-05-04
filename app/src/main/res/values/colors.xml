@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#088e87</color>
+    <color name="colorPrimary">#018b7b</color>
     <color name="colorPrimaryDark">#066b67</color>
     <color name="colorAccent">#f4f4f4</color>
 
@@ -16,7 +16,7 @@
 
 
     <color name="font_color">@color/nmr_background</color>
-    <color name="transparent">#ffffff</color>
+    <color name="transparent">#00000000</color>
     <color name="semitransparent">#3c000000</color>
     <color name="hint_color">#ab272829</color>
     <color name="link_color">@color/nmr_background</color>

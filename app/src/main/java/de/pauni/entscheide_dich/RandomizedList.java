@@ -28,6 +28,7 @@ class RandomizedList {
         for (int i=1; i<=size; i++) {
             list.add(i);
         }
+        Log.d("RandomizedList", "created");
     }
 
     int getNext() {

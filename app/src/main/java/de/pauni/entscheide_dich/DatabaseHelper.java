@@ -32,16 +32,17 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    private static final String KEY_ID      = "_id";            // Table Columns names
-    private static final String KEY_QUES    = "question";       // Der Text der Frage
-    private static final String KEY_GUEST   = "guest_name";     // Der Name des Gastes
-    private static final String KEY_YT      = "youtube_link";   // Der YT-Link zum jew. Video
-    private static final String KEY_FAV     = "favorite";       // Favorite ja oder nein (1/0)
-    static final String KEY_KEYWORDS        = "keywords";       // String der zu clickable sein soll
-    static final String KEY_LINKS           = "links";          // Link der aufgerufen wird
-    private static final String KEY_ANSWER_1 = "answer1";       // Antwortmöglichkeit 1
-    private static final String KEY_ANSWER_2 = "answer2";       // Antwortmöglichkeit 2
-    private static final String KEY_LOCALVOTE = "localvote";    // Antwort des Users
+    private static final String KEY_ID             = "_id";            // Table Columns names
+    private static final String KEY_QUES           = "question";       // Der Text der Frage
+    private static final String KEY_GUEST          = "guest_name";     // Der Name des Gastes
+    private static final String KEY_HASHTAG        = "hashtag";        // Der Hashtag der Sendung
+    private static final String KEY_YT             = "youtube_link";   // Der YT-Link zum jew. Video
+    private static final String KEY_FAV            = "favorite";       // Favorite ja oder nein (1/0)
+    private static final String KEY_KEYWORDS       = "keywords";       // String der zu clickable sein soll
+    private static final String KEY_LINKS          = "links";          // Link der aufgerufen wird
+    private static final String KEY_ANSWER_1       = "answer1";        // Antwortmöglichkeit 1
+    private static final String KEY_ANSWER_2       = "answer2";        // Antwortmöglichkeit 2
+    private static final String KEY_LOCALVOTE      = "localvote";      // Antwort des Users
     private static final String KEY_COUNT_ANSWER_1 = "count_answer_1"; // Anzahl der Votes für Antwort 1
     private static final String KEY_COUNT_ANSWER_2 = "count_answer_2"; // Anzahl der Votes für Antwort 2
 
@@ -65,6 +66,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         KEY_QUES + " TEXT NOT NULL," +
                         KEY_GUEST + " TEXT NOT NULL," +
+                        KEY_HASHTAG + " TEXT NOT NULL," +
                         KEY_YT + " TEXT NOT NULL," +
                         KEY_FAV + " INTEGER NOT NULL," +
                         KEY_KEYWORDS + " TEXT NOT NULL," +
@@ -164,6 +166,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_QUES, question.question);
         values.put(KEY_GUEST, question.guest);
         values.put(KEY_YT, question.ytlink);
+        values.put(KEY_HASHTAG, question.hashtag);
         values.put(KEY_FAV, question.favorite); // isn't his redundant? All favs are false...
         values.put(KEY_KEYWORDS, strings);
         values.put(KEY_LINKS, links);
@@ -219,13 +222,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
         question.id         = cursor.getInt(0);
         question.question   = cursor.getString  (cursor.getColumnIndex(KEY_QUES));
         question.guest      = cursor.getString  (cursor.getColumnIndex(KEY_GUEST));
+        question.hashtag    = cursor.getString  (cursor.getColumnIndex(KEY_HASHTAG));
         question.ytlink     = cursor.getString  (cursor.getColumnIndex(KEY_YT));
         question.favorite   = cursor.getInt     (cursor.getColumnIndex(KEY_FAV)) == 1;
-        question.answer_1   = cursor.getString(7); // 5 & 6 = keywords & links
-        question.answer_2   = cursor.getString(8);
-        question.count_answer_1 = cursor.getInt(9);
-        question.count_answer_2 = cursor.getInt(10);
+        question.answer_1   = cursor.getString  (cursor.getColumnIndex(KEY_ANSWER_1));
+        question.answer_2   = cursor.getString  (cursor.getColumnIndex(KEY_ANSWER_2));
+        question.count_answer_1 = cursor.getInt (cursor.getColumnIndex(KEY_COUNT_ANSWER_1));
+        question.count_answer_2 = cursor.getInt (cursor.getColumnIndex(KEY_COUNT_ANSWER_2));
         question.clickables = new String[][] {keywords, links};
+
 
         //cursor.close();
         return question;
@@ -273,10 +278,13 @@ class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    List<Question> searchQuestions (String searchString) {
+
+    // search database for certain strings in respective columns
+    private List<Question> searchDatabase (String searchString, String KEY_COLUMN) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE " + KEY_QUES + " LIKE \'%" + searchString + "%\';", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_FRAGEN_LISTE + " WHERE "
+                + KEY_COLUMN + " LIKE \'%" + searchString + "%\';", null);
         c.moveToFirst();
 
         List<Question> questions = new ArrayList<>();
@@ -285,10 +293,18 @@ class DatabaseHelper extends SQLiteOpenHelper {
             questions.add(getSelectedQuestion(c));
             c.moveToNext();
         }
-
-        Log.d("dbh>>>", String.valueOf(c.getCount()));
         return questions;
     }
+    List<Question> searchQuestions (String searchString) {
+        return searchDatabase(searchString, KEY_QUES);
+    }
+    List<Question> searchGuests (String searchString) {
+        return searchDatabase(searchString, KEY_GUEST);
+    }
+    List<Question> searchHashtag (String searchString) {
+        return searchDatabase(searchString, KEY_HASHTAG);
+    }
+
 
 
     int countFavoredQuestions() {

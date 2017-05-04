@@ -15,6 +15,7 @@ class Question {
     int    id        = 0;
     String question  = "foobar";
     String guest     = "foobar";
+    String hashtag   = "HASHTAG NOCH NICHT HINZUGEFÜGT";
     String ytlink    = "foobar";
     String answer_1  = "Antwortmöglichkeit 1";
     String answer_2  = "Antwortmöglichkeit 2";

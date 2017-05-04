@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context="de.pauni.entscheide_dich.MainActivity">
 
+
     <!-- Das Logo von Entscheide Dich -->
 
     <ImageView

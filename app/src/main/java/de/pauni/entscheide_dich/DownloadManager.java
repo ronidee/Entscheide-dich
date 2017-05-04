@@ -27,7 +27,7 @@ import java.util.List;
 
 class DownloadManager {
     private static String CT_JSON = "application/json";
-    private static String URL_UPDATE = "http://0x000.net/api/update_questions";
+    private static String URL_UPDATE = "cc";
     private static String URL_GETALL = "http://0x000.net/api/all_questions";
     private static String URL_VOTE   = "http://0x000.net/api/vote";
     private static DatabaseHelper dbh;
@@ -137,15 +137,17 @@ class DownloadManager {
             return; //error alert is handled at method call
         }
 
+
+        // create question-lists from the respective jsonarrays
+
         JSONObject      rootobj;
         List<Question>  add;
         List<Question>  update;
         List<Question>  delete;
 
-        // create question-lists from the respective jsonarrays
         try {
             rootobj = new JSONObject(jsonstring);
-            add     = ((JSONArray) rootobj.getJSONArray("add")).questionList();
+            add     = ((JSONArray) rootobj.getJSONArray("add"   )).questionList();
             update  = ((JSONArray) rootobj.getJSONArray("update")).questionList();
             delete  = ((JSONArray) rootobj.getJSONArray("delete")).questionList();
         } catch (JSONException e) {

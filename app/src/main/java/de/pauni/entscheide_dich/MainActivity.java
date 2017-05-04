@@ -62,17 +62,12 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         appInBackground = false;
         Log.d("MainActivity", "created");
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         new SharedPrefs(this); // passing context, for static access
-
-        if (SharedPrefs.isFirstStart()) {
-            new DatabaseInitializer(this);
-        }
-
         new QuestionManager(this);
 
         QuestionManager.selectQuestionById(SharedPrefs.getCurrentQuestionId());
@@ -379,6 +374,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), SearchQuestionsActivity.class));
+                overridePendingTransition(R.anim.search_dialog_enter, R.anim.search_dialog_exit);
                 // setting this true causes the onResome to display the current question
                 // which might change, as user select an entry from the list
                 searchDialogWasOpen = true;

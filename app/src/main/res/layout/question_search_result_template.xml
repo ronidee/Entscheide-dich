@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_template"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginTop="5dp"
-    android:orientation="horizontal"
-    android:paddingBottom="5dp"
-    android:paddingRight="15dp"
-    android:paddingStart="15dp"
-    android:paddingTop="5dp"
-    android:theme="@style/search_dialog"
-    app:cardBackgroundColor="@color/transparent"
+    android:background="@color/white"
     android:baselineAligned="false"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:theme="@style/search_dialog">
 
     <LinearLayout
         android:id="@+id/ll_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/ib_share_result"
         android:orientation="vertical">
 
@@ -31,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hier steht eine lange Frage. Hier steht eine lange Frage. Hier steht eine lange Frage. "
-            android:textColor="@color/listview_devider"
+            android:textColor="@color/hint_color"
             android:textSize="16sp" />
 
         <TextView
@@ -40,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="Super Gast!"
-            android:textColor="@color/icon_color"
+            android:textColor="@color/cardview_shadow_start_color"
             android:textSize="11sp" />
     </LinearLayout>
 
@@ -51,7 +44,6 @@
         android:layout_alignBottom="@+id/ll_question"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/ll_question"
-        android:layout_marginEnd="10dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:src="@drawable/ic_share_white_24dp"

@@ -50,7 +50,7 @@ class SearchQuestionAdapter extends BaseAdapter {
         if (vi == null)
             vi = inflater.inflate(R.layout.question_search_result_template, parent, false);
 
-        final TextView tv_question    = (TextView)    vi.findViewById(R.id.tv_question);
+        final TextView tv_question = (TextView)    vi.findViewById(R.id.tv_question);
         TextView tv_guest       = (TextView)    vi.findViewById(R.id.tv_guest);
         ImageButton ib_share    = (ImageButton) vi.findViewById(R.id.ib_share_result);
 

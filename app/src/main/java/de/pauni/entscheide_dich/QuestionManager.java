@@ -107,7 +107,11 @@ class QuestionManager {
     static Question[] searchQuestion(String searchString) {
         Log.d("QMR: SearchQ>>>", "searching for \'" + searchString + "\'");
 
-        List<Question> foundQuestions = dbh.searchQuestions(searchString);
+        List<Question> foundQuestions;
+
+        foundQuestions = dbh.searchQuestions(searchString);
+        foundQuestions.addAll(dbh.searchGuests(searchString));
+        foundQuestions.addAll(dbh.searchHashtag(searchString));
 
         return foundQuestions.toArray(new Question[foundQuestions.size()]);
     }

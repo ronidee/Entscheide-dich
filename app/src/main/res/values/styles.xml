@@ -40,8 +40,8 @@
     </style>
 
     <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+        <item name="android:windowEnterAnimation">@anim/search_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/search_dialog_exit</item>
     </style>
 
 </resources>
